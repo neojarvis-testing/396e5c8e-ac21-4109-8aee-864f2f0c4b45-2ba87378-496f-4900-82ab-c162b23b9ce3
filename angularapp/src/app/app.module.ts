@@ -3,10 +3,40 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { FarmerNavbarComponent } from './farmerComponents/farmer-navbar/farmer-navbar.component';
+import { FarmerMyRequestsComponent } from './farmerComponents/farmer-my-requests/farmer-my-requests.component';
+import { FarmerViewAgrochemicalComponent } from './farmerComponents/farmer-view-agrochemical/farmer-view-agrochemical.component';
+import { ViewCropComponent } from './farmerComponents/view-crop/view-crop.component';
+import { CropFromComponent } from './farmerComponents/crop-from/crop-from.component';
+import { SellerNavbarComponent } from './sellerComponents/seller-navbar/seller-navbar.component';
+import { SellerViewRequestsComponent } from './sellerComponents/seller-view-requests/seller-view-requests.component';
+import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/view-agrochemical.component';
+import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/agrochemical-form.component';
+import { AuthguardComponent } from './components/authguard/authguard.component';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    
+    AppComponent,
+    ErrorPageComponent,
+    LoginComponent,
+    SignupComponent,
+    HomePageComponent,
+    FarmerNavbarComponent,
+    FarmerMyRequestsComponent,
+    FarmerViewAgrochemicalComponent,
+    ViewCropComponent,
+    CropFromComponent,
+    SellerNavbarComponent,
+    SellerViewRequestsComponent,
+    ViewAgrochemicalComponent,
+    AgrochemicalFormComponent,
+    AuthguardComponent
   ],
   imports: [
     BrowserModule,
