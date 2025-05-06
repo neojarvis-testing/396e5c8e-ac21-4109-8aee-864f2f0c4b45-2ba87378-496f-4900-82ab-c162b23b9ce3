@@ -18,6 +18,7 @@ import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/
 import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/agrochemical-form.component';
 import { AuthguardComponent } from './components/authguard/authguard.component';
 
+import {HttpClientModule} from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AuthguardComponent } from './components/authguard/authguard.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
