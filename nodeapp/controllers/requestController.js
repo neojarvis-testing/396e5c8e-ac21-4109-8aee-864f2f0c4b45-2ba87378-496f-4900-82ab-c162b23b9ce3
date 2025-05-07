@@ -12,7 +12,8 @@ exports.getAllRequests = async (req, res, next) => {
             .populate('userId');
         res.status(200).json(requests);
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //next(createError(500, error.message));
     }
 };
 
@@ -29,7 +30,8 @@ exports.getRequestById = async (req, res, next) => {
         }
         res.status(200).json(request);
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //next(createError(500, error.message));
     }
 };
 
@@ -43,7 +45,8 @@ exports.getRequestsByUserId = async (req, res, next) => {
             .populate('cropId');
         res.status(200).json(requests);
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //next(createError(500, error.message));
     }
 };
 

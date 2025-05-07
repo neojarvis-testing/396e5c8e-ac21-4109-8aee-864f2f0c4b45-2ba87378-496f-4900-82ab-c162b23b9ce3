@@ -17,7 +17,8 @@ exports.getAllAgroChemicals = async (req, res, next) => {
         const total = await AgroChemical.countDocuments(searchQuery);
         res.status(200).json({ agrochemicals, total });
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //next(createError(500, error.message));
     }
 };
 
@@ -28,11 +29,13 @@ exports.getAgroChemicalById = async (req, res, next) => {
     try {
         const agrochemical = await AgroChemical.findById(req.params.id);
         if (!agrochemical) {
-            return next(createError(404, `Cannot find any agrochemical with ID ${req.params.id}`));
+            res.status(404).json({message:`Cannot find any agrochemical with ID ${req.params.id}`})
+            //return next(createError(404, `Cannot find any agrochemical with ID ${req.params.id}`));
         }
         res.status(200).json(agrochemical);
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //next(createError(500, error.message));
     }
 };
 
@@ -42,7 +45,7 @@ exports.getAgroChemicalById = async (req, res, next) => {
 exports.addAgroChemical = async (req, res, next) => {
     try {
         await AgroChemical.create(req.body);
-        res.status(201).json({ message: 'Agrochemical Added Successfully' });
+        res.status(200).json({ message: 'Agrochemical Added Successfully' });
     } catch (error) {
         next(createError(500, error.message));
     }
@@ -55,7 +58,8 @@ exports.updateAgroChemical = async (req, res, next) => {
     try {
         const agrochemical = await AgroChemical.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!agrochemical) {
-            return next(createError(404, `Cannot find any agrochemical with ID ${req.params.id}`));
+            res.status(404).json({message:`Cannot find any agrochemical with ID ${req.params.id}`})
+            //return next(createError(404, `Cannot find any agrochemical with ID ${req.params.id}`));
         }
         res.status(200).json({ message: 'Agrochemical Updated Successfully', agrochemical });
     } catch (error) {
@@ -70,7 +74,8 @@ exports.deleteAgroChemical = async (req, res, next) => {
     try {
         const agrochemical = await AgroChemical.findByIdAndDelete(req.params.id);
         if (!agrochemical) {
-            return next(createError(404, `Cannot find any agrochemical with ID ${req.params.id}`));
+            res.status(404).json({message:`Cannot find any agrochemical with ID ${req.params.id}`})
+            //return next(createError(404, `Cannot find any agrochemical with ID ${req.params.id}`));
         }
         res.status(200).json({ message: 'Agrochemical Deleted Successfully' });
     } catch (error) {

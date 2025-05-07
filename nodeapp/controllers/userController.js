@@ -1,5 +1,5 @@
-const createError = require('http-errors');
 const User = require('../models/userModel');
+const createError = require('http-errors');
 const { generateToken } = require('../authUtils');
 
 // Controller to authenticate a user using email and password
@@ -10,7 +10,8 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
         const user = await User.findOne({ email, password });
         if (!user) {
-            return next(createError(404, 'User not found or incorrect credentials'));
+            res.status(404).json({message:"User not found"})
+            //next(createError(404, 'User not found'));
         }
 
         const token = generateToken(user._id);
@@ -21,7 +22,8 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
             id: user._id
         });
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //return next(createError(500, error.message));
     }
 };
 
@@ -30,10 +32,10 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addUser = async (req, res, next) => {
     try {
-        console.log("in add user");
         await User.create(req.body);
-        res.status(201).json({ message: 'Success' });
+        res.status(200).json({ message: 'Success' });
     } catch (error) {
-        next(createError(500, error.message));
+        res.status(500).json({message:error.message});
+        //return next(createError(500, error.message));
     }
 };
