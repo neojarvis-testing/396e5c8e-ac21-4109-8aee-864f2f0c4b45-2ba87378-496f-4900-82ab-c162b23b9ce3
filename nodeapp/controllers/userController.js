@@ -10,9 +10,8 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
         const user = await User.findOne({ email, password });
         if (!user) {
-            return next(createError(404, 'User not found or incorrect credentials'));
+            return res.status(404).json({ message: 'User not found or incorrect credentials' });
         }
-
         const token = generateToken(user._id);
         res.status(200).json({
             userName: user.userName,
@@ -21,7 +20,7 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
             id: user._id
         });
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -30,10 +29,9 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addUser = async (req, res, next) => {
     try {
-        console.log("in add user");
         await User.create(req.body);
-        res.status(201).json({ message: 'Success' });
+        res.status(200).json({ message: 'Success' });
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };

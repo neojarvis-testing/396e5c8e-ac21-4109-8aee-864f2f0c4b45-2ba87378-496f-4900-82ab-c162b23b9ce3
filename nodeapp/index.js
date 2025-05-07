@@ -1,16 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
-const logger = require('./loggers/logger'); // Import Winston logger from loggers folder
-require('dotenv').config();
-
+const logger = require('./loggers/logger');
 const userRoutes = require('./routers/userRouter');
 const cropRoutes = require('./routers/cropRouter');
 const agroChemicalRoutes = require('./routers/agroChemicalRouter');
 const requestRoutes = require('./routers/requestRouter');
 
 const app = express();
+
+app.set('trust proxy', 1);
 
 // Rate Limiter: Limits each IP to 100 requests per 15 minutes
 const limiter = rateLimit({
@@ -20,34 +21,31 @@ const limiter = rateLimit({
     headers: true
 });
 
-// Middleware
-app.use(cors());
+app.use(cors({}));
 app.use(express.json());
-app.use(limiter); // Apply rate limiting globally
+app.use(express.urlencoded({ extended: true }));
+app.use(limiter);
 
-// Routes
 app.use('/user', userRoutes);
 app.use('/crop', cropRoutes);
 app.use('/agroChemical', agroChemicalRoutes);
 app.use('/request', requestRoutes);
 
-// MongoDB connection with Winston logging
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.set('strictQuery', true).connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
-.then(() => {
-    logger.info('Connected to MongoDB');
-    app.listen(8080, () => {
-        logger.info(`Server is running on port: 8080`);
+    .then(() => {
+        logger.info('Connected to MongoDB');
+        app.listen(8080, () => {
+            logger.info(`Server is running on port: 8080`);
+        });
+    })
+    .catch(err => {
+        logger.error(`Failed to connect to MongoDB: ${err.message}`);
     });
-})
-.catch(err => {
-    logger.error(`Failed to connect to MongoDB: ${err.message}`);
-});
 
-// Global Error Handling Middleware with Winston logging
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
     logger.error(`Error: ${err.message}`);
     res.status(err.status || 500).json({
         message: err.message || 'Internal Server Error'

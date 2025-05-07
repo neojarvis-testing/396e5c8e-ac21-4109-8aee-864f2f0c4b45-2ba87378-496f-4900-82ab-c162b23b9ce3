@@ -12,7 +12,7 @@ exports.getAllRequests = async (req, res, next) => {
             .populate('userId');
         res.status(200).json(requests);
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -25,11 +25,11 @@ exports.getRequestById = async (req, res, next) => {
             .populate('agroChemicalId')
             .populate('cropId');
         if (!request) {
-            return next(createError(404, `Cannot find any request with ID ${req.params.id}`));
+            return res.status(404).json({ message: `Cannot find any request with ID ${req.params.id}` });
         }
         res.status(200).json(request);
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -43,7 +43,7 @@ exports.getRequestsByUserId = async (req, res, next) => {
             .populate('cropId');
         res.status(200).json(requests);
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -55,7 +55,7 @@ exports.addRequest = async (req, res, next) => {
         await Request.create(req.body);
         res.status(201).json({ message: 'Request Added Successfully' });
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -66,11 +66,11 @@ exports.updateRequest = async (req, res, next) => {
     try {
         const request = await Request.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!request) {
-            return next(createError(404, `Cannot find any request with ID ${req.params.id}`));
+            return res.status(404).json({ message: `Cannot find any request with ID ${req.params.id}` });
         }
         res.status(200).json({ message: 'Request Updated Successfully', request });
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -81,10 +81,10 @@ exports.deleteRequest = async (req, res, next) => {
     try {
         const request = await Request.findByIdAndDelete(req.params.id);
         if (!request) {
-            return next(createError(404, `Cannot find any request with ID ${req.params.id}`));
+            return res.status(404).json({ message: `Cannot find any request with ID ${req.params.id}` });
         }
         res.status(200).json({ message: 'Request Deleted Successfully' });
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
