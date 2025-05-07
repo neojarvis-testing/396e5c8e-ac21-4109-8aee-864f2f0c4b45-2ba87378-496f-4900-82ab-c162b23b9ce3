@@ -4,3 +4,4 @@
 2025-05-07 09:13:33 [32minfo[39m => Server is running on port: 8080
 2025-05-07 09:13:39 [32minfo[39m => Connected to MongoDB
 2025-05-07 09:13:39 [32minfo[39m => Server is running on port: 8080
+2025-05-07 10:44:37 [31merror[39m => Failed to connect to MongoDB: EIO: i/o error, write
