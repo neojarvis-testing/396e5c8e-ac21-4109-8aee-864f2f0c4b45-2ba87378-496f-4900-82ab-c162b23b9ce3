@@ -11,14 +11,14 @@ import { FarmerNavbarComponent } from './farmerComponents/farmer-navbar/farmer-n
 import { FarmerMyRequestsComponent } from './farmerComponents/farmer-my-requests/farmer-my-requests.component';
 import { FarmerViewAgrochemicalComponent } from './farmerComponents/farmer-view-agrochemical/farmer-view-agrochemical.component';
 import { ViewCropComponent } from './farmerComponents/view-crop/view-crop.component';
-import { CropFromComponent } from './farmerComponents/crop-from/crop-from.component';
+import { CropFormComponent } from './farmerComponents/crop-form/crop-form.component';
 import { SellerNavbarComponent } from './sellerComponents/seller-navbar/seller-navbar.component';
 import { SellerViewRequestsComponent } from './sellerComponents/seller-view-requests/seller-view-requests.component';
 import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/view-agrochemical.component';
 import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/agrochemical-form.component';
 import { AuthguardComponent } from './components/authguard/authguard.component';
 
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import {HttpClientModule} from '@angular/common/http'
     FarmerMyRequestsComponent,
     FarmerViewAgrochemicalComponent,
     ViewCropComponent,
-    CropFromComponent,
+    CropFormComponent,    
     SellerNavbarComponent,
     SellerViewRequestsComponent,
     ViewAgrochemicalComponent,
