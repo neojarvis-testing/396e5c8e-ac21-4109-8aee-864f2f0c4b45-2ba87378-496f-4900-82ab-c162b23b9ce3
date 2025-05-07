@@ -1,4 +1,3 @@
-
 const express = require('express');
 const { getUserByEmailAndPassword, addUser } = require('../controllers/userController');
 
