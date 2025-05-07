@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CropFromComponent } from './crop-from.component';
+import { CropFormComponent } from './crop-form.component';
 
-describe('CropFromComponent', () => {
-  let component: CropFromComponent;
-  let fixture: ComponentFixture<CropFromComponent>;
+describe('CropFormComponent', () => {
+  let component: CropFormComponent;
+  let fixture: ComponentFixture<CropFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CropFromComponent ]
+      declarations: [ CropFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CropFromComponent);
+    fixture = TestBed.createComponent(CropFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
