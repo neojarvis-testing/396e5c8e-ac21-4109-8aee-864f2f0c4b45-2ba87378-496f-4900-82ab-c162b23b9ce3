@@ -1,7 +1,9 @@
-
 const User = require('../models/userModel');
 const { generateToken } = require('../authUtils');
 
+// Controller to authenticate a user using email and password
+// If valid, returns user details along with a generated token
+// Returns 404 if user is not found or credentials are incorrect
 exports.getUserByEmailAndPassword = async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -22,6 +24,9 @@ exports.getUserByEmailAndPassword = async (req, res) => {
     }
 };
 
+// Controller to add a new user to the database
+// Accepts user data in the request body
+// Returns a success message or error if creation fails
 exports.addUser = async (req, res) => {
     try {
         console.log("in add user");
