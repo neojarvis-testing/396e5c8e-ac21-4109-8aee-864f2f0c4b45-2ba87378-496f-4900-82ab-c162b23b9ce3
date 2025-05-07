@@ -106,3 +106,4 @@
 2025-05-07 10:07:22 [31merror[39m => Failed to connect to MongoDB: EIO: i/o error, write
 2025-05-07 10:07:28 [31merror[39m => Failed to connect to MongoDB: EIO: i/o error, write
 2025-05-07 10:07:31 [31merror[39m => Failed to connect to MongoDB: EIO: i/o error, write
+2025-05-07 10:43:22 [31merror[39m => Failed to connect to MongoDB: EIO: i/o error, write
