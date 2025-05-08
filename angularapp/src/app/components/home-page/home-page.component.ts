@@ -9,7 +9,9 @@ export class HomePageComponent implements OnInit {
   user = null;
 
   ngOnInit(): void {
-    this.user = localStorage.getItem('user');
+    console.log('hi');
+    
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
     console.log(this.user);
     
   }

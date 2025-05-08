@@ -29,17 +29,22 @@ export class LoginComponent {
 
   onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log('Login data:', this.loginForm.value);
-      this.authService.login(this.loginForm.value).subscribe((user) => {
-        const role = user.role;
-        console.log(user.token);
-        if (user.token) {
-          localStorage.setItem('authToken', user.token); // Store token securely
-        }    
-        if(role === 'farmer') {
-          this.router.navigate(['/farmer/home-page'])
-        } else {
-          this.router.navigate(['/seller/home-page'])
+      this.loginError = null; // Clear previous errors
+      this.authService.login(this.loginForm.value).subscribe({
+        next: (user) => {
+          console.log('user in login', user);
+          
+          localStorage.setItem('user', JSON.stringify(user));
+
+          if (user.role === 'farmer') {
+            this.router.navigate(['/farmer/home-page']);
+          } else {
+            this.router.navigate(['/seller/home-page']);
+          }
+        },
+        error: (err) => {
+          console.error('Login failed:', err);
+          this.loginError = 'Invalid email or password. Please try again.';
         }
       });
     } else {

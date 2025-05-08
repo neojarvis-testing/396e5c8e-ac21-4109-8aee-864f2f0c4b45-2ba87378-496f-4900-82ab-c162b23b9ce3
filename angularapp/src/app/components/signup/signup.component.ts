@@ -12,6 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignupComponent implements OnInit {
 
   signupForm!: FormGroup;
+  signupError: string | null = null;
+
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
@@ -67,7 +69,9 @@ export class SignupComponent implements OnInit {
       this.signupForm.markAllAsTouched();
       return;
     }
-  
+
+    this.signupError = null; // Clear previous errors
+
     this.authService.register(this.signupForm.value).subscribe({
       next: () => {
         const modalElement = document.getElementById('successModal');
@@ -78,12 +82,18 @@ export class SignupComponent implements OnInit {
       },
       error: (err) => {
         console.error('Registration failed:', err);
-        // Optionally show an error message to the user
-        alert('Registration failed. Please try again.');
+
+        console.log('Error message from backend:', err.error);
+
+        if (err.status === 409 && err.error?.message) {
+          this.signupError = err.error.message;
+        } else {
+          this.signupError = 'Registration failed. Please try again.';
+        }
       }
     });
   }
-  
+
 
   navigateToLogin(): void {
     const modalElement = document.getElementById('successModal');

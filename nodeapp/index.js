@@ -11,6 +11,7 @@ const requestRoutes = require('./routers/requestRouter');
 
 const app = express();
 
+
 app.set('trust proxy', 1);
 
 // Rate Limiter: Limits each IP to 100 requests per 15 minutes
@@ -21,14 +22,7 @@ const limiter = rateLimit({
     headers: true
 });
 
-
-const corsOptions = {
-    origin: 'https://8081-abbcddbcfbeebacffbbaaedfbafabcbbce.premiumproject.examly.io',
-    credentials: true,
-};
-
-app.use(cors(corsOptions));
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
