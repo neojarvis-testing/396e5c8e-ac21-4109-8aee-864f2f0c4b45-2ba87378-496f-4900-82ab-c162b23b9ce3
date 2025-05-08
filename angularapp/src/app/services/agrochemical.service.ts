@@ -7,7 +7,7 @@ import { getAuthHeaders } from './base.service';
   providedIn: 'root'
 })
 export class AgrochemicalService {
-  public apiUrl = 'http://your-workspace-url:8080';
+  public apiUrl = 'https://8080-bcebabfceebacffbbaaedfbafabcbbce.premiumproject.examly.io';
 
   constructor(private http: HttpClient) {}
 

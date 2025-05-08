@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'seller/agrochemical-form/:id', component: AgrochemicalFormComponent },
   { path: 'seller/view-requests', component: SellerViewRequestsComponent },
   { path: 'seller/view-agrochemical', component: ViewAgrochemicalComponent },
-  { path: '**', redirectTo: 'error-page' },
+  { path: '**', redirectTo: 'error-page' }
 
 
 ];

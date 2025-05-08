@@ -38,7 +38,7 @@
       <td>
         <button class="btn btn-info me-2">Show More</button>
         <button *ngIf="request.status !== 'Approved'" class="btn btn-success me-2" (click)="approveRequest(i)">Approve</button>
-        <button *ngIf="request.status !== 'Rejected'" class="btn btn-danger" (click)="rejectRequest(i)">Reject</button>
+        <button *ngIf="request.status !== 'Rejected'" class="btn btn-danger me-2" (click)="rejectRequest(i)">Reject</button>
       </td>
     </tr>
   </tbody>
