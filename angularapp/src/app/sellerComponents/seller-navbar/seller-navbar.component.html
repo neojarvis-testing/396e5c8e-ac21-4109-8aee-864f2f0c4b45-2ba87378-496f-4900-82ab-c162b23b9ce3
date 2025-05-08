@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container-fluid ">
+        <h4 class="mb-0">
+            <a routerLink="/" class="navbar-brand fw-bold fs-4 px-3 py-2 rounded text-white text-decoration-none">
+                AgroLink
+            </a>
+        </h4>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <ul class="navbar-nav align-items-center gap-3">
+                <li class="nav-item">
+                    <span class="btn btn-outline-light fw-medium">seller | Seller</span>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/admin/dashboard"
+                        class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/admin/plants"
+                        class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">
+                        AgroChemical
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a routerLink="/admin/orders"
+                        class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">
+                        Request
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-danger fw-medium px-3 py-2 rounded" (click)="logout()">
+                        Logout
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav> 

@@ -1,71 +1,63 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { getAuthHeaders } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgrochemicalService {
+  public apiUrl = 'http://your-workspace-url:8080';
 
-  private baseUrl = 'https://your-api-url.com/agroChemical';
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
-    });
-  }
-
-  // Fetch all agrochemicals with pagination and search functionality
-  // Send a POST request to the server with pagination and search parameters
-  // Return the observable containing the response data.
+  
+// Fetches all agrochemicals with pagination, search, and sorting.
+// Sends a POST request to the /agroChemical/getAllAgroChemicals endpoint.
+// @param page - The page number.
   getAllAgrochemicals(page: number, pageSize: number, searchValue: string, sortOrder: string, sortBy: string): Observable<any> {
-    const url = `${this.baseUrl}/getAllAgroChemicals`;
     const body = { page, pageSize, searchValue, sortOrder, sortBy };
-    return this.http.post(url, body, { headers: this.getHeaders() });
+    return this.http.post(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body, { headers: getAuthHeaders() });
   }
 
-  // Fetch a single agrochemical by its ID
-  // Send a GET request to retrieve the agrochemical details by ID
-  // Return the observable containing the agrochemical data.
+  
+// Retrieves a specific agrochemical by its ID.
+// Sends a GET request to the /agroChemical/getAgroChemicalById/:id endpoint.
+// @param id - The ID of the agrochemical.
   getAgrochemicalById(id: string): Observable<any> {
-    const url = `${this.baseUrl}/getAgroChemicalById/${id}`;
-    return this.http.get(url, { headers: this.getHeaders() });
+    return this.http.get(`${this.apiUrl}/agroChemical/getAgroChemicalById/${id}`, { headers: getAuthHeaders() });
   }
 
-  // Add a new agrochemical to the database
-  // Send a POST request to add a new agrochemical with the provided data
-  // Return the observable containing the response data.
+  
+// Adds a new agrochemical.
+// Sends a POST request to the /agroChemical/addAgroChemical endpoint.
+// @param agrochemical - The agrochemical data to add.
   addAgrochemical(agrochemical: any): Observable<any> {
-    const url = `${this.baseUrl}/addAgroChemical`;
-    return this.http.post(url, agrochemical, { headers: this.getHeaders() });
+    return this.http.post(`${this.apiUrl}/agroChemical/addAgroChemical`, agrochemical, { headers: getAuthHeaders() });
   }
 
-  // Update an existing agrochemical by its ID
-  // Send a PUT request to update the agrochemical details with the provided data
-  // Return the observable containing the response data.
+  
+// Updates an existing agrochemical.
+// Sends a PUT request to the /agroChemical/updateAgroChemical/:id endpoint.
+// @param id - The ID of the agrochemical
   updateAgrochemical(id: string, agrochemical: any): Observable<any> {
-    const url = `${this.baseUrl}/updateAgroChemical/${id}`;
-    return this.http.put(url, agrochemical, { headers: this.getHeaders() });
+    return this.http.put(`${this.apiUrl}/agroChemical/updateAgroChemical/${id}`, agrochemical, { headers: getAuthHeaders() });
   }
 
-  // Delete an agrochemical by its ID
-  // Send a DELETE request to remove the agrochemical from the database
-  // Return the observable containing the response data.
+  
+// Deletes an agrochemical with the specified ID.
+// Sends a DELETE request to the /agroChemical/deleteAgroChemical/:id endpoint.
+// @param id - The ID of the agrochemical
   deleteAgrochemical(id: string): Observable<HttpResponse<any>> {
-    const url = `${this.baseUrl}/deleteAgroChemical/${id}`;
-    return this.http.delete<HttpResponse<any>>(url, { headers: this.getHeaders() });
+    return this.http.delete<HttpResponse<any>>(`${this.apiUrl}/agroChemical/deleteAgroChemical/${id}`, { headers: getAuthHeaders() });
   }
 
-  // Fetch all agrochemicals for a seller with pagination and search functionality
-  // Send a POST request to retrieve agrochemicals for a seller with pagination and search parameters
-  // Return the observable containing the response data.
+  
+// Fetches all agrochemical sellers with pagination, search, and sorting.
+// Sends a POST request to the /agroChemical/getAllAgroChemicals endpoint.
+// @param page - The page number.
   getAllAgrochemicalSeller(page: number, limit: number, searchValue: string, sortValue: number): Observable<HttpResponse<any>> {
-    const url = `${this.baseUrl}/getAllAgroChemicals`;
     const body = { page, limit, searchValue, sortValue };
-    return this.http.post<HttpResponse<any>>(url, body, { headers: this.getHeaders() });
+    return this.http.post<HttpResponse<any>>(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body, { headers: getAuthHeaders() });
   }
 }
