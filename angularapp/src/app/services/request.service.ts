@@ -1,13 +1,52 @@
+// app/services/request.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { getAuthHeaders } from './base.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
+  public apiUrl = 'http://your-workspace-url:8080';
 
-  constructor() {}
+  constructor(private http: HttpClient) { }
 
- 
+  // Retrieves all requests associated with a specific user ID.
+  // Sends a GET request to the /request/getRequestsByUserId/:userId endpoint.
+  // @param userId - The user ID
+  getRequestsByUserId(userId: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/request/getRequestsByUserId/${userId}`, { headers: getAuthHeaders() });
+  }
 
+  // Adds a new request.
+  // Sends a POST request to the /request/addRequest endpoint.
+  // @param request - The request data to add.
+
+  addRequest(request: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/request/addRequest`, request, { headers: getAuthHeaders() });
+  }
+
+
+  // Updates an existing request.
+  // Sends a PUT request to the /request/updateRequest/:requestId endpoint.
+  // @param requestId - The ID of the request.
+  updateRequest(requestId: string, request: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/request/updateRequest/${requestId}`, request, { headers: getAuthHeaders() });
+  }
+
+
+  // Deletes a request with the specified ID.
+  // Sends a DELETE request to the /request/deleteRequest/:requestId endpoint.
+  // @param requestId - The ID of the request
+  deleteRequest(requestId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/request/deleteRequest/${requestId}`, { headers: getAuthHeaders() });
+  }
+
+
+  // Fetches all requests.
+  // Sends a GET request to the /request/getAllRequests endpoint.
+  getAllRequests(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/request/getAllRequests`, { headers: getAuthHeaders() });
+  }
 }

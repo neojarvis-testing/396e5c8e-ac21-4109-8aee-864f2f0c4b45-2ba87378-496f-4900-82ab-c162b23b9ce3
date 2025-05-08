@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
-import { LoginComponent } from './components/login/login.component';
+// import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FarmerNavbarComponent } from './farmerComponents/farmer-navbar/farmer-navbar.component';
@@ -24,10 +25,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    
     AppComponent,
     ErrorPageComponent,
-    LoginComponent,
     SignupComponent,
     HomePageComponent,
     FarmerNavbarComponent,
@@ -39,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SellerViewRequestsComponent,
     ViewAgrochemicalComponent,
     AgrochemicalFormComponent,
-    AuthguardComponent
+    AuthguardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
