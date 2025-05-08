@@ -1,0 +1,9 @@
+.cropform{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cropcard{
+    width: 350px;
+}
