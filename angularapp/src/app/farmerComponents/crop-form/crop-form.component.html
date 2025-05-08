@@ -1,29 +1,49 @@
-<form [formGroup]="cropForm" (ngSubmit)="onSubmit()">
-    <label>Crop Name:</label>
-    <input type="text" formControlName="cropName">
-    <div *ngIf="cropForm.get('cropName').touched && cropForm.get('cropName').invalid">
-      *Crop Name is required
-    </div>
-  
-    <label>Crop Type:</label>
-    <input type="text" formControlName="cropType">
-    <div *ngIf="cropForm.get('cropType').touched && cropForm.get('cropType').invalid">
-      *Crop Type is required
-    </div>
-  
-    <label>Description:</label>
-    <textarea formControlName="description"></textarea>
-    <div *ngIf="cropForm.get('description').touched && cropForm.get('description').invalid">
-      *Description is required
-    </div>
-  
-    <label>Planting Date:</label>
-    <input type="date" formControlName="plantingDate">
-    <div *ngIf="cropForm.get('plantingDate').touched && cropForm.get('plantingDate').invalid">
-      *Planting Date is required
-    </div>
-  
-    <button type="submit" [disabled]="cropForm.invalid">
-      {{ cropId ? 'Update Crop' : 'Add Crop' }}
-    </button>
-  </form>
+<div class="container-fluid cropform p-4">
+  <div class="card p-3 cropcard bg-success">
+    <form [formGroup]="cropForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="cropName" class="form-label">Crop Name:</label>
+        <input type="text" class="form-control" id="cropName" formControlName="cropName">
+        <div class="text-danger text-center mt-1" *ngIf="cropForm.get('cropName').touched && cropForm.get('cropName').invalid">
+          *Crop Name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="cropType" class="form-label">Crop Type:</label>
+        <select class="form-select" id="cropType" formControlName="cropType">
+          <option value="" disabled selected>Select Crop Type</option>
+          <option value="Vegetable">Vegetable</option>
+          <option value="Cereal">Cereal</option>
+          <option value="Fruit">Fruit</option>
+          <option value="Pulses">Pulses</option>
+        </select>
+        <div class="text-danger text-center mt-1" *ngIf="cropForm.get('cropType').touched && cropForm.get('cropType').invalid">
+          *Crop Type is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description:</label>
+        <textarea class="form-control" id="description" rows="3" formControlName="description"></textarea>
+        <div class="text-danger text-center mt-1"
+          *ngIf="cropForm.get('description').touched && cropForm.get('description').invalid">
+          *Description is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="plantingDate" class="form-label">Planting Date:</label>
+        <input type="date" class="form-control" id="plantingDate" formControlName="plantingDate">
+        <div class="text-danger text-center mt-1"
+          *ngIf="cropForm.get('plantingDate').touched && cropForm.get('plantingDate').invalid">
+          *Planting Date is required
+        </div>
+      </div>
+
+      <button class="btn btn-primary" type="submit">
+        {{ cropId ? 'Update Crop' : 'Add Crop' }}
+      </button>
+    </form>
+  </div>
+</div>

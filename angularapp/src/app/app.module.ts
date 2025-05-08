@@ -21,13 +21,11 @@ import { AuthguardComponent } from './components/authguard/authguard.component';
 import { ToastrModule } from 'ngx-toastr'
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
   declarations: [
-    
     AppComponent,
     ErrorPageComponent,
-    LoginComponent,
     SignupComponent,
     HomePageComponent,
     FarmerNavbarComponent,
@@ -39,7 +37,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SellerViewRequestsComponent,
     ViewAgrochemicalComponent,
     AgrochemicalFormComponent,
-    AuthguardComponent
+    AuthguardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +46,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    FormsModule   
+    FormsModule,
+    BrowserAnimationsModule   
   ],
   providers: [],
   bootstrap: [AppComponent]
