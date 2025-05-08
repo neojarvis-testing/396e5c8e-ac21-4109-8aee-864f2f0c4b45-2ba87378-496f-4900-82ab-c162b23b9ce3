@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CropService {
-  private baseUrl = 'https://your-api-url.com/crop';
+  private baseUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.premiumproject.examly.io/crop';
 
   constructor(private http: HttpClient) { }
 
@@ -62,6 +62,6 @@ export class CropService {
    * Returns an observable containing the user's crops.
    */
   getCropsByUserId(userId: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/getCropsByUserId/${userId}`);
+    return this.http.get(`${this.baseUrl}/user/getCropByUserId/${userId}`);
   }
 }
