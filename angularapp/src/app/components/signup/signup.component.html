@@ -66,20 +66,6 @@
             *ngIf="signupForm.hasError('mismatch') && controls.confirmPassword?.touched">
             Passwords must match
           </div>
-<<<<<<< HEAD
-  
-          <div class="mb-3">
-            <label class="form-label">Role <span class="text-danger">*</span></label>
-            <select class="form-select" formControlName="role">
-              <option value="">Select Role</option>
-              <option value="farmer">Farmer</option>
-              <option value="seller">Seller</option>
-            </select>
-            <div class="form-text text-danger" *ngIf="controls.role?.touched && controls.role?.invalid">
-              Role is required
-            </div>
-=======
-
         </div>
 
         <div class="mb-3">
@@ -91,7 +77,6 @@
           </select>
           <div class="form-text text-danger" *ngIf="controls.role?.touched && controls.role?.invalid">
             Role is required
->>>>>>> main
           </div>
         </div>
 
