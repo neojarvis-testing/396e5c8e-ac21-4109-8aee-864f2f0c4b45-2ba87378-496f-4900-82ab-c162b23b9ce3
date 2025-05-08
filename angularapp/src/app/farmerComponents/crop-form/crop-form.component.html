@@ -1,1 +1,29 @@
-<p>crop-form works!</p>
+<form [formGroup]="cropForm" (ngSubmit)="onSubmit()">
+    <label>Crop Name:</label>
+    <input type="text" formControlName="cropName">
+    <div *ngIf="cropForm.get('cropName').touched && cropForm.get('cropName').invalid">
+      *Crop Name is required
+    </div>
+  
+    <label>Crop Type:</label>
+    <input type="text" formControlName="cropType">
+    <div *ngIf="cropForm.get('cropType').touched && cropForm.get('cropType').invalid">
+      *Crop Type is required
+    </div>
+  
+    <label>Description:</label>
+    <textarea formControlName="description"></textarea>
+    <div *ngIf="cropForm.get('description').touched && cropForm.get('description').invalid">
+      *Description is required
+    </div>
+  
+    <label>Planting Date:</label>
+    <input type="date" formControlName="plantingDate">
+    <div *ngIf="cropForm.get('plantingDate').touched && cropForm.get('plantingDate').invalid">
+      *Planting Date is required
+    </div>
+  
+    <button type="submit" [disabled]="cropForm.invalid">
+      {{ cropId ? 'Update Crop' : 'Add Crop' }}
+    </button>
+  </form>
