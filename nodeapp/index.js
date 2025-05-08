@@ -21,27 +21,16 @@ const limiter = rateLimit({
     headers: true
 });
 
-// Middleware
-app.use(cors());
+app.use(cors({}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(limiter); // Apply rate limiting globally
+app.use(limiter);
 
-// Routes
 app.use('/user', userRoutes);
 app.use('/crop', cropRoutes);
 app.use('/agroChemical', agroChemicalRoutes);
 app.use('/request', requestRoutes);
 
-// Global Error Handling Middleware with Winston logging
-app.use((err, _req, res, _next) => {
-    logger.error(`Error: ${err.message}`);
-    res.status(err.status || 500).json({
-        message: err.message || 'Internal Server Error'
-    });
-});
-
-// MongoDB connection with Winston logging
 mongoose.set('strictQuery', true).connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -55,3 +44,10 @@ mongoose.set('strictQuery', true).connect(process.env.MONGODB_URI, {
     .catch(err => {
         logger.error(`Failed to connect to MongoDB: ${err.message}`);
     });
+
+app.use((err, _req, res, _next) => {
+    logger.error(`Error: ${err.message}`);
+    res.status(err.status || 500).json({
+        message: err.message || 'Internal Server Error'
+    });
+});

@@ -1,1 +1,82 @@
-<p>farmer-navbar works!</p>
+<!-- <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container-fluid ">
+      <h4 class="mb-0">
+        <a routerLink="/" class="navbar-brand fw-bold fs-4 px-3 py-2 rounded text-white text-decoration-none">AgroLink</a>
+      </h4>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav align-items-center gap-3">
+          <li class="nav-item">
+            <span class="btn btn-outline-light fw-medium">user | User</span>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/dashboard"
+              class="nav-link  fw-medium px-3 py-2 text-white rounded hover-bg-light">Home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/dashboard"
+              class="nav-link  fw-medium px-3 py-2 text-white rounded hover-bg-light">Crop</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/plants"
+              class="nav-link  fw-medium px-3 py-2 text-white rounded hover-bg-light">AgroChemicals</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/orders"
+              class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">My Requests</a>
+          </li>
+          <li class="nav-item">
+            <button class="btn btn-danger fw-medium px-3 py-2 rounded" (click)="logout()">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+   -->
+
+   <nav class="navbar navbar-expand-lg shadow-sm">
+    <div class="container-fluid ">
+      <!-- Brand on the left -->
+      <a routerLink="/" class="navbar-brand fw-bold fs-4 px-3 py-2 rounded text-white text-decoration-none">
+        AgroLink
+      </a>
+  
+      <!-- Right-aligned nav and profile -->
+      <div class="d-flex align-items-center ms-auto gap-3">
+        <!-- Navigation links -->
+        <ul class="navbar-nav flex-row gap-3">
+          <li class="nav-item">
+            <span class="btn btn-outline-light fw-medium">user | User</span>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/dashboard" class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">Home</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/dashboard" class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">Crop</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/admin/plants" class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">AgroChemicals</a>
+          </li>
+        </ul>
+  
+        <!-- Profile Dropdown -->
+        <div class="nav-item dropdown">
+          <a class="nav-link d-flex align-items-center text-white" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://img.icons8.com/?size=100&id=98957&format=png&color=000000" alt="User" width="36" height="36" class="rounded-circle border border-white">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end custom-dropdown shadow">
+            <li class="px-3 py-2 text-center">
+              <img src="https://img.icons8.com/?size=100&id=98957&format=png&color=000000" alt="User" width="60" height="60" class="rounded-circle mb-2">
+              <div><strong>{{ userName }}</strong></div>
+              <small class="text-muted">{{ userEmail }}</small>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" routerLink="/admin/orders">My Requests</a></li>
+            <li><a class="dropdown-item" routerLink="/admin/orders">Feedback</a></li>
+            <li><button class="dropdown-item text-danger" (click)="logout()">Logout</button></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
