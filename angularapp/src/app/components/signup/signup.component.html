@@ -14,11 +14,11 @@
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label class="form-label">User Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="username" placeholder="UserName">
-          <div class="form-text text-danger" *ngIf="controls.username?.touched && controls.username?.invalid">
+          <input type="text" class="form-control" formControlName="userName" placeholder="UserName">
+          <div class="form-text text-danger" *ngIf="controls.userName?.touched && controls.userName?.invalid">
             <!-- User Name is required -->
-            {{ controls.username?.errors?.required ? 'User Name is required' : '' }}
-            {{ controls.username?.errors?.minlength ? 'Atleast 4 characters long' : '' }}
+            {{ controls.userName?.errors?.required ? 'User Name is required' : '' }}
+            {{ controls.userName?.errors?.minlength ? 'Atleast 4 characters long' : '' }}
           </div>
         </div>
 
@@ -74,7 +74,7 @@
           <select class="form-select" formControlName="role">
             <option value="">Select Role</option>
             <option value="farmer">Farmer</option>
-            <option value="buyer">Buyer</option>
+            <option value="seller">Seller</option>
           </select>
           <div class="form-text text-danger" *ngIf="controls.role?.touched && controls.role?.invalid">
             Role is required
