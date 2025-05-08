@@ -1,1 +1,65 @@
-<p>seller-view-requests works!</p>
+<!-- <p>seller-view-requests works!</p> -->
+<h1 class = "text-center">Chemical Requests for Approval</h1>
+
+<input type="text" [(ngModel)]="searchText" placeholder="Search..." class="form-control mb-2" />
+
+<div class="form-group">
+  <label for="statusFilter">Filter by Status:</label>
+  <select id="statusFilter" [(ngModel)]="statusFilter" class="form-control">
+    <option value="All">All</option>
+    <option value="Approved">Approved</option>
+    <option value="Rejected">Rejected</option>
+    <option value="Pending">Pending</option>
+  </select>
+</div>
+
+
+
+
+<!-- <div class="row mb-3">
+  <div class="col-md-6">
+    <input type="text" class="form-control" placeholder="Search..." />
+  </div>
+  <div class="col-md-6 d-flex align-items-center justify-content-center w-30">
+    <label for="statusFilter" class="me-2 mb-0">Filter by Status:</label>
+    <select id="statusFilter" class="form-select w-30">
+      <option value="all">All</option>
+      <option value="approved">Approved</option>
+      <option value="rejected">Rejected</option>
+      <option value="pending">Pending</option>
+    </select>
+  </div>
+</div> -->
+
+<table *ngIf="filteredRequests.length > 0" class="table table-bordered table-striped mt-2">
+  <thead>
+    <tr>
+      <th>S.No</th>
+      <th>Username</th>
+      <th>Chemical Name</th>
+      <th>Brand</th>
+      <th>Quantity</th>
+      <th>Request Date</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let request of filteredRequests; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ request.username }}</td>
+      <td>{{ request.chemicalName }}</td>
+      <td>{{ request.brand }}</td>
+      <td>{{ request.quantity }}</td>
+      <td>{{ request.date }}</td>
+      <td>{{ request.status }}</td>
+      <td>
+        <button class="btn btn-info me-2">Show More</button>
+        <button *ngIf="request.status !== 'Approved'" class="btn btn-success me-2" (click)="approveRequest(i)">Approve</button>
+        <button *ngIf="request.status !== 'Rejected'" class="btn btn-danger" (click)="rejectRequest(i)">Reject</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="filteredRequests.length === 0" class="text-danger font-weight-bold">Oops! No records Found</p>
