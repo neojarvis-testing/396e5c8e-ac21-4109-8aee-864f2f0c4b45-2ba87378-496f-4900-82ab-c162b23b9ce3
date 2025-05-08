@@ -1,48 +1,29 @@
-// import { Component, OnInit } from '@angular/core';
-// import { FormGroup } from '@angular/forms';
-
-// @Component({
-//   selector: 'app-agrochemical-form',
-//   templateUrl: './agrochemical-form.component.html',
-//   styleUrls: ['./agrochemical-form.component.css']
-// })
-// export class AgrochemicalFormComponent implements OnInit {
-//   agrochemicalForm!: FormGroup
-// agrochemicalId: any;
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-//   addOrUpdateAgrochemical(){}
-
-//   handleFileChange($event:any){}
-// }
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-// import { Agrochemical } from 'src/app/models/agrochemical.model';
 import { AgrochemicalService } from 'src/app/services/agrochemical.service';
 
 @Component({
   selector: 'app-agrochemical-form',
   templateUrl: './agrochemical-form.component.html',
-  styleUrls: ['./agrochemical-form.component.css']
 })
 export class AgrochemicalFormComponent implements OnInit {
-  agrochemicalForm!: FormGroup;
-  coverImageBase64: string = '';
-  agrochemicalId: string | null = null;
-  // agrochemicals: Agrochemical[] = [];
+  agroForm!: FormGroup;
+  isEditMode = false;
+  imagePreview: string = '';
+  imageRequired = false;
+  agroId: string | null = null;
+  showSuccessModal = false;
 
   constructor(
-    private formBuilder: FormBuilder,
-    private agrochemicalService: AgrochemicalService,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
-  ) {
-    this.agrochemicalForm = this.formBuilder.group({
+    private router: Router,
+    private agroService: AgrochemicalService
+  ) {}
+
+  ngOnInit(): void {
+    this.agroForm = this.fb.group({
       name: ['', Validators.required],
       brand: ['', Validators.required],
       category: ['', Validators.required],
@@ -51,50 +32,58 @@ export class AgrochemicalFormComponent implements OnInit {
       price: ['', [Validators.required, Validators.min(1)]],
       imageUrl: ['']
     });
-  }
 
-  ngOnInit(): void {
-    this.agrochemicalId = this.route.snapshot.params['id'];
-    if (this.agrochemicalId) {
-      this.loadAgrochemicalDetails(this.agrochemicalId);
+    this.agroId = this.route.snapshot.paramMap.get('id');
+    if (this.agroId) {
+      this.isEditMode = true;
+      this.agroService.getAgrochemicalById(this.agroId).subscribe(data => {
+        this.agroForm.patchValue(data);
+        this.imagePreview = data.imageUrl;
+      });
     }
   }
 
-  loadAgrochemicalDetails(agrochemicalId: string): void {
-    this.agrochemicalService.getAgrochemicalById(agrochemicalId).subscribe((agrochemical) => {
-      this.agrochemicalForm.patchValue(agrochemical);
-      this.coverImageBase64 = agrochemical.imageUrl;
-    });
-  }
-
-  handleFileChange(event: any): void {
+  onFileChange(event: any): void {
     const file = event.target.files[0];
-    if (file && (file.type === 'image/jpg' || file.type === 'image/png' || file.type === 'image/jpeg')) {
+    if (file && ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)) {
       const reader = new FileReader();
-      reader.readAsDataURL(file);
       reader.onload = () => {
-        this.coverImageBase64 = reader.result as string;
-        this.agrochemicalForm.patchValue({ imageUrl: this.coverImageBase64 });
+        this.imagePreview = reader.result as string;
+        this.agroForm.patchValue({ imageUrl: this.imagePreview });
+        this.imageRequired = false;
       };
+      reader.readAsDataURL(file);
     } else {
-      alert('Only JPG, JPEG and PNG files are allowed.');
+      alert('Only JPG, JPEG, PNG files are allowed.');
     }
   }
 
-  addOrUpdateAgrochemical(): void {
-    if (this.agrochemicalForm.invalid) {
-      alert('Please fill all required fields.');
+  onSubmit(): void {
+    if (this.agroForm.invalid || !this.imagePreview) {
+      this.imageRequired = !this.imagePreview;
+      this.agroForm.markAllAsTouched();
       return;
     }
-    const agrochemicalData = { ...this.agrochemicalForm.value, imageUrl: this.coverImageBase64, agrochemicalId: this.agrochemicalId || Math.floor(Math.random() * 10000).toString() };
-    if (this.agrochemicalId) {
-      this.agrochemicalService.updateAgrochemical(this.agrochemicalId, agrochemicalData).subscribe(() => {
-        this.router.navigate(['admin/agrochemicals']);
+
+    const data = { ...this.agroForm.value, imageUrl: this.imagePreview };
+
+    if (this.isEditMode && this.agroId) {
+      this.agroService.updateAgrochemical(this.agroId, data).subscribe(() => {
+        this.showSuccessModal = true;
       });
     } else {
-      this.agrochemicalService.addAgrochemical(agrochemicalData).subscribe(() => {
-        this.router.navigate(['admin/agrochemicals']);
+      this.agroService.addAgrochemical(data).subscribe(() => {
+        this.showSuccessModal = true;
       });
     }
+  }
+
+  navigateToView(): void {
+    this.showSuccessModal = false;
+    this.router.navigate(['/seller/view-agrochemical']);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/seller/view-agrochemical']);
   }
 }
