@@ -1,10 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
-import { LoginComponent } from './components/login/login.component';
+// import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FarmerNavbarComponent } from './farmerComponents/farmer-navbar/farmer-navbar.component';
@@ -19,13 +20,12 @@ import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/
 import { AuthguardComponent } from './components/authguard/authguard.component';
 
 import {HttpClientModule} from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
-    
     AppComponent,
     ErrorPageComponent,
-    LoginComponent,
     SignupComponent,
     HomePageComponent,
     FarmerNavbarComponent,
@@ -37,12 +37,15 @@ import {HttpClientModule} from '@angular/common/http';
     SellerViewRequestsComponent,
     ViewAgrochemicalComponent,
     AgrochemicalFormComponent,
-    AuthguardComponent
+    AuthguardComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

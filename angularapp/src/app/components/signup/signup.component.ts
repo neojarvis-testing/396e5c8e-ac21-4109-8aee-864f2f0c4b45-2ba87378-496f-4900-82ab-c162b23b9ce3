@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-signup',
@@ -7,9 +10,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignupComponent implements OnInit {
 
-  constructor() { }
+  signupForm!: FormGroup;
+
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
+    this.signupForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
+      password: [
+        '', [
+          Validators.required,
+          Validators.minLength(8),
+          this.strongPasswordValidator
+        ]],
+      confirmPassword: ['', Validators.required],
+      role: ['', Validators.required]
+    }, { validators: this.passwordMatchValidator });
+  }
+
+  get controls(): { [key: string]: AbstractControl } {
+    return this.signupForm.controls;
+  }
+
+  strongPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const value = control.value || '';
+    const errors: any = {};
+  
+    if (!/[A-Z]/.test(value)) {
+      errors.uppercase = true;
+    }
+    if (!/[a-z]/.test(value)) {
+      errors.lowercase = true;
+    }
+    if (!/[0-9]/.test(value)) {
+      errors.number = true;
+    }
+    if (!/[@$!%*?&]/.test(value)) {
+      errors.special = true;
+    }
+  
+    return Object.keys(errors).length ? errors : null;
+  }
+  
+
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const password = group.get('password')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  onSubmit(): void {
+    if (this.signupForm.invalid) {
+      this.signupForm.markAllAsTouched();
+      return;
+    }
+
+    const modalElement = document.getElementById('successModal');
+    if (modalElement) {
+      const modal = new Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  navigateToLogin(): void {
+    const modalElement = document.getElementById('successModal');
+    if (modalElement) {
+      const modalInstance = Modal.getInstance(modalElement);
+      if (modalInstance) {
+        modalInstance.hide(); //Hide the modal before navigating
+      }
+    }
+
+    this.router.navigate(['/login']);
   }
 
 }
