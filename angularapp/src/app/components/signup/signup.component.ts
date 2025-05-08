@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Modal } from 'bootstrap';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,11 +13,11 @@ export class SignupComponent implements OnInit {
 
   signupForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
+      userName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
       password: [
@@ -37,7 +38,7 @@ export class SignupComponent implements OnInit {
   strongPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
     const value = control.value || '';
     const errors: any = {};
-  
+
     if (!/[A-Z]/.test(value)) {
       errors.uppercase = true;
     }
@@ -50,10 +51,10 @@ export class SignupComponent implements OnInit {
     if (!/[@$!%*?&]/.test(value)) {
       errors.special = true;
     }
-  
+
     return Object.keys(errors).length ? errors : null;
   }
-  
+
 
   passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
     const password = group.get('password')?.value;
@@ -72,6 +73,10 @@ export class SignupComponent implements OnInit {
       const modal = new Modal(modalElement);
       modal.show();
     }
+
+    this.authService.register(this.signupForm.value).subscribe(() => {
+      this.router.navigate(['/login']);
+    })
   }
 
   navigateToLogin(): void {
