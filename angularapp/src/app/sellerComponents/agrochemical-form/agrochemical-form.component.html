@@ -1,2 +1,7 @@
 <app-seller-navbar></app-seller-navbar>
-<p>agrochemical-form works!</p>
+<form [formGroup]="agrochemicalForm">
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input id="name" type="text" formControlName="name" class="form-control">
+    </div>
+  </form>

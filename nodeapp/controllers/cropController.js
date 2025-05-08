@@ -5,6 +5,7 @@ const Crop = require('../models/cropModel');
 // Supports search, sorting, and pagination via query parameters
 // Returns a list of crops and the total count
 exports.getAllCrops = async (req, res, next) => {
+    console.log("Jeee")
     const { search, sort, page = 1, limit = 10 } = req.query;
     const searchQuery = search ? { cropName: { $regex: search, $options: 'i' } } : {};
     const sortQuery = sort ? { [sort]: 1 } : {};

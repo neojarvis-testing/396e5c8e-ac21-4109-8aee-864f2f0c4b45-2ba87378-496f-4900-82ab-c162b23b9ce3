@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { CropService } from 'src/app/services/crop.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -14,9 +13,8 @@ export class CropFormComponent implements OnInit {
   cropId: string | null = null;
 
   constructor(
-    private fb: FormBuilder, 
-    private toastr: ToastrService, 
-    private cropService: CropService, 
+    private fb: FormBuilder,
+    private cropService: CropService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -47,7 +45,7 @@ export class CropFormComponent implements OnInit {
         this.cropForm.patchValue(crop);
       },
       error => {
-        this.toastr.error('Failed to load crop data.', 'Error');
+        console.error('Failed to load crop data.');
       }
     );
   }
@@ -58,27 +56,27 @@ export class CropFormComponent implements OnInit {
         // Update crop
         this.cropService.updateCrop(this.cropId, this.cropForm.value).subscribe(
           () => {
-            this.toastr.success('Crop updated successfully!', 'Success');
-            this.router.navigate(['/crops']); // Redirect after update
+            console.log('Crop updated successfully!');
+            this.router.navigate(['/farmer/view-crop']); // Redirect after update
           },
           () => {
-            this.toastr.error('Error updating crop.', 'Error');
+            console.error('Error updating crop.');
           }
         );
       } else {
         // Add new crop
         this.cropService.addCrop(this.cropForm.value).subscribe(
           () => {
-            this.toastr.success('Crop added successfully!', 'Success');
+            console.log('Crop added successfully!');
             this.router.navigate(['/crops']); // Redirect after add
           },
           () => {
-            this.toastr.error('Error adding crop.', 'Error');
+            console.error('Error adding crop.');
           }
         );
       }
     } else {
-      this.toastr.error('Please fill out all required fields!', 'Error');
+      console.error('Please fill out all required fields!');
     }
   }
 }

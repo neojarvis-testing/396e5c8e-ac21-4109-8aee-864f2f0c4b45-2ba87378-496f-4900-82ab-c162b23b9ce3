@@ -1,8 +1,9 @@
+<app-farmer-navbar></app-farmer-navbar>
 <div class="container-fluid cropform p-4">
   <div class="card p-3 cropcard bg-success">
     <form [formGroup]="cropForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="cropName" class="form-label">Crop Name:</label>
+        <label for="cropName" class="form-label">Crop Name</label>
         <input type="text" class="form-control" id="cropName" formControlName="cropName">
         <div class="text-danger text-center mt-1" *ngIf="cropForm.get('cropName').touched && cropForm.get('cropName').invalid">
           *Crop Name is required

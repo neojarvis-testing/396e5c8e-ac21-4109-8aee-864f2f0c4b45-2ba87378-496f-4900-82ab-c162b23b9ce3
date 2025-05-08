@@ -17,6 +17,8 @@ import { SellerViewRequestsComponent } from './sellerComponents/seller-view-requ
 import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/view-agrochemical.component';
 import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/agrochemical-form.component';
 import { AuthguardComponent } from './components/authguard/authguard.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 import { ToastrModule } from 'ngx-toastr'
 import {HttpClientModule} from '@angular/common/http';
@@ -49,7 +51,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     FormsModule,
     BrowserAnimationsModule   
   ],
-  providers: [],
+  providers: [
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

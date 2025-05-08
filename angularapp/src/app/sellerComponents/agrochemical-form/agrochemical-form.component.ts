@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-agrochemical-form',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AgrochemicalFormComponent implements OnInit {
 
-  constructor() { }
+  agrochemicalForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.agrochemicalForm = this.fb.group({
+      name: ['', Validators.required]
+    });
   }
+
 
 }
