@@ -31,6 +31,10 @@ export class LoginComponent {
       console.log('Login data:', this.loginForm.value);
       this.authService.login(this.loginForm.value).subscribe((user) => {
         const role = user.role;
+        console.log(user.token);
+        if (user.token) {
+          localStorage.setItem('authToken', user.token); // Store token securely
+        }    
         if(role === 'farmer') {
           this.router.navigate(['/farmer/home-page'])
         } else {

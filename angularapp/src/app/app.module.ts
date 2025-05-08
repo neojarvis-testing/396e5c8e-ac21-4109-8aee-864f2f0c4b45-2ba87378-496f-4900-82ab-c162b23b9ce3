@@ -23,6 +23,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SearchPipe } from './search.pipe';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,9 +49,12 @@ import { SearchPipe } from './search.pipe';
     HttpClientModule,
     ReactiveFormsModule,
     ToastrModule.forRoot(),
-    FormsModule   
+    FormsModule,
+    BrowserAnimationsModule   
   ],
-  providers: [],
+  providers: [
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
