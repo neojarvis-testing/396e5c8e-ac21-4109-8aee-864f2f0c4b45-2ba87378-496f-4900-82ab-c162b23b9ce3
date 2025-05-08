@@ -10,7 +10,7 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
         const user = await User.findOne({ email, password });
         if (!user) {
-            return res.status(404).json({ message: 'User not found or incorrect credentials' });
+            return res.status(404).json({ message: 'User not found' });
         }
         const token = generateToken(user._id);
         res.status(200).json({
