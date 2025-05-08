@@ -27,6 +27,7 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Login data:', this.loginForm.value);
+      
     } else {
       this.loginForm.markAllAsTouched();
     }
