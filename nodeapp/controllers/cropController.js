@@ -17,7 +17,7 @@ exports.getAllCrops = async (req, res, next) => {
         const total = await Crop.countDocuments(searchQuery);
         res.status(200).json({ crops, total });
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -28,12 +28,11 @@ exports.getCropById = async (req, res, next) => {
     try {
         const crop = await Crop.findById(req.params.id);
         if (!crop) {
-            return res.status(404).json({message:`Cannot find any crop with ID ${req.params.id}`})
-            //return next(createError(404, `Cannot find any crop with ID ${req.params.id}`));
+            return res.status(404).json({ message: `Cannot find any crop with ID ${req.params.id}` });
         }
         res.status(200).json(crop);
     } catch (error) {
-        next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -46,8 +45,7 @@ exports.getCropsByUserId = async (req, res, next) => {
         const crops = await Crop.find({ userId: req.params.userId });
         res.status(200).json(crops);
     } catch (error) {
-        res.status(500).json({message:error.message});
-        //next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -59,8 +57,7 @@ exports.addCrop = async (req, res, next) => {
         await Crop.create(req.body);
         res.status(200).json({ message: 'Crop Added Successfully' });
     } catch (error) {
-        res.status(500).json({message:error.message});
-        //next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -71,13 +68,11 @@ exports.updateCrop = async (req, res, next) => {
     try {
         const crop = await Crop.findByIdAndUpdate(req.params.id, req.body, { new: true });
         if (!crop) {
-            return res.status(404).json({message:`Cannot find any crop with ID ${req.params.id}`})
-            //return next(createError(404, `Cannot find any crop with ID ${req.params.id}`));
+            return res.status(404).json({ message: `Cannot find any crop with ID ${req.params.id}` });
         }
         res.status(200).json({ message: 'Crop Updated Successfully', crop });
     } catch (error) {
-        res.status(500).json({message:error.message});
-        //next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };
 
@@ -88,12 +83,10 @@ exports.deleteCrop = async (req, res, next) => {
     try {
         const crop = await Crop.findByIdAndDelete(req.params.id);
         if (!crop) {
-            return res.status(404).json({message:`Cannot find any crop with ID ${req.params.id}`})
-            //return next(createError(404, `Cannot find any crop with ID ${req.params.id}`));
+            return res.status(404).json({ message: `Cannot find any crop with ID ${req.params.id}` });
         }
         res.status(200).json({ message: 'Crop Deleted Successfully' });
     } catch (error) {
-        res.status(500).json({message:error.message});
-        //next(createError(500, error.message));
+        return res.status(500).json({ message: error.message });
     }
 };

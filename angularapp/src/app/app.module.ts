@@ -19,8 +19,9 @@ import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/
 import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/agrochemical-form.component';
 import { AuthguardComponent } from './components/authguard/authguard.component';
 
+import { ToastrModule } from 'ngx-toastr'
 import {HttpClientModule} from '@angular/common/http';
-import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { LoginComponent } from './components/login/login.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    ToastrModule.forRoot(),
+    FormsModule   
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,62 +1,67 @@
-// app/services/crop.service.ts
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { getAuthHeaders } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CropService {
-  public apiUrl = 'http://your-workspace-url:8080';
+  private baseUrl = 'https://your-api-url.com/crop';
 
   constructor(private http: HttpClient) { }
 
-
-  // Retrieves a specific crop by its ID.
-  // Sends a GET request to the /crop/getCropById/:id endpoint.
-  // @param id - The ID of the crop
+  /**
+ * Retrieves crop details using the given crop ID.
+ * Helps fetch specific crop data for viewing or processing.
+ * Returns an observable containing the crop details.
+ */
   getCropById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/crop/getCropById/${id}`, { headers: getAuthHeaders() });
+    return this.http.get(`${this.baseUrl}/getCropById/${id}`);
   }
 
-
-  // Adds a new crop.
-  // Sends a POST request to the /crop/addCrop endpoint.
-  // @param crop - The crop data to add.
+  /**
+   * Adds a new crop to the system.
+   * Sends crop details to the backend for storage.
+   * Returns an observable indicating success or failure.
+   */
   addCrop(crop: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/crop/addCrop`, crop, { headers: getAuthHeaders() });
+    return this.http.post(`${this.baseUrl}/addCrop`, crop);
   }
 
-
-  // Updates an existing crop.
-  // Sends a PUT request to the /crop/updateCrop/:id endpoint.
-  // @param id - The ID of the crop
+  /**
+   * Updates an existing crop record.
+   * Modifies crop details based on the provided ID.
+   * Returns an observable confirming the update.
+   */
   updateCrop(id: string, crop: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/crop/updateCrop/${id}`, crop, { headers: getAuthHeaders() });
+    return this.http.put(`${this.baseUrl}/updateCrop/${id}`, crop);
   }
 
-  // Fetches all crops with pagination, search, and sorting.
-  // Sends a POST request to the /crop/getAllCrops endpoint.
-  // @param page - The page number
+  /**
+   * Retrieves a filtered and paginated list of crops.
+   * Allows sorting, searching, and pagination.
+   * Returns an observable containing the crop list.
+   */
   getAllCrops(page: number, pageSize: number, searchValue: string, sortOrder: string, sortBy: string): Observable<any> {
     const body = { page, pageSize, searchValue, sortOrder, sortBy };
-    return this.http.post(`${this.apiUrl}/crop/getAllCrops`, body, { headers: getAuthHeaders() });
+    return this.http.post(`${this.baseUrl}/getAllCrops`, body);
   }
 
-
-  // Deletes a crop with the specified ID.
-  // Sends a DELETE request to the /crop/deleteCrop/:id endpoint.
-  // @param id - The ID of the crop
+  /**
+   * Deletes a crop by its unique ID.
+   * Removes the crop from the database permanently.
+   * Returns an observable indicating the result.
+   */
   deleteCrop(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/crop/deleteCrop/${id}`, { headers: getAuthHeaders() });
+    return this.http.delete(`${this.baseUrl}/deleteCrop/${id}`);
   }
 
-
-  // Retrieves all crops associated with a specific user ID.
-  // Sends a GET request to the /crop/getCropsByUserId/:userId endpoint.
-  // @param userId - The user ID
+  /**
+   * Fetches all crops belonging to a specific user.
+   * Helps filter crops based on ownership.
+   * Returns an observable containing the user's crops.
+   */
   getCropsByUserId(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/crop/getCropsByUserId/${userId}`, { headers: getAuthHeaders() });
+    return this.http.get(`${this.baseUrl}/getCropsByUserId/${userId}`);
   }
 }
