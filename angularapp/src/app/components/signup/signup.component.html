@@ -1,99 +1,106 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
-    <div class="d-flex login-container rounded shadow overflow-hidden">
-      <div class="info-section text-white p-4 flex-grow-1 text-center">
-        <h1>AgroLink</h1>
-        <p>AgroLink is a digital platform designed to bridge the gap between farmers and agricultural resources.</p>
-      </div>
-      <div class="form-section bg-white p-4 flex-grow-1">
-        <h2>Signup</h2>
-        <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-            <label class="form-label">User Name <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="username" placeholder="UserName">
-            <div class="form-text text-danger" *ngIf="controls.username?.touched && controls.username?.invalid">
-              User Name is required
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label class="form-label">Email <span class="text-danger">*</span></label>
-            <input type="email" class="form-control" formControlName="email" placeholder="Email">
-            <div class="form-text text-danger" *ngIf="controls.email?.touched && controls.email?.invalid">
-              {{ controls.email?.errors?.required ? 'Email is required' : '' }}
-              {{ controls.email?.errors?.email ? 'Invalid email format' : '' }}
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
-            <input type="text" class="form-control" formControlName="mobile" placeholder="Mobile">
-            <div class="form-text text-danger" *ngIf="controls.mobile?.touched && controls.mobile?.invalid">
-              {{ controls.mobile?.errors?.required? 'Mobile number is required' : '' }}
-              {{ controls.mobile?.errors?.pattern ? 'Invalid mobile number' : '' }}
-            </div>
-          </div>
-  
-          <div class="mb-3">
-            <label class="form-label">Password <span class="text-danger">*</span></label>
-            <input type="password" class="form-control" formControlName="password" placeholder="Password">
-  
-            <div class="form-text text-danger" *ngIf="controls.password?.touched && controls.password?.invalid">
-              <div *ngIf="controls.password?.errors?.required">Password is required</div>
-              <div *ngIf="controls.password?.errors?.minlength">Password must be at least 8 characters</div>
-  
-              <ul class="mb-0"
-                *ngIf="controls.password?.errors && !controls.password?.errors?.required && !controls.password?.errors?.minlength">
-                <li *ngIf="controls.password?.errors?.uppercase">At least one uppercase letter</li>
-                <li *ngIf="controls.password?.errors?.lowercase">At least one lowercase letter</li>
-                <li *ngIf="controls.password?.errors?.number">At least one number</li>
-                <li *ngIf="controls.password?.errors?.special">At least one special character</li>
-              </ul>
-            </div>
-  
-          </div>
-  
-          <div class="mb-3">
-            <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-            <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
-            <div class="form-text text-danger"
-              *ngIf="signupForm.hasError('mismatch') && controls.confirmPassword?.touched">
-              Passwords must match
-            </div>
-  
-          </div>
-  
-          <div class="mb-3">
-            <label class="form-label">Role <span class="text-danger">*</span></label>
-            <select class="form-select" formControlName="role">
-              <option value="">Select Role</option>
-              <option value="farmer">Farmer</option>
-              <option value="buyer">Buyer</option>
-            </select>
-            <div class="form-text text-danger" *ngIf="controls.role?.touched && controls.role?.invalid">
-              Role is required
-            </div>
-          </div>
-  
-          <button class="btn btn-primary w-100" type="submit">Submit</button>
-          <p class="mt-3">Already have an account? <a routerLink="/login">Login</a></p>
-        </form>
-      </div>
+  <div class="d-flex login-container rounded shadow overflow-hidden">
+    <div
+      class="info-section text-white p-4 flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
+        <img
+        src="https://png.pngtree.com/png-vector/20230518/ourmid/pngtree-green-plant-logo-vector-png-image_7101352.png"
+               alt="AgroLink Logo"        class="mb-3"        style="width: 80px; height: auto;">
+        <h1>AgroLink</h1>
+        <p>AgroLink is a digital platform designed to bridge the gap between farmers and agricultural resources.
+      </p>
     </div>
-  
-    <!-- Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Signup Successful</h5>
+    <div class="form-section bg-white p-4 flex-grow-1">
+      <h2>Signup</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label class="form-label">User Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="userName" placeholder="UserName">
+          <div class="form-text text-danger" *ngIf="controls.userName?.touched && controls.userName?.invalid">
+            <!-- User Name is required -->
+            {{ controls.userName?.errors?.required ? 'User Name is required' : '' }}
+            {{ controls.userName?.errors?.minlength ? 'Atleast 4 characters long' : '' }}
           </div>
-          <div class="modal-body">
-            Your account has been created successfully.
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" formControlName="email" placeholder="Email">
+          <div class="form-text text-danger" *ngIf="controls.email?.touched && controls.email?.invalid">
+            {{ controls.email?.errors?.required ? 'Email is required' : '' }}
+            {{ controls.email?.errors?.email ? 'Invalid email format' : '' }}
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" (click)="navigateToLogin()">OK</button>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="mobile" placeholder="Mobile">
+          <div class="form-text text-danger" *ngIf="controls.mobile?.touched && controls.mobile?.invalid">
+            {{ controls.mobile?.errors?.required? 'Mobile number is required' : '' }}
+            {{ controls.mobile?.errors?.pattern ? 'Invalid mobile number' : '' }}
           </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" formControlName="password" placeholder="Password">
+
+          <div class="form-text text-danger" *ngIf="controls.password?.touched && controls.password?.invalid">
+            <div *ngIf="controls.password?.errors?.required">Password is required</div>
+            <div *ngIf="controls.password?.errors?.minlength">Password must be at least 8 characters</div>
+
+            <ul class="mb-0"
+              *ngIf="controls.password?.errors && !controls.password?.errors?.required && !controls.password?.errors?.minlength">
+              <li *ngIf="controls.password?.errors?.uppercase">At least one uppercase letter</li>
+              <li *ngIf="controls.password?.errors?.lowercase">At least one lowercase letter</li>
+              <li *ngIf="controls.password?.errors?.number">At least one number</li>
+              <li *ngIf="controls.password?.errors?.special">At least one special character</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
+          <div class="form-text text-danger"
+            *ngIf="signupForm.hasError('mismatch') && controls.confirmPassword?.touched">
+            Passwords must match
+          </div>
+
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Role <span class="text-danger">*</span></label>
+          <select class="form-select" formControlName="role">
+            <option value="">Select Role</option>
+            <option value="farmer">Farmer</option>
+            <option value="seller">Seller</option>
+          </select>
+          <div class="form-text text-danger" *ngIf="controls.role?.touched && controls.role?.invalid">
+            Role is required
+          </div>
+        </div>
+
+        <button class="btn btn-primary w-100" type="submit">Submit</button>
+        <p class="mt-3">Already have an account? <a routerLink="/login">Login</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Signup Successful</h5>
+        </div>
+        <div class="modal-body">
+          Your account has been created successfully.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="navigateToLogin()">OK</button>
         </div>
       </div>
     </div>
   </div>
+</div>
