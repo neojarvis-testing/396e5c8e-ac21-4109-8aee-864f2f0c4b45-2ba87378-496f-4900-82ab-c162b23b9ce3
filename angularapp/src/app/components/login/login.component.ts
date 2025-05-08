@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {  Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -10,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -27,6 +29,15 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       console.log('Login data:', this.loginForm.value);
+      this.authService.login(this.loginForm.value).subscribe((user) => {
+        const role = user.role;
+        if(role === 'farmer') {
+          this.router.navigate(['/farmer/home-page'])
+        } else {
+          this.router.navigate(['/seller/home-page'])
+        }
+      })
+      
     } else {
       this.loginForm.markAllAsTouched();
     }
