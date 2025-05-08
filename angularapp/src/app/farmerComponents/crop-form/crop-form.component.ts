@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { CropService } from 'src/app/services/crop.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-crop-form',
@@ -8,13 +9,18 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./crop-form.component.css']
 })
 export class CropFormComponent implements OnInit {
-
   cropForm: FormGroup;
+  cropId: string | null = null;
 
-  constructor(private fb: FormBuilder, private toastr: ToastrService) {}
+  constructor(
+    private fb: FormBuilder,
+    private cropService: CropService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    const userId = localStorage.getItem('userId') || ''; // Fetch userId
+    const userId = localStorage.getItem('userId') || '';
 
     this.cropForm = this.fb.group({
       cropName: ['', Validators.required],
@@ -23,15 +29,54 @@ export class CropFormComponent implements OnInit {
       plantingDate: ['', Validators.required],
       userId: [userId, Validators.required]
     });
+
+    // Get crop ID from router
+    this.route.paramMap.subscribe(params => {
+      this.cropId = params.get('id');
+      if (this.cropId) {
+        this.loadCropData(this.cropId);
+      }
+    });
+  }
+
+  loadCropData(id: string) {
+    this.cropService.getCropById(id).subscribe(
+      crop => {
+        this.cropForm.patchValue(crop);
+      },
+      error => {
+        console.error('Failed to load crop data.');
+      }
+    );
   }
 
   onSubmit() {
     if (this.cropForm.valid) {
-      
-      this.toastr.success('Crop added successfully!', 'Success');
+      if (this.cropId) {
+        // Update crop
+        this.cropService.updateCrop(this.cropId, this.cropForm.value).subscribe(
+          () => {
+            console.log('Crop updated successfully!');
+            this.router.navigate(['/farmer/view-crop']); // Redirect after update
+          },
+          () => {
+            console.error('Error updating crop.');
+          }
+        );
+      } else {
+        // Add new crop
+        this.cropService.addCrop(this.cropForm.value).subscribe(
+          () => {
+            console.log('Crop added successfully!');
+            this.router.navigate(['/crops']); // Redirect after add
+          },
+          () => {
+            console.error('Error adding crop.');
+          }
+        );
+      }
     } else {
-      this.toastr.error('Please fill out all required fields!', 'Error');
+      console.error('Please fill out all required fields!');
     }
   }
-
 }
