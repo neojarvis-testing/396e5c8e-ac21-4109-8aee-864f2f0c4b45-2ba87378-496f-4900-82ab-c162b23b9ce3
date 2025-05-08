@@ -17,7 +17,7 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      userName: ['', Validators.required],
+      userName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
       password: [
@@ -67,17 +67,23 @@ export class SignupComponent implements OnInit {
       this.signupForm.markAllAsTouched();
       return;
     }
-
-    const modalElement = document.getElementById('successModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
-    }
-
-    this.authService.register(this.signupForm.value).subscribe(() => {
-      this.router.navigate(['/login']);
-    })
+  
+    this.authService.register(this.signupForm.value).subscribe({
+      next: () => {
+        const modalElement = document.getElementById('successModal');
+        if (modalElement) {
+          const modal = new Modal(modalElement);
+          modal.show();
+        }
+      },
+      error: (err) => {
+        console.error('Registration failed:', err);
+        // Optionally show an error message to the user
+        alert('Registration failed. Please try again.');
+      }
+    });
   }
+  
 
   navigateToLogin(): void {
     const modalElement = document.getElementById('successModal');

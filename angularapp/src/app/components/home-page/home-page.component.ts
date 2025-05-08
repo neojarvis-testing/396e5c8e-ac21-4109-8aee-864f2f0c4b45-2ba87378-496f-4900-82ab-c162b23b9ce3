@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home-page',
+  selector: 'app-home',
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-  // userRole:string=''
-  constructor() { }
+  user = null;
 
   ngOnInit(): void {
-    // this.userRole=localStorage.getItem('userRole');
+    this.user = localStorage.getItem('user');
+    console.log(this.user);
+    
   }
-  
 }
