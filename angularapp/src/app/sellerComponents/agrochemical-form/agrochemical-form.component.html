@@ -1,1 +1,86 @@
-<p>agrochemical-form works!</p>
+<!-- <p>agrochemical-form works!</p> -->
+<div class="container-fluid bg-image shadow-1-strong text-white d-flex justify-content-end">
+    <div class="card w-50 p-3 m-2">
+        <h2 class="text-center">{{ agrochemicalId ? 'Edit AgroChemical' : 'Create New AgroChemical' }}</h2>
+        <form [formGroup]="agrochemicalForm" (ngSubmit)="addOrUpdateAgrochemical()">
+            <div class="form-group">
+                <label for="name" class="form-label">Name*</label>
+                <input type="text" name="name" id="name" class="form-control" formControlName="name">
+                <div class="error"
+                    *ngIf="agrochemicalForm.controls['name']?.touched && agrochemicalForm.controls['name']?.invalid">
+                    <small *ngIf="agrochemicalForm.controls['name']?.errors.required" class="text-danger">Name is
+                        required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="brand" class="form-label">Brand*</label>
+                <input type="text" name="brand" id="brand" class="form-control" formControlName="brand">
+                <div class="error"
+                    *ngIf="agrochemicalForm.controls['brand']?.touched && agrochemicalForm.controls['brand']?.invalid">
+                    <small *ngIf="agrochemicalForm.controls['brand']?.errors.required" class="text-danger">Brand is
+                        required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="category" class="form-label">Category*</label>
+                <input type="text" name="category" id="category" class="form-control" formControlName="category">
+                <div class="error"
+                    *ngIf="agrochemicalForm.controls['category']?.touched && agrochemicalForm.controls['category']?.invalid">
+                    <small *ngIf="agrochemicalForm.controls['category']?.errors.required" class="text-danger">Category
+                        is required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description" class="form-label">Description*</label>
+                <input type="text" name="description" id="description" class="form-control"
+                    formControlName="description">
+                <div class="error"
+                    *ngIf="agrochemicalForm.controls['description']?.touched && agrochemicalForm.controls['description']?.invalid">
+                    <small *ngIf="agrochemicalForm.controls['description']?.errors.required"
+                        class="text-danger">Description is required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="unit" class="form-label">Unit*</label>
+                <input type="text" name="unit" id="unit" class="form-control" formControlName="unit">
+                <div class="error"
+                    *ngIf="agrochemicalForm.controls['unit']?.touched && agrochemicalForm.controls['unit']?.invalid">
+                    <small *ngIf="agrochemicalForm.controls['unit']?.errors.required" class="text-danger">Unit is
+                        required</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="price" class="form-label">Price per Unit*</label>
+                <input type="number" name="price" id="price" class="form-control" formControlName="price">
+                <div class="error"
+                    *ngIf="agrochemicalForm.controls['price']?.touched && agrochemicalForm.controls['price']?.invalid">
+                    <small *ngIf="agrochemicalForm.controls['price']?.errors.required" class="text-danger">Price must be
+                        at least 1</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="imageUrl" class="form-label">Cover Image</label>
+                <input type="file" class="form-control" id="imageUrl" name="imageUrl"
+                    (change)="handleFileChange($event)" formControlName="imageUrl">
+                <!-- <div *ngIf="coverImageBase64">
+                    <img [src]="coverImageBase64" alt="agrochemicalImage" class="img-thumbnail mt-2" width="100">
+                </div> -->
+            </div>
+            <div class="form-group mt-3">
+                <button type="submit" class="btn btn-success w-25">{{ agrochemicalId ? 'UpdateAgroChemical' : 'Add AgroChemical' }}</button>
+            </div>
+        </form>
+    </div>
+    <div class="modal fade" id="mySuccessModal">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="text-center">AgroChemical Added Successfully!</h5>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
