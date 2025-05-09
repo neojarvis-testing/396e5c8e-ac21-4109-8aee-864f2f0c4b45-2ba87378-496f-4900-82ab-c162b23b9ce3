@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { combineLatest } from 'rxjs';
 import { AgrochemicalService } from 'src/app/services/agrochemical.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   sortField = 'name';
   showImageModal = false;
   showDeleteModal = false;
-
+  selectedChemical: any | null = null; 
   constructor(private agroService: AgrochemicalService, private router: Router) {}
 
   ngOnInit(): void {
@@ -30,7 +31,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   loadAgrochemicals(): void {
     this.agroService.getAllAgrochemicals(this.currentPage, this.itemsPerPage, this.searchTerm, this.sortOrder, this.sortField)
       .subscribe(response => {
-        this.agrochemicals = response.data || response;
+        this.agrochemicals = response.agrochemicals;
         this.totalPages = Math.ceil((response.totalCount || this.agrochemicals.length) / this.itemsPerPage);
         this.paginatedAgrochemicals = this.agrochemicals;
       });
@@ -58,28 +59,27 @@ export class ViewAgrochemicalComponent implements OnInit {
 
   confirmDelete(id: string): void {
     this.selectedDeleteId = id;
-    this.showDeleteModal = true;
   }
 
   deleteAgrochemical(): void {
     this.agroService.deleteAgrochemical(this.selectedDeleteId).subscribe(() => {
-      this.loadAgrochemicals();
-      this.showDeleteModal = false;
+      this.loadAgrochemicals();      
     });
   }
 
-  closeDeleteModal(): void {
-    this.showDeleteModal = false;
-  }
+ 
 
   showImage(imageUrl: string): void {
     this.selectedImage = imageUrl;
-    this.showImageModal = true;
+    const chemical$ = this.agroService.getAgrochemicalById(this.selectedImage);
+    console.log(chemical$);
+    const file$ =  this.agroService.getFileByImageId(this.selectedImage);
+    combineLatest([chemical$,file$]).subscribe(([productResponse,fileResponse]) => {
+      this.selectedChemical = { ...productResponse, image: fileResponse }
+      console.log(this.selectedChemical);
+    })
   }
 
-  closeImageModal(): void {
-    this.showImageModal = false;
-  }
 
   onSearch(): void {
     this.currentPage = 1;

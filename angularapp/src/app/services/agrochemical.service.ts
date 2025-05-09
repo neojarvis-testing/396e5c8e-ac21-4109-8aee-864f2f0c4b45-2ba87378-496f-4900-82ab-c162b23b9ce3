@@ -2,14 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { getAuthHeaders } from './base.service';
+import {DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import {map} from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
 export class AgrochemicalService {
-  public apiUrl = 'https://8080-eacffadabafebcfebacffbbaaedfbafabcbbce.premiumproject.examly.io';
+  public apiUrl = 'https://8080-abbbcdadcaababdaebacffbbaaedfbafabcbbce.premiumproject.examly.io';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private sanitizer:DomSanitizer) {}
 
   
 // Fetches all agrochemicals with pagination, search, and sorting.
@@ -17,7 +19,10 @@ export class AgrochemicalService {
 // @param page - The page number.
   getAllAgrochemicals(page: number, pageSize: number, searchValue: string, sortOrder: string, sortBy: string): Observable<any> {
     const body = { page, pageSize, searchValue, sortOrder, sortBy };
-    return this.http.post(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body, { headers: getAuthHeaders() });
+    return this.http.post<{
+      agrochemicals:any[],
+      total:number
+    }>(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body);
   }
 
   
@@ -25,7 +30,7 @@ export class AgrochemicalService {
 // Sends a GET request to the /agroChemical/getAgroChemicalById/:id endpoint.
 // @param id - The ID of the agrochemical.
   getAgrochemicalById(id: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/agroChemical/getAgroChemicalById/${id}`, { headers: getAuthHeaders() });
+    return this.http.get<{agrochemical:any}>(`${this.apiUrl}/agroChemical/getAgroChemicalById/${id}`);
   }
 
   
@@ -41,7 +46,7 @@ export class AgrochemicalService {
 // Sends a PUT request to the /agroChemical/updateAgroChemical/:id endpoint.
 // @param id - The ID of the agrochemical
   updateAgrochemical(id: string, agrochemical: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/agroChemical/updateAgroChemical/${id}`, agrochemical, { headers: getAuthHeaders() });
+    return this.http.put(`${this.apiUrl}/agroChemical/updateAgroChemical/${id}`, agrochemical);
   }
 
   
@@ -49,15 +54,27 @@ export class AgrochemicalService {
 // Sends a DELETE request to the /agroChemical/deleteAgroChemical/:id endpoint.
 // @param id - The ID of the agrochemical
   deleteAgrochemical(id: string): Observable<HttpResponse<any>> {
-    return this.http.delete<HttpResponse<any>>(`${this.apiUrl}/agroChemical/deleteAgroChemical/${id}`, { headers: getAuthHeaders() });
+    return this.http.delete<HttpResponse<any>>(`${this.apiUrl}/agroChemical/deleteAgroChemical/${id}`);
   }
 
-    
+  
 // Fetches all agrochemical sellers with pagination, search, and sorting.
 // Sends a POST request to the /agroChemical/getAllAgroChemicals endpoint.
 // @param page - The page number.
   getAllAgrochemicalSeller(page: number, limit: number, searchValue: string, sortValue: number): Observable<HttpResponse<any>> {
     const body = { page, limit, searchValue, sortValue };
-    return this.http.post<HttpResponse<any>>(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body, { headers: getAuthHeaders() });
+    return this.http.post<HttpResponse<any>>(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body);
+  }
+
+  getFileByImageId(id:string): Observable<SafeUrl>{
+    return this.http.get(`${this.apiUrl}/agroChemical/${id}/file`, 
+    {
+      responseType: 'blob'
+    }).pipe(
+      map(file => {
+        const objectUrl = URL.createObjectURL(file);
+        return this.sanitizer.bypassSecurityTrustUrl(objectUrl);
+      })
+    );
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestService } from 'src/app/services/request.service';
 
 @Component({
   selector: 'app-farmer-my-requests',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FarmerMyRequestsComponent implements OnInit {
 
-  constructor() { }
+  requests: any[] = [];
+
+  constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
+    this.getRequests();
   }
+
+  getRequests(): void {
+    this.requestService.getAllRequests().subscribe(
+      (data) => {
+        this.requests = data;
+      },
+      (error) => {
+        console.error('Error fetching requests', error);
+      }
+    );
+  }
+
 
 }

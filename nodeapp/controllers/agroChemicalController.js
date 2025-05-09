@@ -1,11 +1,13 @@
 const createError = require('http-errors');
 const AgroChemical = require('../models/agroChemicalModel');
-
+const mongoose = require('mongoose');
+const path = require('path')
+const fs = require('fs');
 // Controller to fetch all agrochemicals from the database
 // Supports search, sorting, and pagination via query parameters
 // Returns a list of agrochemicals and the total count
 exports.getAllAgroChemicals = async (req, res, next) => {
-    const { search, sort, page = 1, limit = 10 } = req.query;
+    const { search, sort, page = 1, limit = 10 } = req.body;
     const searchQuery = search ? { name: { $regex: search, $options: 'i' } } : {};
     const sortQuery = sort ? { [sort]: 1 } : {};
 
@@ -30,7 +32,7 @@ exports.getAgroChemicalById = async (req, res, next) => {
         if (!agrochemical) {
             return res.status(404).json({ message: `Cannot find any agrochemical with ID ${req.params.id}` });
         }
-        res.status(200).json(agrochemical);
+        return res.status(200).json(agrochemical);
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
@@ -87,6 +89,7 @@ exports.updateAgroChemical = async (req, res, next) => {
 // Returns a success or not-found message accordingly
 exports.deleteAgroChemical = async (req, res, next) => {
     try {
+        console.log(req);
         const agrochemical = await AgroChemical.findByIdAndDelete(req.params.id);
         if (!agrochemical) {
             return res.status(404).json({ message: `Cannot find any agrochemical with ID ${req.params.id}` });
@@ -96,3 +99,22 @@ exports.deleteAgroChemical = async (req, res, next) => {
         return res.status(500).json({ message: error.message });
     }
 };
+
+
+exports.getFileByChemicalId = async (req,res,next) => {
+    try {
+        const {id} = req.params;
+        console.log(id);
+        if (!mongoose.Types.ObjectId.isValid(req.params?.id)) throw createError(`Agrochemical Id ${req.params?.id} is invalid`);
+        const chemical = await AgroChemical.findById(id);
+        if (!chemical) return res.status(404).json({message:"Image not found"});
+        const file = chemical.image;
+        const filepath  = path.resolve(__dirname, '..', file.path)
+        if(!fs.existsSync(filepath)){
+            return res.status(404).json({message:"Image not found"});
+        }
+        return res.sendFile(filepath,{headers:{'Content-Type':file.mimetype}});
+    } catch (error) {
+        next(error);
+    }
+}

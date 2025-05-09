@@ -8,7 +8,7 @@ import { getAuthHeaders } from './base.service';
   providedIn: 'root'
 })
 export class RequestService {
-  public apiUrl = 'https://8080-eacffadabafebcfebacffbbaaedfbafabcbbce.premiumproject.examly.io';
+  public apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.premiumproject.examly.io';
 
   constructor(private http: HttpClient) { }
 
@@ -16,7 +16,7 @@ export class RequestService {
   // Sends a GET request to the /request/getRequestsByUserId/:userId endpoint.
   // @param userId - The user ID
   getRequestsByUserId(userId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/request/getRequestsByUserId/${userId}`, { headers: getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/request/getRequestByUserId/${userId}`);
   }
 
   // Adds a new request.
@@ -24,7 +24,7 @@ export class RequestService {
   // @param request - The request data to add.
 
   addRequest(request: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/request/addRequest`, request, { headers: getAuthHeaders() });
+    return this.http.post(`${this.apiUrl}/request/addRequest`, request);
   }
 
 
@@ -32,7 +32,7 @@ export class RequestService {
   // Sends a PUT request to the /request/updateRequest/:requestId endpoint.
   // @param requestId - The ID of the request.
   updateRequest(requestId: string, request: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/request/updateRequest/${requestId}`, request, { headers: getAuthHeaders() });
+    return this.http.put(`${this.apiUrl}/request/updateRequest/${requestId}`, request);
   }
 
 
@@ -40,7 +40,7 @@ export class RequestService {
   // Sends a DELETE request to the /request/deleteRequest/:requestId endpoint.
   // @param requestId - The ID of the request
   deleteRequest(requestId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/request/deleteRequest/${requestId}`, { headers: getAuthHeaders() });
+    return this.http.delete(`${this.apiUrl}/request/deleteRequest/${requestId}`);
   }
 
 
