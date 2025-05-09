@@ -27,9 +27,9 @@
           <td>{{ agro.unit }}</td>
           <td>₹{{ agro.price }}</td>
           <td>
-            <button class="btn btn-success btn-sm me-1" (click)="editAgrochemical(agro.id)">Edit</button>
-            <button class="btn btn-danger btn-sm me-1" (click)="confirmDelete(agro.id)">Delete</button>
-            <button class="btn btn-info btn-sm" (click)="showImage(agro.imageUrl)">Show More</button>
+            <button class="btn btn-success btn-sm me-1" (click)="editAgrochemical(agro._id)">Edit</button>
+            <button class="btn btn-danger btn-sm me-1" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="confirmDelete(agro._id)">Delete</button>
+            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal"  (click)="showImage(agro._id)">Show More</button>
           </td>
         </tr>
       </tbody>
@@ -53,9 +53,17 @@
     <!-- Image Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content text-center p-3">
-          <img [src]="selectedImage" class="img-fluid" />
-          <button class="btn btn-secondary mt-2" data-bs-dismiss="modal">X</button>
+        <div class="modal-content text-center p-3 d-flex justify-content-center align-items-center">
+          <img [src]="selectedChemical?.image" class="img-fluid" style="width: 150px;height: 200px;" />
+          <div>
+            <p><strong>Name</strong>  {{selectedChemical?.name}}</p>
+            <p><strong>Description</strong>  {{selectedChemical?.description}}</p>
+            <p><strong>Brand</strong>  {{selectedChemical?.brand}}</p>
+            <p><strong>Category</strong>  {{selectedChemical?.category}}</p>
+            <p><strong>Price</strong>  {{selectedChemical?.price}}</p>
+            <p><strong>Unit</strong>  {{selectedChemical?.unit}}</p>
+          </div>
+          <button class="btn btn-block btn-danger mt-2" data-bs-dismiss="modal">X</button>
         </div>
       </div>
     </div>
@@ -65,7 +73,7 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center p-3">
           <h5>Are you sure you want to delete this agrochemical?</h5>
-          <button class="btn btn-danger me-2" (click)="deleteAgrochemical()">Yes, Delete</button>
+          <button class="btn btn-danger me-2" data-bs-dismiss="modal" (click)="deleteAgrochemical()">Yes, Delete</button>
           <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
         </div>
       </div>
