@@ -2,18 +2,15 @@
   <div class="d-flex login-container rounded shadow overflow-hidden">
     <div
       class="info-section text-white p-4 flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center">
-      <img
+        <img
         src="https://png.pngtree.com/png-vector/20230518/ourmid/pngtree-green-plant-logo-vector-png-image_7101352.png"
-        alt="AgroLink Logo" class="mb-3" style="width: 80px; height: auto;">
-      <h1>AgroLink</h1>
-      <p>AgroLink is a digital platform designed to bridge the gap between farmers and agricultural resources.
+               alt="AgroLink Logo"        class="mb-3"        style="width: 80px; height: auto;">
+        <h1>AgroLink</h1>
+        <p>AgroLink is a digital platform designed to bridge the gap between farmers and agricultural resources.
       </p>
     </div>
     <div class="form-section bg-white p-4 flex-grow-1">
       <h2>Signup</h2>
-      <div *ngIf="signupError" class="alert alert-danger" role="alert">
-        {{ signupError }}
-      </div>
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label class="form-label">User Name <span class="text-danger">*</span></label>
@@ -69,7 +66,6 @@
             *ngIf="signupForm.hasError('mismatch') && controls.confirmPassword?.touched">
             Passwords must match
           </div>
-
         </div>
 
         <div class="mb-3">
