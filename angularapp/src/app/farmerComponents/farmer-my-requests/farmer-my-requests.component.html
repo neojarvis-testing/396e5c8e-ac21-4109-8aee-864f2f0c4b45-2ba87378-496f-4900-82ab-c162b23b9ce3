@@ -1,3 +1,38 @@
 <app-farmer-navbar></app-farmer-navbar>
-<h1>My Requests<h1>
-<p>Oops! No records Found</p>
+<div class="container">
+  <h2 class="text-center mb-4">My Requests</h2>
+  <hr>
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>S.No</th>
+          <th>AgroChemical Name</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Submission Date</th>
+          <th>Crop Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let request of requests; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ request.agroChemicalName }}</td>
+          <td>{{ request.brand }}</td>
+          <td>{{ request.category }}</td>
+          <td>{{ request.quantity }}</td>
+          <td>{{ request.submissionDate | date }}</td>
+          <td>{{ request.cropName }}</td>
+          <td>{{ request.status }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm">Edit</button>
+            <button class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
