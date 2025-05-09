@@ -10,11 +10,11 @@ import { AgrochemicalService } from 'src/app/services/agrochemical.service';
   templateUrl: './agrochemical-form.component.html',
 })
 export class AgrochemicalFormComponent implements OnInit {
-  
+
   agroForm: FormGroup;
   imageFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private agroChemicalService:AgrochemicalService,private router:Router) {
+  constructor(private fb: FormBuilder, private agroChemicalService: AgrochemicalService, private router: Router) {
     this.agroForm = this.fb.group({
       name: [''],
       brand: [''],
@@ -26,7 +26,7 @@ export class AgrochemicalFormComponent implements OnInit {
     });
   }
   ngOnInit(): void {
-    
+
   }
 
   onFileChange(event: any) {
@@ -36,22 +36,20 @@ export class AgrochemicalFormComponent implements OnInit {
   submitForm() {
     const formData = new FormData();
 
-  formData.append('name', this.agroForm.get('name')?.value);
-  formData.append('brand', this.agroForm.get('brand')?.value);
-  formData.append('category', this.agroForm.get('category')?.value);
-  formData.append('description', this.agroForm.get('description')?.value);
-  formData.append('unit', this.agroForm.get('unit')?.value);
-  formData.append('price', this.agroForm.get('price')?.value);
+    formData.append('name', this.agroForm.get('name')?.value);
+    formData.append('brand', this.agroForm.get('brand')?.value);
+    formData.append('category', this.agroForm.get('category')?.value);
+    formData.append('description', this.agroForm.get('description')?.value);
+    formData.append('unit', this.agroForm.get('unit')?.value);
+    formData.append('price', this.agroForm.get('price')?.value);  
 
-}
-
-    if (this.imageFile) {
-      formData.append('image', this.imageFile);
-    }
+  if(this.imageFile) {
+    formData.append('image', this.imageFile);
+  }
 
     this.agroChemicalService.addAgrochemical(formData).subscribe(() => {
-      this.router.navigate(['/seller/view-agrochemical'])
-    })
+    this.router.navigate(['/seller/view-agrochemical'])
+  })
     
   }
 }
