@@ -8,11 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class HomePageComponent implements OnInit {
   user = null;
 
-  ngOnInit(): void {
-    console.log('hi');
-    
+  ngOnInit(): void {    
     this.user = JSON.parse(localStorage.getItem('user') || '{}');
-    console.log(this.user);
     
   }
 }
