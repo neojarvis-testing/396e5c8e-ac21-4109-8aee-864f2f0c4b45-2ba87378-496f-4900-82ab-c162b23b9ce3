@@ -7,7 +7,7 @@ import { getAuthHeaders } from './base.service';
   providedIn: 'root'
 })
 export class AgrochemicalService {
-  public apiUrl = 'http://your-workspace-url:8080';
+  public apiUrl = 'https://8080-eacffadabafebcfebacffbbaaedfbafabcbbce.premiumproject.examly.io';
 
   constructor(private http: HttpClient) {}
 
@@ -33,7 +33,7 @@ export class AgrochemicalService {
 // Sends a POST request to the /agroChemical/addAgroChemical endpoint.
 // @param agrochemical - The agrochemical data to add.
   addAgrochemical(agrochemical: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/agroChemical/addAgroChemical`, agrochemical, { headers: getAuthHeaders() });
+    return this.http.post(`${this.apiUrl}/agroChemical/addAgroChemical`, agrochemical);
   }
 
   
@@ -52,7 +52,7 @@ export class AgrochemicalService {
     return this.http.delete<HttpResponse<any>>(`${this.apiUrl}/agroChemical/deleteAgroChemical/${id}`, { headers: getAuthHeaders() });
   }
 
-  
+    
 // Fetches all agrochemical sellers with pagination, search, and sorting.
 // Sends a POST request to the /agroChemical/getAllAgroChemicals endpoint.
 // @param page - The page number.

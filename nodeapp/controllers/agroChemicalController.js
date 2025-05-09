@@ -41,7 +41,26 @@ exports.getAgroChemicalById = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addAgroChemical = async (req, res, next) => {
     try {
-        await AgroChemical.create(req.body);
+        if (!req.file) { // Fix: Check req.file instead of req.image
+            return res.status(400).json({ message: "File is missing" });
+        }
+        const {name,brand,category,description,unit,price} = req.body;
+        const agroChemical = new AgroChemical({
+            name,
+            brand,
+            category,
+            description,
+            unit,
+            price,
+            image: {
+                filename: req.file.originalname,
+                path: req.file.path,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            }
+        });
+
+        await agroChemical.save(); // Fix: Use .save() instead of .create()
         res.status(200).json({ message: 'Agrochemical Added Successfully' });
     } catch (error) {
         return res.status(500).json({ message: error.message });
