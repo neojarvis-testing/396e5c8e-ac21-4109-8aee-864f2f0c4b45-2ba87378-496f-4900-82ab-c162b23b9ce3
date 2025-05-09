@@ -33,7 +33,7 @@ export class AgrochemicalService {
 // Sends a POST request to the /agroChemical/addAgroChemical endpoint.
 // @param agrochemical - The agrochemical data to add.
   addAgrochemical(agrochemical: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/agroChemical/addAgroChemical`, agrochemical, { headers: getAuthHeaders() });
+    return this.http.post(`${this.apiUrl}/agroChemical/addAgroChemical`, agrochemical);
   }
 
   
