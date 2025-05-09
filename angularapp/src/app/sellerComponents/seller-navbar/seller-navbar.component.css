@@ -23,7 +23,7 @@
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
-  /* Press-down effect for all buttons */
+
   button, .btn {
     transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
   }
