@@ -74,15 +74,33 @@ exports.addAgroChemical = async (req, res, next) => {
 // Returns the updated agrochemical or a 404 if not found
 exports.updateAgroChemical = async (req, res, next) => {
     try {
-        const agrochemical = await AgroChemical.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!agrochemical) {
-            return res.status(404).json({ message: `Cannot find any agrochemical with ID ${req.params.id}` });
+        const updateData = { ...req.body };
+        
+        if (req.file) {
+            updateData.image = {
+                filename: req.file.originalname,
+                path: req.file.path,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            };
         }
+
+        const agrochemical = await AgroChemical.findByIdAndUpdate(
+            req.params.id,
+            updateData,
+            { new: true, runValidators: true }
+        );
+        console.log(agrochemical);
+        if (!agrochemical) {
+            return res.status(404).json({ message: `Agrochemical not found with ID ${req.params.id}` });
+        }
+
         res.status(200).json({ message: 'Agrochemical Updated Successfully', agrochemical });
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
 };
+
 
 // Controller to delete an agrochemical by ID
 // Removes the agrochemical from the database if it exists
