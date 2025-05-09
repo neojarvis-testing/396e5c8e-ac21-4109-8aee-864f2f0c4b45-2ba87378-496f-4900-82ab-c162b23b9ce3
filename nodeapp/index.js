@@ -47,7 +47,7 @@ mongoose.set('strictQuery', true).connect(process.env.MONGODB_URI, {
     });
 
 app.use((err, _req, res, _next) => {
-    logger.error(`Error: ${err.message}`);
+    logger.error(`Error: ${err.stack}`);
     res.status(err.status || 500).json({
         message: err.message || 'Internal Server Error'
     });
