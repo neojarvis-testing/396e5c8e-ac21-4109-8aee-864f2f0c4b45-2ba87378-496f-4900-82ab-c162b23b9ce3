@@ -20,4 +20,14 @@ export class SellerNavbarComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  navigate(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    console.log(value);
+    
+    if (value) {
+      console.log(`/seller/${value}`);
+      this.router.navigate([`/seller/${value}`]);
+    }
+  }
+
 }
