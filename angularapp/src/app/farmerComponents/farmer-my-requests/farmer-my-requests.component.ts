@@ -8,7 +8,6 @@ import { RequestService } from 'src/app/services/request.service';
 })
 export class FarmerMyRequestsComponent implements OnInit {
 
-
   requests: any[] = [];
 
   constructor(private requestService: RequestService) { }
