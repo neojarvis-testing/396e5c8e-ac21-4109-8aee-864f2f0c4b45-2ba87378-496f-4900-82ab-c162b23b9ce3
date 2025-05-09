@@ -58,6 +58,20 @@
       </div>
     </div>
 
+    <div class="mb-3">
+      <label class="form-label">Unit <span class="text-danger">*</span></label>
+      <select class="form-select" formControlName="unit">
+        <option value="">Select Unit</option>
+        <option value="kg">Kilogram</option>
+        <option value="g">Gram</option>
+        <option value="lb">Pound</option>
+        <option value="l">Litre</option>
+      </select>
+      <div *ngIf="agroForm.controls['category'].touched && agroForm.controls['category'].invalid" class="text-danger">
+        Category is required
+      </div>
+    </div>
+
     <!-- Price -->
     <div class="mb-3">
       <label class="form-label">Price <span class="text-danger">*</span></label>
@@ -75,7 +89,7 @@
       <div *ngIf="imagePreview" class="mt-2">
         <img [src]="imagePreview" class="img-thumbnail" width="100">
       </div> -->
-      <label class="form-label">Image: <input class="form-control" type="file" (change)="onFileChange($event)"></label>
+      <label class="form-label">Image: <input class="form-control" type="file" name="image" (change)="onFileChange($event)"></label>
     </div>
 
     <!-- Submit Button -->

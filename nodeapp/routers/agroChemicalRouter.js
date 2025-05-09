@@ -4,17 +4,18 @@ const {
     getAgroChemicalById,
     addAgroChemical,
     updateAgroChemical,
-    deleteAgroChemical
+    deleteAgroChemical,
+    getFileByChemicalId
 } = require('../controllers/agroChemicalController');
+const upload = require('../config/multerConfig');
 const { validateToken } = require('../authUtils');
-const upload = require('../config/multerConfig')
 
 const router = express.Router();
 
-router.get('/getAllAgroChemicals', validateToken, getAllAgroChemicals);
-router.get('/getAgroChemicalById/:id', validateToken, getAgroChemicalById);
-router.post('/addAgroChemical', upload.single('image') ,addAgroChemical);
-router.put('/updateAgroChemical/:id', validateToken, updateAgroChemical);
-router.delete('/deleteAgroChemical/:id', validateToken, deleteAgroChemical);
-
+router.post('/getAllAgroChemicals',  getAllAgroChemicals);
+router.get('/getAgroChemicalById/:id',  getAgroChemicalById);
+router.post('/addAgroChemical', upload.single('image'), addAgroChemical);
+router.put('/updateAgroChemical/:id',  updateAgroChemical);
+router.delete('/deleteAgroChemical/:id',  deleteAgroChemical);
+router.get('/:id/file',getFileByChemicalId);
 module.exports = router;
