@@ -1,3 +1,5 @@
+<app-farmer-navbar *ngIf="user.role === 'farmer'"></app-farmer-navbar>
+<app-seller-navbar *ngIf="user.role === 'seller'"></app-seller-navbar>
 <div class="heading mt-4">
     <h1 class="title-text">AgroLink</h1>
 </div>

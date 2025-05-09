@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePageComponent implements OnInit {
   // userRole:string=''
+  user:any=null;
   constructor() { }
 
   ngOnInit(): void {    

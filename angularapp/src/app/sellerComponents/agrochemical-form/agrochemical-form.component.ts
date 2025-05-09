@@ -43,7 +43,6 @@ export class AgrochemicalFormComponent implements OnInit {
   formData.append('unit', this.agroForm.get('unit')?.value);
   formData.append('price', this.agroForm.get('price')?.value);
 
-}
 
     if (this.imageFile) {
       formData.append('image', this.imageFile);
