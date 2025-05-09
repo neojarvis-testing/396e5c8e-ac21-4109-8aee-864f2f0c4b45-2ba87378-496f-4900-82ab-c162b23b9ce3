@@ -12,12 +12,14 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignupComponent implements OnInit {
 
   signupForm!: FormGroup;
+  signupError: string | null = null;
+
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
-      userName: ['', Validators.required],
+      userName: ['', [Validators.required, Validators.minLength(4)]],
       email: ['', [Validators.required, Validators.email]],
       mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]],
       password: [
@@ -68,16 +70,30 @@ export class SignupComponent implements OnInit {
       return;
     }
 
-    const modalElement = document.getElementById('successModal');
-    if (modalElement) {
-      const modal = new Modal(modalElement);
-      modal.show();
-    }
+    this.signupError = null; // Clear previous errors
 
-    this.authService.register(this.signupForm.value).subscribe(() => {
-      this.router.navigate(['/login']);
-    })
+    this.authService.register(this.signupForm.value).subscribe({
+      next: () => {
+        const modalElement = document.getElementById('successModal');
+        if (modalElement) {
+          const modal = new Modal(modalElement);
+          modal.show();
+        }
+      },
+      error: (err) => {
+        console.error('Registration failed:', err);
+
+        console.log('Error message from backend:', err.error);
+
+        if (err.status === 409 && err.error?.message) {
+          this.signupError = err.error.message;
+        } else {
+          this.signupError = 'Registration failed. Please try again.';
+        }
+      }
+    });
   }
+
 
   navigateToLogin(): void {
     const modalElement = document.getElementById('successModal');
