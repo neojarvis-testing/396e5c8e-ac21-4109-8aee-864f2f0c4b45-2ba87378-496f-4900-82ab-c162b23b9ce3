@@ -21,9 +21,8 @@ import { AuthguardComponent } from './components/authguard/authguard.component';
 import { ToastrModule } from 'ngx-toastr'
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SearchPipe } from './search.pipe';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,8 +39,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     ViewAgrochemicalComponent,
     AgrochemicalFormComponent,
     AuthguardComponent,
-    LoginComponent,
-    SearchPipe
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +48,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     FormsModule,
-    BrowserAnimationsModule   
+    BrowserAnimationsModule
   ],
   providers: [
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
