@@ -11,6 +11,7 @@ const requestRoutes = require('./routers/requestRouter');
 
 const app = express();
 
+
 app.set('trust proxy', 1);
 
 // Rate Limiter: Limits each IP to 100 requests per 15 minutes
@@ -21,7 +22,7 @@ const limiter = rateLimit({
     headers: true
 });
 
-app.use(cors({}));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(limiter);
@@ -46,7 +47,7 @@ mongoose.set('strictQuery', true).connect(process.env.MONGODB_URI, {
     });
 
 app.use((err, _req, res, _next) => {
-    logger.error(`Error: ${err.message}`);
+    logger.error(`Error: ${err.stack}`);
     res.status(err.status || 500).json({
         message: err.message || 'Internal Server Error'
     });

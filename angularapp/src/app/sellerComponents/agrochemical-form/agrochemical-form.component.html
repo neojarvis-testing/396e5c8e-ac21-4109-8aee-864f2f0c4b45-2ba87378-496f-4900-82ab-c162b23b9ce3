@@ -1,7 +1,98 @@
-<app-seller-navbar></app-seller-navbar>
-<form [formGroup]="agrochemicalForm">
+<!-- <form [formGroup]="agroForm" (ngSubmit)="submitForm()" enctype="multipart/form-data">
+  <label class="form-label">Name: <input class="form-control" formControlName="name" type="text" required></label>
+  <label class="form-label">Brand: <input class="form-control" formControlName="brand" type="text" required></label>
+  <label class="form-label">Category: <input class="form-control" formControlName="category" type="text" required></label>
+  <label class="form-label">Description: <textarea class="form-control" formControlName="description"></textarea></label>
+  <label class="form-label">Unit: <input class="form-control" formControlName="unit" type="text"></label>
+  <label class="form-label">Price: <input class="form-control" formControlName="price" type="number"></label>
+  <label class="form-label">Image: <input class="form-control" type="file" (change)="onFileChange($event)"></label>
+  <button type="submit">Submit</button>
+</form> -->
+
+<div class="container mt-4" style="max-width: 600px;">
+  <h2 class="mb-4">Add AgroChemical</h2>
+
+  <form [formGroup]="agroForm" (ngSubmit)="submitForm()" enctype="multipart/form-data">
+    <!-- Name Field -->
     <div class="mb-3">
-      <label for="name" class="form-label">Name</label>
-      <input id="name" type="text" formControlName="name" class="form-control">
+      <label class="form-label">Name <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" formControlName="name">
+      <div *ngIf="agroForm.controls['name'].touched && agroForm.controls['name'].errors" class="text-danger">
+        <div *ngIf="agroForm.controls['name'].errors['required']">Name is required</div>
+        <div *ngIf="agroForm.controls['name'].errors['minlength']">Name must be at least 4 characters</div>
+      </div>
     </div>
+
+    <!-- Brand Field -->
+    <div class="mb-3">
+      <label class="form-label">Brand <span class="text-danger">*</span></label>
+      <input type="text" class="form-control" formControlName="brand">
+      <div *ngIf="agroForm.controls['brand'].touched && agroForm.controls['brand'].errors" class="text-danger">
+        <div *ngIf="agroForm.controls['brand'].errors['required']">Brand is required</div>
+        <div *ngIf="agroForm.controls['brand'].errors['minlength']">Brand must be at least 3 characters</div>
+      </div>
+    </div>
+
+    <!-- Category Dropdown -->
+    <div class="mb-3">
+      <label class="form-label">Category <span class="text-danger">*</span></label>
+      <select class="form-select" formControlName="category">
+        <option value="">Select Category</option>
+        <option value="Fungicide">Fungicide</option>
+        <option value="Herbicide">Herbicide</option>
+        <option value="Insecticide">Insecticide</option>
+        <option value="Pesticide">Pesticide</option>
+      </select>
+      <div *ngIf="agroForm.controls['category'].touched && agroForm.controls['category'].invalid" class="text-danger">
+        Category is required
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label class="form-label">Description <span class="text-danger">*</span></label>
+      <textarea class="form-control" formControlName="description"></textarea>
+      <div *ngIf="agroForm.controls['description'].touched && agroForm.controls['description'].errors" class="text-danger">
+        <div *ngIf="agroForm.controls['description'].errors['required']">Description is required</div>
+        <div *ngIf="agroForm.controls['description'].errors['minlength']">Description must be at least 10 characters</div>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Unit <span class="text-danger">*</span></label>
+      <select class="form-select" formControlName="unit">
+        <option value="">Select Unit</option>
+        <option value="kg">Kilogram</option>
+        <option value="g">Gram</option>
+        <option value="lb">Pound</option>
+        <option value="l">Litre</option>
+      </select>
+      <div *ngIf="agroForm.controls['category'].touched && agroForm.controls['category'].invalid" class="text-danger">
+        Category is required
+      </div>
+    </div>
+
+    <!-- Price -->
+    <div class="mb-3">
+      <label class="form-label">Price <span class="text-danger">*</span></label>
+      <input type="number" class="form-control" formControlName="price">
+      <div *ngIf="agroForm.controls['price'].touched && agroForm.controls['price'].invalid" class="text-danger">
+        Price must be greater than 0
+      </div>
+    </div>
+
+    <!-- Image Upload -->
+    <div class="mb-3">
+      <!-- <label class="form-label">Upload Image <span class="text-danger">*</span></label>
+      <input type="file" class="form-control" (change)="onFileChange($event)">
+      <div *ngIf="imageRequired" class="text-danger">Valid image required (JPG, PNG, max 2MB)</div>
+      <div *ngIf="imagePreview" class="mt-2">
+        <img [src]="imagePreview" class="img-thumbnail" width="100">
+      </div> -->
+      <label class="form-label">Image: <input class="form-control" type="file" name="image" (change)="onFileChange($event)"></label>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Submit</button>
   </form>
+</div>

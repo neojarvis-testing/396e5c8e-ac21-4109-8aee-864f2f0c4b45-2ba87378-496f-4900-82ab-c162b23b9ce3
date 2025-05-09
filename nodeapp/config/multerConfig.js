@@ -11,9 +11,9 @@ const storage = multer.diskStorage({
     }
 })
 const fileFilter = (req,file,cb) => {
-    const allowedTypes = /jpeg|jpg|png|pdf|docx|xlxs/
-    const extName = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = allowedTypes.test(file.mimetype);
+    const allowedTypes = ['image/jpeg','image/jpg','image/png','application/pdf','text/markdown'];
+    const extName = /\.(jpeg|jpg|png|pdf|md)$/i.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedTypes.includes(file.mimetype);
     if(extName && mimetype){
         cb(null,true);
     }
@@ -27,7 +27,7 @@ const fileFilter = (req,file,cb) => {
 module.exports = multer({
     storage,
     limits: {
-        fileSize: 5 * 1024 * 1024
+        fileSize: 20 * 1024 * 1024
     },
     fileFilter
 });
