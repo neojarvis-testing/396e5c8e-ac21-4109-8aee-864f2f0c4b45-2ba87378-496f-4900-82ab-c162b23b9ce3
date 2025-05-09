@@ -6,11 +6,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-crop-form',
   templateUrl: './crop-form.component.html',
-  styleUrls: ['./crop-form.component.css']
+  styleUrls: ['./crop-form.component.scss']
 })
 export class CropFormComponent implements OnInit {
   cropForm: FormGroup;
   cropId: string | null = null;
+  today: string = new Date().toISOString().split('T')[0];
+  cropTypes = ['Cereal', 'Fruit', 'Vegetable', 'Legume', 'Root', 'Tuber', 'Oilseed', 'Others'];
+  errors: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -20,8 +23,8 @@ export class CropFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const userId = localStorage.getItem('userId') || '';
-
+    const user = JSON.parse(localStorage.getItem('user')) || '';
+    const userId = user.id
     this.cropForm = this.fb.group({
       cropName: ['', Validators.required],
       cropType: ['', Validators.required],
@@ -30,9 +33,9 @@ export class CropFormComponent implements OnInit {
       userId: [userId, Validators.required]
     });
 
-    // Get crop ID from router
     this.route.paramMap.subscribe(params => {
       this.cropId = params.get('id');
+      
       if (this.cropId) {
         this.loadCropData(this.cropId);
       }
@@ -40,14 +43,9 @@ export class CropFormComponent implements OnInit {
   }
 
   loadCropData(id: string) {
-    this.cropService.getCropById(id).subscribe(
-      crop => {
-        this.cropForm.patchValue(crop);
-      },
-      error => {
-        console.error('Failed to load crop data.');
-      }
-    );
+    this.cropService.getCropById(id).subscribe(crop => {
+      this.cropForm.patchValue(crop);
+    });
   }
 
   onSubmit() {
@@ -68,7 +66,7 @@ export class CropFormComponent implements OnInit {
         this.cropService.addCrop(this.cropForm.value).subscribe(
           () => {
             console.log('Crop added successfully!');
-            this.router.navigate(['/crops']); // Redirect after add
+            this.router.navigate(['/farmer/view-crop']); // Redirect after add
           },
           () => {
             console.error('Error adding crop.');
@@ -78,5 +76,9 @@ export class CropFormComponent implements OnInit {
     } else {
       console.error('Please fill out all required fields!');
     }
+  }
+
+  navigateToViewCrop() {
+    this.router.navigate(['/farmer/view-crop']);
   }
 }

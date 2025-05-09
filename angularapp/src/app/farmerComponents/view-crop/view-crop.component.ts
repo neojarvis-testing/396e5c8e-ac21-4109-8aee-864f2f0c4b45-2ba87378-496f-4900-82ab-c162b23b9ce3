@@ -16,14 +16,21 @@ export class ViewCropComponent implements OnInit {
   selectedCrop: any;
   cropToDeleteId: string | null = null;
 
+  user:any = null;
+
   constructor(private cropService: CropService) {}
 
+  userId: string
+
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
+    console.log(this.userId);
+    
     this.loadCrops();
   }
 
   loadCrops(): void {
-    this.cropService.getCropsByUserId('681c79051f44a6cf632b1fb6').subscribe(response => {
+    this.cropService.getCropsByUserId(this.user.id).subscribe(response => {
       this.crops = response;
       this.totalPages = response.totalPages;
       console.log(response);
