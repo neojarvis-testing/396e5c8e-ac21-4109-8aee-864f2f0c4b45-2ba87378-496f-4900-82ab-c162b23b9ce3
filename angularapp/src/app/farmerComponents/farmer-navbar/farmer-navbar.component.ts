@@ -20,8 +20,6 @@ export class FarmerNavbarComponent implements OnInit {
   
   navigate(event: Event) {
     const value = (event.target as HTMLSelectElement).value;
-    console.log(value);
-    
     if (value) {
       this.router.navigate([`/farmer/${value}`]);
     }
