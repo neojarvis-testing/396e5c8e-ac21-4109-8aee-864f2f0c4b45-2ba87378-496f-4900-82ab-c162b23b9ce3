@@ -9,19 +9,25 @@
           <span class="btn btn-outline-light fw-medium">user | User</span>
         </li>
         <li class="nav-item">
-          <a routerLink="/farmer/home-page"
+          <a routerLink="farmer/home-page"
             class="nav-link  fw-medium px-3 py-2 text-white rounded hover-bg-light">Home</a>
         </li>
-        <li class="nav-item">
-          <select class="form-select fw-medium px-3 py-2 text-white bg-transparent border-0" style="width: auto;" aria-label="Crop selection" (change)="navigate($event)">
-            <option selected disabled>Crop</option>
-            <option value="crop-form" style="color: black;">Crop Form</option>
-            <option value="view-crop" style="color: black;">View Crops</option>
-          </select>
+        <li class="nav-item dropdown">
+          <a class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light" href="#" id="cropDropdown"
+            role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Crop
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="cropDropdown">
+            <li>
+              <a class="dropdown-item" routerLink="/farmer/crop-form/:id">Crop Form</a>
+            </li>
+            <li>
+              <a class="dropdown-item" routerLink="/farmer/view-crop/:id">View Crops</a>
+            </li>
+          </ul>
         </li>
-        
         <li class="nav-item">
-          <a routerLink="/farmer/view-agrochemical"
+          <a routerLink="/farmer/view-agrochemical/:id"
             class="nav-link  fw-medium px-3 py-2 text-white rounded hover-bg-light">AgroChemicals</a>
         </li>
         <li class="nav-item">

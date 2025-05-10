@@ -8,7 +8,7 @@ import { getAuthHeaders } from './base.service';
   providedIn: 'root'
 })
 export class RequestService {
-  public apiUrl = 'https://8080-abbcddbcfbeebacffbbaaedfbafabcbbce.premiumproject.examly.io';
+  public apiUrl = 'http://your-workspace-url:8080';
 
   constructor(private http: HttpClient) { }
 
