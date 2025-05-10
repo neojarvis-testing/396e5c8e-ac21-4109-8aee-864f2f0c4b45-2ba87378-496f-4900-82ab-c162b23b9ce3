@@ -31,6 +31,7 @@ export class LoginComponent {
       console.log('Login data:', this.loginForm.value);
       this.authService.login(this.loginForm.value).subscribe((user) => {
         const role = user.role;
+        localStorage.setItem('user',JSON.stringify(user))
         console.log(user.token);
         if (user.token) {
           localStorage.setItem('authToken', user.token); // Store token securely

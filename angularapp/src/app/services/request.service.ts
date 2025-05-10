@@ -8,7 +8,7 @@ import { getAuthHeaders } from './base.service';
   providedIn: 'root'
 })
 export class RequestService {
-  public apiUrl = 'https://8080-abbcddbcfbeebacffbbaaedfbafabcbbce.premiumproject.examly.io';
+  public apiUrl = 'https://8080-bcebabfceebacffbbaaedfbafabcbbce.premiumproject.examly.io';
   constructor(private http: HttpClient) { }
 
   // Retrieves all requests associated with a specific user ID.
