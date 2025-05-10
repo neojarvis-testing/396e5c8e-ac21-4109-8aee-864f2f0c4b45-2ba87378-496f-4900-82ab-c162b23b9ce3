@@ -22,6 +22,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   showImageModal = false;
   showDeleteModal = false;
   selectedChemical: any | null = null; 
+  farmerId:string='';
   constructor(private agroService: AgrochemicalService, private router: Router) {}
 
   ngOnInit(): void {
@@ -72,11 +73,9 @@ export class ViewAgrochemicalComponent implements OnInit {
   showImage(imageUrl: string): void {
     this.selectedImage = imageUrl;
     const chemical$ = this.agroService.getAgrochemicalById(this.selectedImage);
-    console.log(chemical$);
     const file$ =  this.agroService.getFileByImageId(this.selectedImage);
     combineLatest([chemical$,file$]).subscribe(([productResponse,fileResponse]) => {
       this.selectedChemical = { ...productResponse, image: fileResponse }
-      console.log(this.selectedChemical);
     })
   }
 

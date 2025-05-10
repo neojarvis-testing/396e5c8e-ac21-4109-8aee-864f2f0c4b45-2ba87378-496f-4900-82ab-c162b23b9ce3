@@ -24,7 +24,6 @@ export class AgrochemicalService {
       total:number
     }>(`${this.apiUrl}/agroChemical/getAllAgroChemicals`, body);
   }
-
   
 // Retrieves a specific agrochemical by its ID.
 // Sends a GET request to the /agroChemical/getAgroChemicalById/:id endpoint.

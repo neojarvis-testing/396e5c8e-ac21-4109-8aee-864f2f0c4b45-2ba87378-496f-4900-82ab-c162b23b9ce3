@@ -1,3 +1,69 @@
 <app-seller-navbar></app-seller-navbar>
-<h1>Chemical Requests for Approval</h1>
-<p>Oops! No records Found</p>
+<div class="container mt-4">
+    <h3 class="mb-4 text-center">Chemical Requests for Approval</h3>
+  
+    <div class="d-flex justify-content-between mb-3">
+      <input type="text" class="form-control w-50" placeholder="Search..." [(ngModel)]="searchText">
+      <select class="form-control w-25" [(ngModel)]="selectedStatus" (change)="applyFilter()">
+        <option value="All">All</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
+        <option value="Pending">Pending</option>
+      </select>
+    </div>
+  
+    <table class="table table-striped table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th>S.No</th>
+          <th>Username</th>
+          <th>Chemical Name</th>
+          <th>Brand</th>
+          <th>Quantity</th>
+          <th>Request Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of filteredRequests let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ req.username }}</td>
+          <td>{{ req.chemicalName }}</td>
+          <td>{{ req.brand }}</td>
+          <td>{{ req.quantity }}</td>
+          <td>{{ req.requestDate }}</td>
+          <td>{{ req.status }}</td>
+          <td>
+            <button class="btn btn-info btn-sm" (click)="openModal(req)">Show More</button>
+            <button class="btn btn-success btn-sm mx-1" (click)="updateStatus(req.id, 'Approved')">Approve</button>
+            <button class="btn btn-danger btn-sm" (click)="updateStatus(req.id, 'Rejected')">Reject</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal using Bootstrap only -->
+  <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Request Details</h5>
+          <button type="button" class="close" (click)="closeModal()">&times;</button>
+        </div>
+        <div class="modal-body" *ngIf="selectedRequest">
+          <p><strong>Username:</strong> {{ selectedRequest.username }}</p>
+          <p><strong>Chemical Name:</strong> {{ selectedRequest.chemicalName }}</p>
+          <p><strong>Brand:</strong> {{ selectedRequest.brand }}</p>
+          <p><strong>Quantity:</strong> {{ selectedRequest.quantity }}</p>
+          <p><strong>Request Date:</strong> {{ selectedRequest.requestDate }}</p>
+          <p><strong>Status:</strong> {{ selectedRequest.status }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -23,8 +23,7 @@ export class ViewCropComponent implements OnInit {
   userId: string
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    console.log(this.userId);
+    this.user = JSON.parse(localStorage.getItem('user'))
     
     this.loadCrops();
   }
