@@ -25,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchPipe } from './search.pipe';
 import { RequestSearchPipe } from './request-search.pipe';
 import { CropSearchPipe } from './crop-search.pipe';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { CropSearchPipe } from './crop-search.pipe';
     LoginComponent,
     SearchPipe,
     RequestSearchPipe,
-    CropSearchPipe
+    CropSearchPipe,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
