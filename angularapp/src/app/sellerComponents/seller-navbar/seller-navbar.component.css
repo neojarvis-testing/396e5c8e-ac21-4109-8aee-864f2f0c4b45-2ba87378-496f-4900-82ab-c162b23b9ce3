@@ -32,4 +32,10 @@
     transform: scale(0.96);
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-  
+  /* Hide the default arrow in the select element */
+select {
+  -webkit-appearance: none; /* For Chrome, Safari, and Opera */
+  -moz-appearance: none; /* For Firefox */
+  appearance: none; /* For modern browsers */
+  background: transparent; /* Make the background transparent */
+}

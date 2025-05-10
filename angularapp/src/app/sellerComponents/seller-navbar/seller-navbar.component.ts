@@ -12,8 +12,13 @@ export class SellerNavbarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
+  
+  navigate(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    if (value) {
+      this.router.navigate([`/seller/${value}`]);
+    }
+  }
 
   logout(): void {
 
