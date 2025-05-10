@@ -85,4 +85,8 @@ export class ViewAgrochemicalComponent implements OnInit {
     this.currentPage = 1;
     this.loadAgrochemicals();
   }
+
+  closeModal(){
+    this.selectedChemical=null;
+  }
 }

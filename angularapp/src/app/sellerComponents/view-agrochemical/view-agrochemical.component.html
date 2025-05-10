@@ -1,5 +1,4 @@
 <app-seller-navbar></app-seller-navbar>
-<h1>Agrochemicals</h1>
 <div class="container mt-4">
     <h1>Agrochemicals</h1>
   
@@ -63,8 +62,8 @@
             <p><strong>Category</strong>  {{selectedChemical?.category}}</p>
             <p><strong>Price</strong>  {{selectedChemical?.price}}</p>
             <p><strong>Unit</strong>  {{selectedChemical?.unit}}</p>
-          </div>
-          <button class="btn btn-block btn-danger mt-2" data-bs-dismiss="modal">X</button>
+          </div> 
+          <button class="btn btn-block btn-danger mt-2" (click)="closeModal()" data-bs-dismiss="modal">X</button>
         </div>
       </div>
     </div>
