@@ -40,7 +40,6 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   }
   loadAgrochemicals() {
     this.agrochemicalService.getAllAgrochemicals(this.page, this.pageSize, this.searchValue, this.sortOrder, this.sortBy).subscribe((res) => {
-      console.log(res);
       this.agrochemicals = res.agrochemicals;
     })
   }
@@ -58,7 +57,6 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
         userId:this.farmerId,
         ...this.requestForm.value
       }
-      console.log(requestData);
       this.requestService.addRequest(requestData).subscribe(() => {
         this.router.navigate(['/farmer/my-requests']);
       })
@@ -69,7 +67,6 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
     this.selectedAgrochemical = agro;
     this.cropService.getCropsByUserId(this.farmerId).subscribe(response => {
       this.farmerCrops = response;
-      console.log(response);
     });
   }
 

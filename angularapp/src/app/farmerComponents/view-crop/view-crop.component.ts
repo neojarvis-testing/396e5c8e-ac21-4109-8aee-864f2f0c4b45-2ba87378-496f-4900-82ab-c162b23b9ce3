@@ -32,7 +32,6 @@ export class ViewCropComponent implements OnInit {
     this.cropService.getCropsByUserId(this.user.id).subscribe(response => {
       this.crops = response;
       this.totalPages = response.totalPages;
-      console.log(response);
     });
   }
 
