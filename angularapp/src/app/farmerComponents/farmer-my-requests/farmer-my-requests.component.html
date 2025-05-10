@@ -28,7 +28,7 @@
           <td>{{ request.cropId.cropName }}</td>
           <td>{{ request.status }}</td>
           <td>
-            <button class="btn btn-danger btn-sm" (click)="openDeleteModal(request._id)">Delete</button>
+            <button class="btn btn-danger btn-sm" [disabled]="request.status !== 'pending'" (click)="openDeleteModal(request._id)" style="cursor:pointer;">Delete</button>
           </td>
         </tr>
       </tbody>
