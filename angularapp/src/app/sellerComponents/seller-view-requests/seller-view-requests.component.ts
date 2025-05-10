@@ -23,6 +23,8 @@ export class SellerViewRequestsComponent implements OnInit {
   loadRequests(): void {
     this.requestService.getAllRequests().subscribe((data: any[]) => {
       this.requests = data;
+      console.log(this.requests);
+      
       this.applyFilter();
     });
   }

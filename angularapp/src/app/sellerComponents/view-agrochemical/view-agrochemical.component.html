@@ -1,5 +1,4 @@
 <app-seller-navbar></app-seller-navbar>
-<h1>Agrochemicals</h1>
 <div class="container mt-4">
     <h1>Agrochemicals</h1>
   
@@ -20,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let agro of paginatedAgrochemicals">
+        <tr *ngFor="let agro of agrochemicals | search:searchTerm">
           <td>{{ agro.name }}</td>
           <td>{{ agro.description }}</td>
           <td>{{ agro.brand }}</td>
@@ -35,8 +34,7 @@
         </tr>
       </tbody>
     </table>
-  
-    <!-- Pagination -->
+
     <nav>
       <ul class="pagination">
         <li class="page-item" [class.disabled]="currentPage === 1">
@@ -50,8 +48,6 @@
         </li>
       </ul>
     </nav>
-  
-    <!-- Image Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center p-3 d-flex justify-content-center align-items-center">
@@ -68,8 +64,6 @@
         </div>
       </div>
     </div>
-  
-    <!-- Delete Confirmation Modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content text-center p-3">
@@ -80,3 +74,5 @@
       </div>
     </div>
   </div>
+
+ 

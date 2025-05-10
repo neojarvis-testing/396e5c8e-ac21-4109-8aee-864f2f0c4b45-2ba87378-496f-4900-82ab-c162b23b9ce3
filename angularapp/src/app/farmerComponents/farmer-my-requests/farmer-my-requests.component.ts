@@ -11,6 +11,7 @@ export class FarmerMyRequestsComponent implements OnInit {
 
   requests: any[] = [];
   requestIdToDelete: string | null = null;
+  searchTerm:string='';
 
   constructor(private requestService: RequestService) { }
 

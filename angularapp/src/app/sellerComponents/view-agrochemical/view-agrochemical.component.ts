@@ -80,8 +80,8 @@ export class ViewAgrochemicalComponent implements OnInit {
   }
 
 
-  onSearch(): void {
-    this.currentPage = 1;
-    this.loadAgrochemicals();
-  }
+  // onSearch(): void {
+  //   this.currentPage = 1;
+  //   this.loadAgrochemicals();
+  // }    
 }
