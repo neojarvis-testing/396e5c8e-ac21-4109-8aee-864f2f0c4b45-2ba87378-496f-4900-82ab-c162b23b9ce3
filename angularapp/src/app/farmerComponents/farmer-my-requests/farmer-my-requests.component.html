@@ -2,6 +2,9 @@
 <div class="container">
   <h2 class="text-center mb-4">My Requests</h2>
   <hr>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <input type="text" class="form-control w-50" placeholder="Search by Name or Description" [(ngModel)]="searchTerm" />
+  </div>
   <div class="table-responsive">
     <table class="table table-bordered table-hover">
       <thead class="thead-dark">
@@ -18,7 +21,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let request of requests; let i = index">
+        <tr *ngFor="let i = index; let request of requests | requestSearch:searchTerm">
           <td>{{ i + 1 }}</td>
           <td>{{ request.agroChemicalId.name }}</td>
           <td>{{ request.agroChemicalId.brand }}</td>
@@ -28,7 +31,7 @@
           <td>{{ request.cropId.cropName }}</td>
           <td>{{ request.status }}</td>
           <td>
-            <button class="btn btn-danger btn-sm" (click)="openDeleteModal(request._id)">Delete</button>
+            <button class="btn btn-danger btn-sm" [disabled]="request.status !== 'pending'" (click)="openDeleteModal(request._id)" style="cursor:pointer;">Delete</button>
           </td>
         </tr>
       </tbody>

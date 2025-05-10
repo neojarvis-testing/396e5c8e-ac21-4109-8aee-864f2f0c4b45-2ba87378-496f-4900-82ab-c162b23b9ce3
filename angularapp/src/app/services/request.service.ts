@@ -46,6 +46,6 @@ export class RequestService {
   // Fetches all requests.
   // Sends a GET request to the /request/getAllRequests endpoint.
   getAllRequests(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/request/getAllRequests`, { headers: getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/request/getAllRequests`);
   }
 }

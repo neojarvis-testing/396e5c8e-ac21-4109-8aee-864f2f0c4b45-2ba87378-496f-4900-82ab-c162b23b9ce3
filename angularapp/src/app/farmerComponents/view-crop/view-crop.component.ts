@@ -23,8 +23,7 @@ export class ViewCropComponent implements OnInit {
   userId: string
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    console.log(this.userId);
+    this.user = JSON.parse(localStorage.getItem('user'))
     
     this.loadCrops();
   }
@@ -33,7 +32,6 @@ export class ViewCropComponent implements OnInit {
     this.cropService.getCropsByUserId(this.user.id).subscribe(response => {
       this.crops = response;
       this.totalPages = response.totalPages;
-      console.log(response);
     });
   }
 
