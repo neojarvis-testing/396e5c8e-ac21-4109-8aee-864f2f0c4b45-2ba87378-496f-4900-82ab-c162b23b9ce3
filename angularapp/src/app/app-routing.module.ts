@@ -11,12 +11,14 @@ import { SellerViewRequestsComponent } from './sellerComponents/seller-view-requ
 import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/view-agrochemical.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'error-page', component: ErrorPageComponent },
+  {path:'page-not-found',component:PageNotFoundComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   
   { path: 'farmer/home-page', component: HomePageComponent },
@@ -31,7 +33,7 @@ const routes: Routes = [
   { path: 'seller/agrochemical-form/:id', component: AgrochemicalFormComponent },
   { path: 'seller/view-requests', component: SellerViewRequestsComponent },
   { path: 'seller/view-agrochemical', component: ViewAgrochemicalComponent },
-  { path: '**', redirectTo: 'error-page' },
+  { path: '**', redirectTo: 'page-not-found' },
 
 
 ];

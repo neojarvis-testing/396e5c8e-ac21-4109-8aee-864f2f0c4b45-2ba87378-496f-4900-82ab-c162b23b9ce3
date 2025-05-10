@@ -8,7 +8,7 @@ import { getAuthHeaders } from './base.service';
   providedIn: 'root'
 })
 export class RequestService {
-  public apiUrl = 'https://8080-abbcddbcfbeebacffbbaaedfbafabcbbce.premiumproject.examly.io';
+  public apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.premiumproject.examly.io';
   constructor(private http: HttpClient) { }
 
   // Retrieves all requests associated with a specific user ID.
@@ -46,6 +46,6 @@ export class RequestService {
   // Fetches all requests.
   // Sends a GET request to the /request/getAllRequests endpoint.
   getAllRequests(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/request/getAllRequests`, { headers: getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/request/getAllRequests`);
   }
 }
