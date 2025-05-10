@@ -1,15 +1,14 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'search'
+  name: 'cropSearch'
 })
-export class SearchPipe implements PipeTransform {
+export class CropSearchPipe implements PipeTransform {
 
-  transform(items: any[], searchText: string): any[] {
-    if (!items || !searchText) {
+  transform(items:any[], searchText:string): any[]{
+    if(!items || !searchText){
       return items;
     }
-    
     searchText = searchText.toLowerCase();
     return items.filter(item =>
       item.name.toLowerCase().includes(searchText) ||
@@ -17,4 +16,5 @@ export class SearchPipe implements PipeTransform {
       item.category.toLowerCase().includes(searchText)
     );
   }
+
 }

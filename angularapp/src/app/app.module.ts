@@ -22,6 +22,9 @@ import { ToastrModule } from 'ngx-toastr'
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SearchPipe } from './search.pipe';
+import { RequestSearchPipe } from './request-search.pipe';
+import { CropSearchPipe } from './crop-search.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +42,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ViewAgrochemicalComponent,
     AgrochemicalFormComponent,
     AuthguardComponent,
-    LoginComponent
+    LoginComponent,
+    SearchPipe,
+    RequestSearchPipe,
+    CropSearchPipe
   ],
   imports: [
     BrowserModule,
