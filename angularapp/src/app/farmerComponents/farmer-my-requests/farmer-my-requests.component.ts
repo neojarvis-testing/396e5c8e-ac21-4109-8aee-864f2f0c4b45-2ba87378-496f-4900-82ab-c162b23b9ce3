@@ -58,7 +58,5 @@ export class FarmerMyRequestsComponent implements OnInit {
       );
     }
   }
-
-
-
 }
+

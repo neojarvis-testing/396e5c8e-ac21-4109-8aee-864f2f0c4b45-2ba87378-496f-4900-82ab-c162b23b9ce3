@@ -11,10 +11,10 @@ const { validateToken } = require('../authUtils');
 
 const router = express.Router();
 
-router.get('/getAllCrops',validateToken, getAllCrops);
-router.get('/getCropById/:id',validateToken, getCropById);
-router.get('/user/getCropByUserId/:userId',validateToken, getCropsByUserId);
-router.post('/addCrop',validateToken, addCrop);
-router.put('/updateCrop/:id',validateToken, updateCrop);
-router.delete('/deleteCrop/:id',validateToken, deleteCrop);
+router.get('/getAllCrops', getAllCrops);
+router.get('/getCropById/:id', getCropById);
+router.get('/user/getCropByUserId/:userId', getCropsByUserId);
+router.post('/addCrop', addCrop);
+router.put('/updateCrop/:id', updateCrop);
+router.delete('/deleteCrop/:id', deleteCrop);
 module.exports = router;
