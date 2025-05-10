@@ -12,6 +12,8 @@ import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AuthguardComponent } from './components/authguard/authguard.component';
+import { AuthGuard } from './components/auth.guard';
 
 const routes: Routes = [
 
@@ -21,20 +23,19 @@ const routes: Routes = [
   {path:'page-not-found',component:PageNotFoundComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   
-  { path: 'farmer/home-page', component: HomePageComponent },
-  { path: 'farmer/crop-form', component: CropFormComponent },
-  { path: 'farmer/crop-form/:id', component: CropFormComponent },
-  { path: 'farmer/view-crop', component: ViewCropComponent },
-  { path: 'farmer/my-requests', component: FarmerMyRequestsComponent },
-  { path: 'farmer/view-agrochemical', component: FarmerViewAgrochemicalComponent },
+  { path: 'farmer/home-page', component: HomePageComponent, canActivate:[AuthGuard] },
+  { path: 'farmer/crop-form', component: CropFormComponent, canActivate:[AuthGuard] },
+  { path: 'farmer/crop-form/:id', component: CropFormComponent, canActivate:[AuthGuard] },
+  { path: 'farmer/view-crop', component: ViewCropComponent, canActivate:[AuthGuard] },
+  { path: 'farmer/my-requests', component: FarmerMyRequestsComponent, canActivate:[AuthGuard] },
+  { path: 'farmer/view-agrochemical', component: FarmerViewAgrochemicalComponent, canActivate:[AuthGuard] },
   
-  { path: 'seller/home-page', component: HomePageComponent },
-  { path: 'seller/agrochemical-form', component: AgrochemicalFormComponent },
-  { path: 'seller/agrochemical-form/:id', component: AgrochemicalFormComponent },
-  { path: 'seller/view-requests', component: SellerViewRequestsComponent },
-  { path: 'seller/view-agrochemical', component: ViewAgrochemicalComponent },
+  { path: 'seller/home-page', component: HomePageComponent, canActivate:[AuthGuard] },
+  { path: 'seller/agrochemical-form', component: AgrochemicalFormComponent, canActivate:[AuthGuard] },
+  { path: 'seller/agrochemical-form/:id', component: AgrochemicalFormComponent, canActivate:[AuthGuard] },
+  { path: 'seller/view-requests', component: SellerViewRequestsComponent, canActivate:[AuthGuard] },
+  { path: 'seller/view-agrochemical', component: ViewAgrochemicalComponent, canActivate:[AuthGuard] },
   { path: '**', redirectTo: 'page-not-found' },
-
 
 ];
 
