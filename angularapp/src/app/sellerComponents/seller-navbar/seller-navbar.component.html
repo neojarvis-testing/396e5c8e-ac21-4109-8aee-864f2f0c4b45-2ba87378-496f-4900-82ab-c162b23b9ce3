@@ -12,26 +12,20 @@
                     <span class="btn btn-outline-light fw-medium">seller | Seller</span>
                 </li>
                 <li class="nav-item">
-                    <a routerLink="seller/home-page"
+                    <a routerLink="/seller/home-page"
                         class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light">
                         Home
                     </a>
                 </li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link fw-medium px-3 py-2 text-white rounded hover-bg-light" id="agrochemicalDropdown"
-                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        AgroChemical
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="agrochemicalDropdown">
-                        <li>
-                            <a class="dropdown-item" routerLink="/seller/agrochemical-form">AgroChemical Form</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" routerLink="/seller/view-agrochemical">View AgroChemicals</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="nav-item">
+                    <select class="form-select fw-medium px-3 py-2 text-white bg-transparent border-0" style="width: auto;"
+                      aria-label="Crop selection" (change)="navigate($event)">
+                      <option selected disabled>AgroChemical</option>
+                      <option value="agrochemical-form" style="color: black;">Add Chemical</option>
+                      <option value="view-agrochemical" style="color: black;">View Chemical</option>
+                    </select>
+                  </li>
 
                 <li class="nav-item">
                     <a routerLink="/seller/view-requests"
