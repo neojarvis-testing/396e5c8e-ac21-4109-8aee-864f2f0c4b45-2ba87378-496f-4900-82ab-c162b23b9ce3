@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): boolean {
     const user  = JSON.parse(localStorage.getItem('user')); 
-    console.log(user);
     if (user?.token) { // Check if token exists
       if(user?.role === 'farmer')
       return true; // Allow navigation

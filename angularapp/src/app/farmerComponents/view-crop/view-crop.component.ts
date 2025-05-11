@@ -11,35 +11,35 @@ export class ViewCropComponent implements OnInit {
   crops: any[] = [];
   pageNumber: number = 1;
   pageSize: number = 5; // Define the number of crops per page
-  totalPages: number = 1;
   searchText: string = ''; // Connected to search pipe
   selectedCrop: any;
   cropToDeleteId: string | null = null;
-
   user:any = null;
-
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalPages = 1;
+  filteredCrops:any[]=[];
   constructor(private cropService: CropService) {}
 
   userId: string
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user'))
-    
+    this.user = JSON.parse(localStorage.getItem('user'))    
     this.loadCrops();
   }
 
   loadCrops(): void {
     this.cropService.getCropsByUserId(this.user.id).subscribe(response => {
       this.crops = response;
-      this.totalPages = response.totalPages;
+      this.totalPages = Math.ceil((response.totalCount || this.crops.length) / this.itemsPerPage);
+      this.filteredCrops = this.crops;
     });
   }
 
-  changePage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.pageNumber = page;
-      this.loadCrops();
-    }
+  get paginatedCrops():any{
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredCrops.slice(start, end);
   }
 
   getPages(): number[] {
@@ -64,4 +64,22 @@ export class ViewCropComponent implements OnInit {
     }
   }
 
+  nextPage():void{
+    if(this.currentPage < this.totalPages){
+      this.currentPage++;
+      this.renderTable();
+    }
+  }
+  renderTable():void{
+    if(this.currentPage > this.totalPages){
+      this.currentPage = this.totalPages;
+    }
+  }
+
+  prevPage():void{
+    if(this.currentPage > 1){
+      this.currentPage--;
+      this.renderTable();
+    }
+  }
 }

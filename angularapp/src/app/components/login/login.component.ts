@@ -31,10 +31,8 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.loginError = null; // Clear previous errors
       this.authService.login(this.loginForm.value).subscribe({
-        next: (user) => {
-          
+        next: (user) => {          
           localStorage.setItem('user', JSON.stringify(user));
-          console.log(user);
           if (user.role === 'farmer') {
             this.router.navigate(['/farmer/home-page']);
           } else {
