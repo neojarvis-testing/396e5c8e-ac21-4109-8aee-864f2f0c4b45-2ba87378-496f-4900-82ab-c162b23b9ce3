@@ -13,6 +13,9 @@ export class SellerViewRequestsComponent implements OnInit {
   selectedStatus: string = 'All';
   selectedRequest: any = null;
   searchText: string = '';
+  currentPage = 1;  
+  itemsPerPage = 5;
+  totalPages = 1;
 
   constructor(private requestService: RequestService) {}
 
@@ -22,9 +25,9 @@ export class SellerViewRequestsComponent implements OnInit {
 
   loadRequests(): void {
     this.requestService.getAllRequests().subscribe((data: any[]) => {
-      this.requests = data;
-      console.log(this.requests);
-      
+      this.requests = data;     
+      this.filteredRequests = data; 
+      this.totalPages = Math.ceil((this.requests.length) / this.itemsPerPage);
       this.applyFilter();
     });
   }
@@ -33,6 +36,12 @@ export class SellerViewRequestsComponent implements OnInit {
     this.filteredRequests = this.selectedStatus === 'All'
       ? this.requests
       : this.requests.filter(r => r.status === this.selectedStatus);
+  }
+
+  get paginatedRequests():any[]{
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredRequests.slice(start,end);
   }
 
   openModal(request: any): void {
@@ -58,4 +67,23 @@ export class SellerViewRequestsComponent implements OnInit {
     });
   }
 
+  nextPage():void{
+    if(this.currentPage < this.totalPages){
+      this.currentPage++;
+      this.renderTable();
+    }
+  }
+
+  renderTable():void{
+    if(this.currentPage > this.totalPages){
+      this.currentPage = this.totalPages;
+    }
+  }
+
+  prevPage():void{
+    if(this.currentPage > 1){
+      this.currentPage--;
+      this.renderTable();
+    }
+  }
 }

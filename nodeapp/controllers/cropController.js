@@ -44,6 +44,7 @@ exports.getCropsByUserId = async (req, res, next) => {
     try {
         console.log("inside getCropsByUserId");
         const crops = await Crop.find({ userId: req.params.userId });
+        console.log(crops);
         res.status(200).json(crops);
     } catch (error) {
         return res.status(500).json({ message: error.message });
