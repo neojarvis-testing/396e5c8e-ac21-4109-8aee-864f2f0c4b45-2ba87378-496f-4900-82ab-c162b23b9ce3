@@ -17,14 +17,16 @@ export class FarmerMyRequestsComponent implements OnInit {
   itemsPerPage = 5;
   totalPages = 1;
   filteredRequests:any[] = [];
+  userId:string='';
   constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
+    this.userId = JSON.parse(localStorage.getItem('user')).id;
     this.getRequests();
   }
 
   getRequests(): void {
-    this.requestService.getAllRequests().subscribe(
+    this.requestService.getRequestsByUserId(this.userId).subscribe(
       (data) => {
         this.requests = data;
         this.totalPages = Math.ceil((data.totalCount || this.requests.length) / this.itemsPerPage);
