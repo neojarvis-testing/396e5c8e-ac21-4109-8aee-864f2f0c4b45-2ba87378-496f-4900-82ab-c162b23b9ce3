@@ -11,18 +11,26 @@ export class FarmerMyRequestsComponent implements OnInit {
 
   requests: any[] = [];
   requestIdToDelete: string | null = null;
-
+  searchTerm:string='';
+  paginatedChemicalRequests:any[] = [];
+  currentPage = 1;  
+  itemsPerPage = 5;
+  totalPages = 1;
+  filteredRequests:any[] = [];
+  userId:string='';
   constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
+    this.userId = JSON.parse(localStorage.getItem('user')).id;
     this.getRequests();
   }
 
   getRequests(): void {
-    this.requestService.getAllRequests().subscribe(
+    this.requestService.getRequestsByUserId(this.userId).subscribe(
       (data) => {
         this.requests = data;
-        console.log(this.requests);
+        this.totalPages = Math.ceil((data.totalCount || this.requests.length) / this.itemsPerPage);
+        this.filteredRequests = this.requests;
       },
       (error) => {
         console.error('Error fetching requests', error);
@@ -30,11 +38,17 @@ export class FarmerMyRequestsComponent implements OnInit {
     );
   }
 
-  editRequest(request: any): void {
-    // Implement your edit logic here
-    console.log('Edit request:', request);
-    // You can navigate to an edit form or open a modal for editing
+  get paginatedRequests():any[]{
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredRequests.slice(start,end);
   }
+
+  // editRequest(request: any): void {
+  //   // Implement your edit logic here
+  //   console.log('Edit request:', request);
+  //   // You can navigate to an edit form or open a modal for editing
+  // }
 
   openDeleteModal(requestId: string): void {
     this.requestIdToDelete = requestId;
@@ -59,6 +73,24 @@ export class FarmerMyRequestsComponent implements OnInit {
     }
   }
 
+  nextPage():void{
+    if(this.currentPage < this.totalPages){
+      this.currentPage++;
+      this.renderTable();
+    }
+  }
 
+  renderTable():void{
+    if(this.currentPage > this.totalPages){
+      this.currentPage = this.totalPages;
+    }
+  }
 
+  prevPage():void{
+    if(this.currentPage > 1){
+      this.currentPage--;
+      this.renderTable();
+    }
+  }
 }
+

@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl = 'https://8080-eacffadabafebcfebacffbbaaedfbafabcbbce.premiumproject.examly.io';
+  public apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.project.examly.io';
   private userRole = new BehaviorSubject<string | null>(null);
   private userId = new BehaviorSubject<string | null>(null);
 
@@ -36,5 +36,13 @@ export class AuthService {
     localStorage.setItem('token', token);
     this.userRole.next(role);
     this.userId.next(id);
+  }
+
+  forgotPassword(email): Observable<void>{
+    return this.http.post<void>(`${this.apiUrl}/user/forgot-password`,email);
+  }
+
+  resetPassword(newPassword:String,token:String):Observable<void>{
+    return this.http.post<void>(`${this.apiUrl}/user/reset-password`,{newPassword,token})
   }
 }
