@@ -32,10 +32,9 @@ export class LoginComponent {
       this.loginError = null; // Clear previous errors
       this.authService.login(this.loginForm.value).subscribe({
         next: (user) => {
-          console.log('user in login', user);
           
           localStorage.setItem('user', JSON.stringify(user));
-
+          console.log(user);
           if (user.role === 'farmer') {
             this.router.navigate(['/farmer/home-page']);
           } else {
@@ -43,7 +42,6 @@ export class LoginComponent {
           }
         },
         error: (err) => {
-          console.error('Login failed:', err);
           this.loginError = 'Invalid email or password. Please try again.';
         }
       });

@@ -14,7 +14,7 @@ export class FarmerNavbarComponent implements OnInit {
   }
 
   logout(): void {
-
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
   

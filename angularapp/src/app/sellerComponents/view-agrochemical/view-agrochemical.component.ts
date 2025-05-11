@@ -23,6 +23,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   showDeleteModal = false;
   selectedChemical: any | null = null; 
   farmerId:string='';
+  filteredChemicals:any[]=[];
   constructor(private agroService: AgrochemicalService, private router: Router) {}
 
   ngOnInit(): void {
@@ -34,8 +35,14 @@ export class ViewAgrochemicalComponent implements OnInit {
       .subscribe(response => {
         this.agrochemicals = response.agrochemicals;
         this.totalPages = Math.ceil((response.totalCount || this.agrochemicals.length) / this.itemsPerPage);
-        this.paginatedAgrochemicals = this.agrochemicals;
+        this.filteredChemicals = this.agrochemicals;
       });
+  }
+
+  get paginatedChemicals(): any[]{
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredChemicals.slice(start,end);
   }
 
   sortByField(field: string): void {
@@ -44,15 +51,9 @@ export class ViewAgrochemicalComponent implements OnInit {
     this.loadAgrochemicals();
   }
 
-  changePage(page: number): void {
-    if (page < 1 || page > this.totalPages) return;
-    this.currentPage = page;
-    this.loadAgrochemicals();
-  }
-
-  get totalPagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
-  }
+  // get totalPagesArray(): number[] {
+  //   return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  // }
 
   editAgrochemical(id: string): void {
     this.router.navigate(['/seller/agrochemical-form', id]);
@@ -66,9 +67,7 @@ export class ViewAgrochemicalComponent implements OnInit {
     this.agroService.deleteAgrochemical(this.selectedDeleteId).subscribe(() => {
       this.loadAgrochemicals();      
     });
-  }
-
- 
+  } 
 
   showImage(imageUrl: string): void {
     this.selectedImage = imageUrl;
@@ -79,9 +78,22 @@ export class ViewAgrochemicalComponent implements OnInit {
     })
   }
 
+  nextPage():void{
+    if(this.currentPage < this.totalPages){
+      this.currentPage++;
+      this.renderTable();
+    }
+  }
+  renderTable():void{
+    if(this.currentPage > this.totalPages){
+      this.currentPage = this.totalPages;
+    }
+  }
 
-  // onSearch(): void {
-  //   this.currentPage = 1;
-  //   this.loadAgrochemicals();
-  // }    
+  prevPage():void{
+    if(this.currentPage > 1){
+      this.currentPage--;
+      this.renderTable();
+    }
+  }
 }
