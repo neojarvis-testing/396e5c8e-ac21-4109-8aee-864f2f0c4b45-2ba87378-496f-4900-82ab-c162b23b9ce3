@@ -69,9 +69,9 @@
         <button type="button" class="close" (click)="closeModal()">&times;</button>
       </div>
       <div class="modal-body" *ngIf="selectedRequest">
-        <p><strong>Username:</strong> {{ selectedRequest.username }}</p>
-        <p><strong>Chemical Name:</strong> {{ selectedRequest.chemicalName }}</p>
-        <p><strong>Brand:</strong> {{ selectedRequest.brand }}</p>
+        <p><strong>Username:</strong> {{ selectedRequest.userId.userName }}</p>
+        <p><strong>Chemical Name:</strong> {{ selectedRequest.agroChemicalId.name }}</p>
+        <p><strong>Brand:</strong> {{ selectedRequest.agroChemicalId.brand}}</p>
         <p><strong>Quantity:</strong> {{ selectedRequest.quantity }}</p>
         <p><strong>Request Date:</strong> {{ selectedRequest.requestDate }}</p>
         <p><strong>Status:</strong> {{ selectedRequest.status }}</p>

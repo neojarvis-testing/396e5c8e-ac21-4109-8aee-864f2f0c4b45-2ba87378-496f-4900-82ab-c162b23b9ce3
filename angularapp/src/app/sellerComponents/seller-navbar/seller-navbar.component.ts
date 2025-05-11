@@ -8,10 +8,14 @@ import { Router } from '@angular/router';
 })
 export class SellerNavbarComponent implements OnInit {
 
+  user:any = null;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
+
+  
   
   navigate(event: Event) {
     const value = (event.target as HTMLSelectElement).value;

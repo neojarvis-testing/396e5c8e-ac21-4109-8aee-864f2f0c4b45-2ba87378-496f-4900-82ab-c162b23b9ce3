@@ -27,10 +27,9 @@ export class ResetPasswordComponent implements OnInit {
   onSubmit():void{
     if(this.resetPasswordForm.valid){
       const password = this.resetPasswordForm.controls['newPassword'].value;
-      console.log(this.resetPasswordForm.value);
       this.authService.resetPassword(password,this.token).subscribe(()=>{
-        this.router.navigate(['/login']);
       })
+      this.router.navigate(['/login']);
     }
   }
 }
