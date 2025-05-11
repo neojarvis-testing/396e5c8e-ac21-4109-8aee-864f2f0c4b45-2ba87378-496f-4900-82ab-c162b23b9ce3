@@ -12,8 +12,11 @@ export class FarmerMyRequestsComponent implements OnInit {
   requests: any[] = [];
   requestIdToDelete: string | null = null;
   searchTerm:string='';
-  
-
+  paginatedRequests:any[] = [];
+  currentPage = 1;  
+  itemsPerPage = 5;
+  totalPages = 1;
+  filteredRequests:any[] = [];
   constructor(private requestService: RequestService) { }
 
   ngOnInit(): void {
@@ -24,6 +27,7 @@ export class FarmerMyRequestsComponent implements OnInit {
     this.requestService.getAllRequests().subscribe(
       (data) => {
         this.requests = data;
+
         console.log(this.requests);
       },
       (error) => {
