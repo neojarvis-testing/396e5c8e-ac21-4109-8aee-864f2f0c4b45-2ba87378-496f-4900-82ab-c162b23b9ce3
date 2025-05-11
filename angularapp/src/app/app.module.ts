@@ -55,9 +55,16 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    ToastrModule.forRoot(),
+    FormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
