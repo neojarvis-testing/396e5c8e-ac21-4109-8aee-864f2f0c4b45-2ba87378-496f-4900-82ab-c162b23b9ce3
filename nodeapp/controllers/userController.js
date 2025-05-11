@@ -45,7 +45,6 @@ exports.addUser = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
-        //const result = await forgotPassword(email);
         const user = await User.findOne({ email });
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
         const payload = {
