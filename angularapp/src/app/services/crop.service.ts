@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CropService {
-  private baseUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.premiumproject.examly.io/crop';
+  private baseUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.project.examly.io/crop';
 
   constructor(private http: HttpClient) { }
 

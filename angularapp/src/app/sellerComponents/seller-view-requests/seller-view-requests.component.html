@@ -26,8 +26,8 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let i = index; let req of filteredRequests | requestSearch:searchText ">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let i = index; let req of paginatedRequests | requestSearch:searchText ">
+        <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
         <td>{{ req.userId.userName }}</td>
         <td>{{ req.agroChemicalId.name }}</td>
         <td>{{ req.agroChemicalId.brand }}</td>
@@ -35,7 +35,7 @@
         <td>{{ req.requestDate }}</td>
         <td>{{ req.status }}</td>
         <td>
-          <button class="btn btn-info btn-sm" (click)="openModal(req)">Show More</button>
+          <button class="btn btn-info btn-sm me-2" (click)="openModal(req)">Show More</button>
           <button *ngIf="req.status !== 'approved'" class="btn btn-success btn-sm mx-1"
             (click)="updateStatus(req._id, 'approved')">Approve</button>
           <button *ngIf="req.status !== 'rejected'" class="btn btn-danger btn-sm"
@@ -45,6 +45,20 @@
     </tbody>
   </table>
 </div>
+
+<nav>
+  <ul class="pagination">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="prevPage()">Previous</a>
+    </li>
+    <li class="page-item">
+      <span class="page-link" >{{ currentPage }} of {{ totalPages }}</span>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="nextPage()">Next</a>
+    </li>
+  </ul>
+</nav>
 
 <!-- Modal using Bootstrap only -->
 <div class="modal fade" id="detailsModal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
