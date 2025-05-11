@@ -26,6 +26,8 @@ import { SearchPipe } from './search.pipe';
 import { RequestSearchPipe } from './request-search.pipe';
 import { CropSearchPipe } from './crop-search.pipe';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SearchPipe,
     RequestSearchPipe,
     CropSearchPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
