@@ -16,8 +16,10 @@ export class AuthGuard implements CanActivate {
     if (user?.token) { // Check if token exists
       if(user?.role === 'farmer')
       return true; // Allow navigation
-      else
-      return false;
+      else{
+        this.router.navigate(['/home-page'])
+        return false;
+      }
     } else {
       this.router.navigate(['/login']); // Redirect to login if not authenticated
       return false;
