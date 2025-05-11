@@ -19,13 +19,16 @@ import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/
 import { AuthguardComponent } from './components/authguard/authguard.component';
 
 import { ToastrModule } from 'ngx-toastr'
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchPipe } from './search.pipe';
 import { RequestSearchPipe } from './request-search.pipe';
 import { CropSearchPipe } from './crop-search.pipe';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,9 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     SearchPipe,
     RequestSearchPipe,
     CropSearchPipe,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +65,11 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
   ],
   providers: [
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

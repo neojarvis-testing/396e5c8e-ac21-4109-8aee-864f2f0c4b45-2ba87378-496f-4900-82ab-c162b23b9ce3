@@ -21,3 +21,7 @@ exports.validateToken = (req, res, next) => {
         return res.status(400).json({ message: 'Authentication failed' });
     }
 };
+
+exports.resetToken = (user) => {
+    return jwt.sign(user,SECRET_KEY, {expiresIn:'15m'})
+}

@@ -1,5 +1,8 @@
 const createError = require('http-errors');
 const Request = require('../models/requestModel');
+const transport = require('../mailTransport');
+const User = require('../models/userModel');
+
 
 // Controller to fetch all requests from the database
 // Populates related agrochemical, crop, and user data
@@ -10,7 +13,6 @@ exports.getAllRequests = async (req, res, next) => {
             .populate('agroChemicalId')
             .populate('cropId')
             .populate('userId');
-            console.log(requests);
         res.status(200).json(requests);
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -69,7 +71,30 @@ exports.updateRequest = async (req, res, next) => {
         if (!request) {
             return res.status(404).json({ message: `Cannot find any request with ID ${req.params.id}` });
         }
-        res.status(200).json({ message: 'Request Updated Successfully', request });
+        const user = await User.findById(request.userId);
+        if (!user) {
+            return res.status(404).json({ message: "User associated with this request not found" });
+        }
+
+        // Email content based on status
+        let subject, message;
+        if (request.status === 'approved') {
+            subject = "Your Request has been Approved!";
+            message = `<p>Hello ${user.userName},</p><p>Good news! Your request for agrochemical has been <strong>approved</strong>.</p><p>Thank you for using our service.</p>`;
+        } else if (request.status === 'rejected') {
+            subject = "Your Request has been Rejected";
+            message = `<p>Hello ${user.userName},</p><p>Unfortunately, your request for agrochemical has been <strong>rejected</strong>.</p><p>Contact support for assistance.</p>`;
+        }
+        console.log(user);
+        console.log(message);
+        // Send email
+        await transport.sendMail({
+            from: `"AgroLink" <${process.env.EMAIL_USER}>`,
+            to: user.email,
+            subject: subject,
+            html: message
+        });
+        res.status(200).json({ message: 'Request Updated Successfully and Email Sent', request });
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

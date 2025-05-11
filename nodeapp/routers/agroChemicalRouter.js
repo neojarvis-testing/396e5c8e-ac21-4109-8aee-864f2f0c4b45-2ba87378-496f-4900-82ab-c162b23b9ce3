@@ -12,7 +12,7 @@ const { validateToken } = require('../authUtils');
 
 const router = express.Router();
 
-router.post('/getAllAgroChemicals',  getAllAgroChemicals);
+router.post('/getAllAgroChemicals', validateToken, getAllAgroChemicals);
 router.get('/getAgroChemicalById/:id',  getAgroChemicalById);
 router.post('/addAgroChemical', upload.single('image'), addAgroChemical);
 router.put('/updateAgroChemical/:id', upload.single('image'), updateAgroChemical);
