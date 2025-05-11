@@ -15,6 +15,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { AuthguardComponent } from './components/authguard/authguard.component';
 import { AuthGuard } from './components/auth.guard';
 import { Auth1Guard } from './auth1.guard';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 
 const routes: Routes = [
 
@@ -22,6 +24,8 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'error-page', component: ErrorPageComponent },
   {path:'page-not-found',component:PageNotFoundComponent},
+  {path:'forgot-password',component:ForgotPasswordComponent},
+  {path:'reset-password/:reset-token',component:ResetPasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   
   { path: 'farmer/home-page', component: HomePageComponent, canActivate:[AuthGuard] },
@@ -36,6 +40,7 @@ const routes: Routes = [
   { path: 'seller/agrochemical-form/:id', component: AgrochemicalFormComponent, canActivate:[Auth1Guard] },
   { path: 'seller/view-requests', component: SellerViewRequestsComponent, canActivate:[Auth1Guard] },
   { path: 'seller/view-agrochemical', component: ViewAgrochemicalComponent, canActivate:[Auth1Guard] },
+
   { path: '**', redirectTo: 'page-not-found' },
 
 ];
