@@ -10,7 +10,6 @@ exports.getAllRequests = async (req, res, next) => {
             .populate('agroChemicalId')
             .populate('cropId')
             .populate('userId');
-            console.log(requests);
         res.status(200).json(requests);
     } catch (error) {
         return res.status(500).json({ message: error.message });

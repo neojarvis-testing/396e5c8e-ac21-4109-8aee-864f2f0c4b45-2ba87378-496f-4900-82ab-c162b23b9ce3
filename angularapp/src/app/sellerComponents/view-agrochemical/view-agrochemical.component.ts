@@ -51,9 +51,9 @@ export class ViewAgrochemicalComponent implements OnInit {
     this.loadAgrochemicals();
   }
 
-  get totalPagesArray(): number[] {
-    return Array(this.totalPages).fill(0).map((_, i) => i + 1);
-  }
+  // get totalPagesArray(): number[] {
+  //   return Array(this.totalPages).fill(0).map((_, i) => i + 1);
+  // }
 
   editAgrochemical(id: string): void {
     this.router.navigate(['/seller/agrochemical-form', id]);

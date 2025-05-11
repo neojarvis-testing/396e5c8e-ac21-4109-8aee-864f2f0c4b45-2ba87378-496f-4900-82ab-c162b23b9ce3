@@ -19,18 +19,22 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   sortOrder: string = '';
   sortBy: string = '';
   agrochemicals: any[] = [];
-  selectedAgrochemical:any=null;
-  requestForm:FormGroup;
-  farmerCrops:any[]=[];
-  selectedCropId:any=null;
-  farmerId:string='';
+  selectedAgrochemical: any = null;
+  requestForm: FormGroup;
+  farmerCrops: any[] = [];
+  selectedCropId: any = null;
+  farmerId: string = '';
+  filteredChemicals: any[] = [];
+  currentPage = 1;
+  itemsPerPage = 5;
+  totalPages = 1;
   constructor(private agrochemicalService: AgrochemicalService, private router: Router,
-    private fb:FormBuilder,
-    private cropService:CropService,
-    private requestService:RequestService) {
+    private fb: FormBuilder,
+    private cropService: CropService,
+    private requestService: RequestService) {
     this.requestForm = fb.group({
-      cropId:['',Validators.required],
-      quantity:[0,[Validators.required, Validators.min(1)]]
+      cropId: ['', Validators.required],
+      quantity: [0, [Validators.required, Validators.min(1)]]
     })
   }
 
@@ -41,11 +45,19 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   loadAgrochemicals() {
     this.agrochemicalService.getAllAgrochemicals(this.page, this.pageSize, this.searchValue, this.sortOrder, this.sortBy).subscribe((res) => {
       this.agrochemicals = res.agrochemicals;
+      this.totalPages = Math.ceil((res.totalCount || this.agrochemicals.length) / this.itemsPerPage);
+      this.filteredChemicals = this.agrochemicals;
     })
   }
 
-  submitRequest(){
-    if(this.requestForm.valid){
+  get paginatedChemicals(): any[] {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.filteredChemicals.slice(start, end);
+  }
+
+  submitRequest() {
+    if (this.requestForm.valid) {
       console.log(this.selectedAgrochemical);
       const agroChemicalId = this.selectedAgrochemical._id;
       const status = 'pending';
@@ -54,7 +66,7 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
         status,
         requestDate,
         agroChemicalId,
-        userId:this.farmerId,
+        userId: this.farmerId,
         ...this.requestForm.value
       }
       this.requestService.addRequest(requestData).subscribe(() => {
@@ -63,7 +75,7 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
     }
   }
 
-  loadFarmerCrops(agro:any){
+  loadFarmerCrops(agro: any) {
     this.selectedAgrochemical = agro;
     this.cropService.getCropsByUserId(this.farmerId).subscribe(response => {
       this.farmerCrops = response;
@@ -73,9 +85,28 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   showImage(imageUrl: string): void {
     this.selectedAgrochemical = imageUrl;
     const chemical$ = this.agrochemicalService.getAgrochemicalById(this.selectedAgrochemical);
-    const file$ =  this.agrochemicalService.getFileByImageId(this.selectedAgrochemical);
-    combineLatest([chemical$,file$]).subscribe(([productResponse,fileResponse]) => {
+    const file$ = this.agrochemicalService.getFileByImageId(this.selectedAgrochemical);
+    combineLatest([chemical$, file$]).subscribe(([productResponse, fileResponse]) => {
       this.selectedAgrochemical = { ...productResponse, image: fileResponse }
     })
+  }
+
+  nextPage():void{
+    if(this.currentPage < this.totalPages){
+      this.currentPage++;
+      this.renderTable();
+    }
+  }
+  renderTable():void{
+    if(this.currentPage > this.totalPages){
+      this.currentPage = this.totalPages;
+    }
+  }
+
+  prevPage():void{
+    if(this.currentPage > 1){
+      this.currentPage--;
+      this.renderTable();
+    }
   }
 }
