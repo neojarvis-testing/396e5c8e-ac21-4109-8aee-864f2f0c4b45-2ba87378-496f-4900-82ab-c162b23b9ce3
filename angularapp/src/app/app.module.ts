@@ -71,6 +71,7 @@ import { AuthInterceptor } from './auth.interceptor';
       multi: true
     }
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
