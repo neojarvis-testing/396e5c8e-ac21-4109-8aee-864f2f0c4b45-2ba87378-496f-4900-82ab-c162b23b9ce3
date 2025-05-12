@@ -6,11 +6,11 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.project.examly.io';
-  private userRole = new BehaviorSubject<string | null>(null);
-  private userId = new BehaviorSubject<string | null>(null);
+  public readonly apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.project.examly.io';
+  private readonly userRole = new BehaviorSubject<string | null>(null);
+  private readonly userId = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
 
   // Registers a new user.
@@ -42,7 +42,7 @@ export class AuthService {
     return this.http.post<void>(`${this.apiUrl}/user/forgot-password`,email);
   }
 
-  resetPassword(newPassword:String,token:String):Observable<void>{
+  resetPassword(newPassword:string,token:string):Observable<void>{
     return this.http.post<void>(`${this.apiUrl}/user/reset-password`,{newPassword,token})
   }
 }

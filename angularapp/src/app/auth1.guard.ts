@@ -6,7 +6,7 @@ import { CanActivate, Router } from '@angular/router';
 })
 export class Auth1Guard implements CanActivate {
 
-  constructor(private router:Router){
+  constructor(private readonly router:Router){
 
   }
 
