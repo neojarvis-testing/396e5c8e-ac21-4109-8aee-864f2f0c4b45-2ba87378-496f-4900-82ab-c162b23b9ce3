@@ -17,8 +17,8 @@ export class CropFormComponent implements OnInit {
 
   constructor(
     private readonly fb: FormBuilder,
-    private cropService: CropService,
-    private route: ActivatedRoute,
+    private readonly cropService: CropService,
+    private readonly route: ActivatedRoute,
     private readonly router: Router
   ) {}
 

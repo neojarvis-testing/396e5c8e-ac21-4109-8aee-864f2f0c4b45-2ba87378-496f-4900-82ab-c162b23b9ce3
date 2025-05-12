@@ -30,8 +30,8 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   totalPages = 1;
   constructor(private agrochemicalService: AgrochemicalService, private readonly router: Router,
     private readonly fb: FormBuilder,
-    private cropService: CropService,
-    private requestService: RequestService) {
+    private readonly cropService: CropService,
+    private readonly requestService: RequestService) {
     this.requestForm = fb.group({
       cropId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]]

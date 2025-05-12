@@ -18,7 +18,7 @@ export class FarmerMyRequestsComponent implements OnInit {
   totalPages = 1;
   filteredRequests:any[] = [];
   userId:string='';
-  constructor(private requestService: RequestService) { }
+  constructor(private readonly requestService: RequestService) { }
 
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('user')).id;
