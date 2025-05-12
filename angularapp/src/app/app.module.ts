@@ -16,7 +16,6 @@ import { SellerNavbarComponent } from './sellerComponents/seller-navbar/seller-n
 import { SellerViewRequestsComponent } from './sellerComponents/seller-view-requests/seller-view-requests.component';
 import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/view-agrochemical.component';
 import { AgrochemicalFormComponent } from './sellerComponents/agrochemical-form/agrochemical-form.component';
-import { AuthguardComponent } from './components/authguard/authguard.component';
 
 import { ToastrModule } from 'ngx-toastr'
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
@@ -45,7 +44,6 @@ import { AuthInterceptor } from './auth.interceptor';
     SellerViewRequestsComponent,
     ViewAgrochemicalComponent,
     AgrochemicalFormComponent,
-    AuthguardComponent,
     LoginComponent,
     SearchPipe,
     RequestSearchPipe,
