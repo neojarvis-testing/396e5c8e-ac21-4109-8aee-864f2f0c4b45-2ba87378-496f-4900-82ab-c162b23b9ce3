@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
-export class ResetPasswordComponent implements OnInit {
+export class ResetPasswordComponent {
 
   resetPasswordForm:FormGroup;
   token:String;
@@ -18,10 +18,6 @@ export class ResetPasswordComponent implements OnInit {
       confirmPassword:['',Validators.required]
     })
     this.token = route.snapshot.params['reset-token'];
-  }
-  
-  ngOnInit(): void {
-    
   }
 
   onSubmit():void{
