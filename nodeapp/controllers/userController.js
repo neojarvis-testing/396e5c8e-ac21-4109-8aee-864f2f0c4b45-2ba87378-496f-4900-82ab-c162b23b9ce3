@@ -15,7 +15,7 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
         let { email, password } = req.body;
         email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
-        const user = await User.findOne({email:mongoose.escape('email'),password});
+        const user = await User.findOne({email,password});
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -57,8 +57,6 @@ exports.forgotPassword = async (req, res, next) => {
         let { email } = req.body;
         email=email.toString();
         const user = await User.findOne({ email: mongoose.escape(email) });
-        //const user = await User.findOne({ email});
-
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
         const payload = {
             id: user._id,
