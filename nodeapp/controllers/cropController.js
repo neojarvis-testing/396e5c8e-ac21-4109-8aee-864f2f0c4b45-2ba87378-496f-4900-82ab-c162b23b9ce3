@@ -55,6 +55,11 @@ exports.getCropsByUserId = async (req, res, next) => {
 exports.addCrop = async (req, res, next) => {
     try {
         const {cropName,cropType,description,plantingDate,userId} = req.body;
+        cropName = cropName.toString();
+        cropType = cropType.toString();
+        description = description.toString();
+        plantingDate = plantingDate.toString();
+        userId = userId.toString();
         await Crop.create({cropName,cropType,description,plantingDate,userId});
         res.status(200).json({ message: 'Crop Added Successfully' });
     } catch (error) {

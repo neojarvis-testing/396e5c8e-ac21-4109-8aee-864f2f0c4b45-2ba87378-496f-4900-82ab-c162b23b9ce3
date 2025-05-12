@@ -70,6 +70,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   } 
 
   showImage(imageUrl: string): void {
+    this.selectedChemical = null;
     this.selectedImage = imageUrl;
     const chemical$ = this.agroService.getAgrochemicalById(this.selectedImage);
     const file$ =  this.agroService.getFileByImageId(this.selectedImage);
