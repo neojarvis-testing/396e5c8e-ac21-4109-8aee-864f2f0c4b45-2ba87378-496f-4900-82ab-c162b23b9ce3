@@ -12,10 +12,10 @@ const mongoose = require('mongoose');
 // Returns 404 if user is not found or credentials are incorrect
 exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
-        let { email, password } = req.body;
+        let { email } = req.body;
         email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
-        const user = await User.findOne({email:sanitizeHtml(email),password});
+        const user = await User.findOne({email:sanitizeHtml(email)});
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -74,7 +74,7 @@ exports.forgotPassword = async (req, res, next) => {
             subject: 'Password Reset Request',
             html: `
         <p>Hello, ${user.userName}</p>
-        <h3>We received a request to reset your password. If you did not request a password reset</h3>
+        <h3>We received a request to reset your password. If you did not request a password reset,please contact us.</h3>
         <p><strong>Important:</strong> This link will expire in 15 minutes for your security.</p>
         <a href="${process.env.CLIENT_URL}/reset-password/${token}" style="
         background-color:blue;
@@ -85,7 +85,7 @@ exports.forgotPassword = async (req, res, next) => {
         border-radius: 4px;        
         ">Reset Password</a>
         <p>If you have any questions or need assistance, feel free to contact our support team</p>
-        <p>Thanks, <br> Shopify Team</p>
+        <p>Thanks, <br> Agrolink Team</p>
         `
         })
         return res.status(200).json({ message: 'Password reset link sent' });
