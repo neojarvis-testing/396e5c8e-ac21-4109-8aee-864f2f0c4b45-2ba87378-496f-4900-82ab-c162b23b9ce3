@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   signupError: string | null = null;
 
 
-  constructor(private readonly fb: FormBuilder, private readonly router: Router, private authService: AuthService) { }
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
@@ -38,7 +38,7 @@ export class SignupComponent implements OnInit {
   }
 
   strongPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
-    const value = control.value || '';
+    const value = control.value;
     const errors: any = {};
 
     if (!/[A-Z]/.test(value)) {
@@ -47,7 +47,7 @@ export class SignupComponent implements OnInit {
     if (!/[a-z]/.test(value)) {
       errors.lowercase = true;
     }
-    if (!/[0-9]/.test(value)) {
+    if (!/\d/.test(value)) {
       errors.number = true;
     }
     if (!/[@$!%*?&]/.test(value)) {

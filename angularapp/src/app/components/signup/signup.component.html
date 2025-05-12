@@ -67,13 +67,14 @@
         </div>
 
         <div class="mb-3">
-          <label class="form-label w-100">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" class="form-control mt-2" formControlName="confirmPassword"
+          <label class="form-label w-100">Confirm Password <span class="text-danger">*</span>
+            <input type="password" class="form-control mt-2" formControlName="confirmPassword"
             placeholder="Confirm Password">
-          <div class="form-text text-danger"
+            <div class="form-text text-danger"
             *ngIf="signupForm.hasError('mismatch') && controls.confirmPassword?.touched">
             Passwords must match
           </div>
+        </label>
 
         </div>
 

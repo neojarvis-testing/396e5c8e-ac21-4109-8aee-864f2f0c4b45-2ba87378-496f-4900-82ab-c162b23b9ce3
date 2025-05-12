@@ -11,8 +11,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ResetPasswordComponent {
 
   resetPasswordForm:FormGroup;
-  token:String;
-  constructor(private readonly fb:FormBuilder,private route:ActivatedRoute,private readonly router:Router,private authService:AuthService) {
+  token:string;
+  constructor(private readonly fb:FormBuilder,private readonly route:ActivatedRoute,private readonly router:Router,private readonly authService:AuthService) {
     this.resetPasswordForm = fb.group({
       newPassword:['',Validators.required],
       confirmPassword:['',Validators.required]
