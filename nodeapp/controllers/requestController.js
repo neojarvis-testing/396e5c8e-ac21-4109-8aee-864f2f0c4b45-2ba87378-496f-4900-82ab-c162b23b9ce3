@@ -55,7 +55,8 @@ exports.getRequestsByUserId = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addRequest = async (req, res, next) => {
     try {
-        await Request.create(req.body);
+        const {agroChemicalId,userId,cropId,quantity,status,requestDate} = req.body;
+        await Request.create({agroChemicalId,userId,cropId,quantity,status,requestDate});
         res.status(201).json({ message: 'Request Added Successfully' });
     } catch (error) {
         return res.status(500).json({ message: error.message });
