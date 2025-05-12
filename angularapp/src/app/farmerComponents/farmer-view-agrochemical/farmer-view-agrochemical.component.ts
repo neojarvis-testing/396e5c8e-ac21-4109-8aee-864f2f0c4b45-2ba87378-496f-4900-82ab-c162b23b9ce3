@@ -40,7 +40,7 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAgrochemicals();
-    this.farmerId = JSON.parse(localStorage.getItem('user')).id || '';
+    this.farmerId = JSON.parse(localStorage.getItem('user')).id ?? '';
   }
   loadAgrochemicals() {
     this.agrochemicalService.getAllAgrochemicals(this.page, this.pageSize, this.searchValue, this.sortOrder, this.sortBy).subscribe((res) => {
