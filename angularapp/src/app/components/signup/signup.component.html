@@ -17,7 +17,7 @@
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="mb-3">
           <label class="form-label w-100">User Name <span class="text-danger">*</span>
-            <input type="text" class="form-control my-2" formControlName="userName" placeholder="UserName">
+            <input type="text" class="form-control mt-2" formControlName="userName" placeholder="UserName">
             <div class="form-text text-danger" *ngIf="controls.userName?.touched && controls.userName?.invalid">
               <!-- User Name is required -->
               {{ controls.userName?.errors?.required ? 'User Name is required' : '' }}
@@ -28,7 +28,7 @@
 
         <div class="mb-3">
           <label class="form-label w-100">Email <span class="text-danger">*</span>
-            <input type="email" class="form-control my-2" formControlName="email" placeholder="Email">
+            <input type="email" class="form-control mt-2" formControlName="email" placeholder="Email">
             <div class="form-text text-danger" *ngIf="controls.email?.touched && controls.email?.invalid">
               {{ controls.email?.errors?.required ? 'Email is required' : '' }}
               {{ controls.email?.errors?.email ? 'Invalid email format' : '' }}
@@ -38,7 +38,7 @@
 
         <div class="mb-3">
           <label class="form-label w-100">Mobile Number <span class="text-danger">*</span>
-            <input type="text" class="form-control my-2" formControlName="mobile" placeholder="Mobile">
+            <input type="text" class="form-control mt-2" formControlName="mobile" placeholder="Mobile">
             <div class="form-text text-danger" *ngIf="controls.mobile?.touched && controls.mobile?.invalid">
               {{ controls.mobile?.errors?.required? 'Mobile number is required' : '' }}
               {{ controls.mobile?.errors?.pattern ? 'Invalid mobile number' : '' }}
@@ -48,7 +48,7 @@
 
         <div class="mb-3">
           <label class="form-label w-100">Password <span class="text-danger">*</span>
-            <input type="password" class="form-control my-2" formControlName="password" placeholder="Password">
+            <input type="password" class="form-control mt-2" formControlName="password" placeholder="Password">
 
             <div class="form-text text-danger" *ngIf="controls.password?.touched && controls.password?.invalid">
               <div *ngIf="controls.password?.errors?.required">Password is required</div>
@@ -68,7 +68,7 @@
 
         <div class="mb-3">
           <label class="form-label w-100">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" class="form-control my-2" formControlName="confirmPassword"
+          <input type="password" class="form-control mt-2" formControlName="confirmPassword"
             placeholder="Confirm Password">
           <div class="form-text text-danger"
             *ngIf="signupForm.hasError('mismatch') && controls.confirmPassword?.touched">
@@ -79,7 +79,7 @@
 
         <div class="mb-3">
           <label class="form-label w-100">Role <span class="text-danger">*</span>
-            <select class="form-select my-2" formControlName="role">
+            <select class="form-select mt-2" formControlName="role">
               <option value="">Select Role</option>
               <option value="farmer">Farmer</option>
               <option value="seller">Seller</option>

@@ -56,6 +56,12 @@ exports.getRequestsByUserId = async (req, res, next) => {
 exports.addRequest = async (req, res, next) => {
     try {
         const {agroChemicalId,userId,cropId,quantity,status,requestDate} = req.body;
+        agroChemicalId = agroChemicalId.toString();
+        userId = userId.toString();
+        cropId = cropId.toString();
+        status = status.toString();
+        quantity = parseInt(quantity);
+        requestDate = requestDate.toString();
         await Request.create({agroChemicalId,userId,cropId,quantity,status,requestDate});
         res.status(201).json({ message: 'Request Added Successfully' });
     } catch (error) {

@@ -13,6 +13,7 @@ const transport = require('../mailTransport');
 exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
         const { email, password } = req.body;
+        email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email, password });
         if (!user) {
@@ -36,6 +37,11 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
 exports.addUser = async (req, res, next) => {
     try {
         const {userName,email,password,role,mobile} = req.body;
+        userName = userName.toString();
+        email = email.toString();
+        password = password.toString();
+        role=role.toString();
+        mobile = mobile.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         await User.create({userName,email,password,role,mobile});
         res.status(200).json({ message: 'Success' });

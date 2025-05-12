@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 
@@ -13,7 +14,12 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
 
-  constructor(private readonly fb: FormBuilder, private authService: AuthService, private readonly router: Router) {
+  constructor(
+    private readonly fb: FormBuilder, 
+    private readonly authService: AuthService, 
+    private readonly router: Router,
+    private toastr: ToastrService
+    ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
@@ -33,6 +39,7 @@ export class LoginComponent {
       this.authService.login(this.loginForm.value).subscribe({
         next: (user) => {          
           localStorage.setItem('user', JSON.stringify(user));
+          this.toastr.success('Login successful!', 'Welcome');
           if (user.role === 'farmer') {
             this.router.navigate(['/farmer/home-page']);
           } else {

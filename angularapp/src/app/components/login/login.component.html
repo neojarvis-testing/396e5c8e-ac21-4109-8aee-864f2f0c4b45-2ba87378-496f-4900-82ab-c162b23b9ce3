@@ -19,7 +19,7 @@
             <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                     <label class="form-label w-100">Email
-                        <input type="email" class="form-control my-2" formControlName="email" placeholder="Enter email">
+                        <input type="email" class="form-control mt-2" formControlName="email" placeholder="Enter email">
                         <div class="form-text text-danger"
                             *ngIf="loginForm.controls.email.touched && loginForm.controls.email.invalid">
                             {{ loginForm.controls.email.errors?.required ? 'Email is required' : '' }}
@@ -30,7 +30,7 @@
 
                 <div class="mb-3">
                     <label class="form-label w-100">Password
-                        <input type="password" class="form-control my-2" formControlName="password"
+                        <input type="password" class="form-control mt-2" formControlName="password"
                             placeholder="Enter password">
                         <div class="form-text text-danger"
                             *ngIf="loginForm.controls.password.touched && loginForm.controls.password.invalid">
