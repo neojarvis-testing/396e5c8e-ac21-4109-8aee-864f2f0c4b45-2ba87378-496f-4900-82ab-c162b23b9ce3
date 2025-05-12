@@ -19,7 +19,7 @@ export class ViewCropComponent implements OnInit {
   itemsPerPage = 5;
   totalPages = 1;
   filteredCrops:any[]=[];
-  constructor(private cropService: CropService) {}
+  constructor(private readonly cropService: CropService) {}
 
   userId: string
 
