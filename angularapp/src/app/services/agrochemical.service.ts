@@ -9,7 +9,7 @@ import {map} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class AgrochemicalService {
-  public apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.project.examly.io';
+  public apiUrl = 'https://8080-eacffadabafebcfebacffbbaaedfbafabcbbce.project.examly.io';
 
   constructor(private http: HttpClient,private sanitizer:DomSanitizer) {}
 

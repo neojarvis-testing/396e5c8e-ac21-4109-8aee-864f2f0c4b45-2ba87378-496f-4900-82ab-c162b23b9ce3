@@ -1,5 +1,5 @@
 <app-farmer-navbar></app-farmer-navbar>
-<div class="container mt-4" style="max-width: 600px;">
+<div class="container mt-4 shadow-lg" style="max-width: 600px;">
   <h2 class="mb-4 text-center">{{ cropId ? 'Update Crop' : 'Add Crop' }}</h2>
 
   <form [formGroup]="cropForm" (submit)="onSubmit()">
