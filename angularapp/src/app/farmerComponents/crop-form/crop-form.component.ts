@@ -23,7 +23,7 @@ export class CropFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const user = JSON.parse(localStorage.getItem('user')) || '';
+    const user = JSON.parse(localStorage.getItem('user')) ?? '';
     const userId = user.id
     this.cropForm = this.fb.group({
       cropName: ['', Validators.required],

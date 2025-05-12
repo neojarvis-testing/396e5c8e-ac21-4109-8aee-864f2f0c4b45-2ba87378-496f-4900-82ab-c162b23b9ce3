@@ -31,7 +31,7 @@ export class ViewCropComponent implements OnInit {
   loadCrops(): void {
     this.cropService.getCropsByUserId(this.user.id).subscribe(response => {
       this.crops = response;
-      this.totalPages = Math.ceil((response.totalCount || this.crops.length) / this.itemsPerPage);
+      this.totalPages = Math.ceil((response.totalCount ?? this.crops.length) / this.itemsPerPage);
       this.filteredCrops = this.crops;
     });
   }
