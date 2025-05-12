@@ -29,7 +29,7 @@ export class FarmerMyRequestsComponent implements OnInit {
     this.requestService.getRequestsByUserId(this.userId).subscribe(
       (data) => {
         this.requests = data;
-        this.totalPages = Math.ceil((data.totalCount || this.requests.length) / this.itemsPerPage);
+        this.totalPages = Math.ceil((this.requests.length) / this.itemsPerPage);
         this.filteredRequests = this.requests;
       },
       (error) => {

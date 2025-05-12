@@ -21,7 +21,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   sortField = 'name';
   showImageModal = false;
   showDeleteModal = false;
-  selectedChemical: any | null = null; 
+  selectedChemical: any; 
   farmerId:string='';
   filteredChemicals:any[]=[];
   constructor(private agroService: AgrochemicalService, private readonly router: Router) {}
@@ -34,7 +34,7 @@ export class ViewAgrochemicalComponent implements OnInit {
     this.agroService.getAllAgrochemicals(this.currentPage, this.itemsPerPage, this.searchTerm, this.sortOrder, this.sortField)
       .subscribe(response => {
         this.agrochemicals = response.agrochemicals;
-        this.totalPages = Math.ceil((response.totalCount || this.agrochemicals.length) / this.itemsPerPage);
+        this.totalPages = Math.ceil(( this.agrochemicals.length) / this.itemsPerPage);
         this.filteredChemicals = this.agrochemicals;
       });
   }
