@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CropService {
-  private baseUrl = 'https://8080-abbbcdadcaababdaebacffbbaaedfbafabcbbce.project.examly.io/crop';
+  private readonly baseUrl = 'https://8080-abbbcdadcaababdaebacffbbaaedfbafabcbbce.project.examly.io/crop';
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   /**
  * Retrieves crop details using the given crop ID.

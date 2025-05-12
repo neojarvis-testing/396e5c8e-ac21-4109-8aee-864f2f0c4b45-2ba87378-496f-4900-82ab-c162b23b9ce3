@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { getAuthHeaders } from './base.service';
 import {DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import {map} from 'rxjs/operators'
 
@@ -9,9 +8,9 @@ import {map} from 'rxjs/operators'
   providedIn: 'root'
 })
 export class AgrochemicalService {
-  public apiUrl = 'https://8080-abbbcdadcaababdaebacffbbaaedfbafabcbbce.project.examly.io';
+  public readonly apiUrl = 'https://8080-abbbcdadcaababdaebacffbbaaedfbafabcbbce.project.examly.io';
 
-  constructor(private http: HttpClient,private sanitizer:DomSanitizer) {}
+  constructor(private readonly http: HttpClient,private readonly sanitizer:DomSanitizer) {}
 
   
 // Fetches all agrochemicals with pagination, search, and sorting.

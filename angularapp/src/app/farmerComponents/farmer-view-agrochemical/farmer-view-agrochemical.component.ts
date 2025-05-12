@@ -28,10 +28,10 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
   totalPages = 1;
-  constructor(private agrochemicalService: AgrochemicalService, private router: Router,
-    private fb: FormBuilder,
-    private cropService: CropService,
-    private requestService: RequestService) {
+  constructor(private readonly agrochemicalService: AgrochemicalService, private readonly router: Router,
+    private readonly fb: FormBuilder,
+    private readonly cropService: CropService,
+    private readonly requestService: RequestService) {
     this.requestForm = fb.group({
       cropId: ['', Validators.required],
       quantity: [0, [Validators.required, Validators.min(1)]]
@@ -40,12 +40,12 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadAgrochemicals();
-    this.farmerId = JSON.parse(localStorage.getItem('user')).id || '';
+    this.farmerId = JSON.parse(localStorage.getItem('user')).id ?? '';
   }
   loadAgrochemicals() {
     this.agrochemicalService.getAllAgrochemicals(this.page, this.pageSize, this.searchValue, this.sortOrder, this.sortBy).subscribe((res) => {
       this.agrochemicals = res.agrochemicals;
-      this.totalPages = Math.ceil((res.totalCount || this.agrochemicals.length) / this.itemsPerPage);
+      this.totalPages = Math.ceil((this.agrochemicals.length) / this.itemsPerPage);
       this.filteredChemicals = this.agrochemicals;
     })
   }

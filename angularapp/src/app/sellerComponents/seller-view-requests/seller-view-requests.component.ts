@@ -17,7 +17,7 @@ export class SellerViewRequestsComponent implements OnInit {
   itemsPerPage = 5;
   totalPages = 1;
 
-  constructor(private requestService: RequestService) {}
+  constructor(private readonly requestService: RequestService) {}
 
   ngOnInit(): void {
     this.loadRequests();

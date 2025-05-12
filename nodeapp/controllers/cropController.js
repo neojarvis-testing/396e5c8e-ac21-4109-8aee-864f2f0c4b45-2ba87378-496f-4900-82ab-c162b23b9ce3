@@ -5,7 +5,6 @@ const Crop = require('../models/cropModel');
 // Supports search, sorting, and pagination via query parameters
 // Returns a list of crops and the total count
 exports.getAllCrops = async (req, res, next) => {
-    console.log("Jeee")
     const { search, sort, page = 1, limit = 10 } = req.query;
     const searchQuery = search ? { cropName: { $regex: search, $options: 'i' } } : {};
     const sortQuery = sort ? { [sort]: 1 } : {};
@@ -42,7 +41,6 @@ exports.getCropById = async (req, res, next) => {
 // Returns a list of crops belonging to the user
 exports.getCropsByUserId = async (req, res, next) => {
     try {
-        console.log("inside getCropsByUserId");
         const crops = await Crop.find({ userId: req.params.userId });
         console.log(crops);
         res.status(200).json(crops);
@@ -56,7 +54,13 @@ exports.getCropsByUserId = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addCrop = async (req, res, next) => {
     try {
-        await Crop.create(req.body);
+        let {cropName,cropType,description,plantingDate,userId} = req.body;
+        cropName = cropName.toString();
+        cropType = cropType.toString();
+        description = description.toString();
+        plantingDate = plantingDate.toString();
+        userId = userId.toString();
+        await Crop.create({cropName,cropType,description,plantingDate,userId});
         res.status(200).json({ message: 'Crop Added Successfully' });
     } catch (error) {
         return res.status(500).json({ message: error.message });

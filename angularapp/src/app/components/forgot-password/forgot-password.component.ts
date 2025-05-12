@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -8,19 +8,16 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent{
 
   forgotPasswordForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router:Router,private authService:AuthService) {
+  constructor(private readonly fb: FormBuilder,private readonly router:Router,private readonly authService:AuthService) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });
   }
 
-
-  ngOnInit(): void {
-  }
 
   onSubmit() {
     if (this.forgotPasswordForm.valid) {

@@ -3,6 +3,8 @@ const AgroChemical = require('../models/agroChemicalModel');
 const mongoose = require('mongoose');
 const path = require('path')
 const fs = require('fs');
+
+
 // Controller to fetch all agrochemicals from the database
 // Supports search, sorting, and pagination via query parameters
 // Returns a list of agrochemicals and the total count
@@ -89,7 +91,6 @@ exports.updateAgroChemical = async (req, res, next) => {
 // Returns a success or not-found message accordingly
 exports.deleteAgroChemical = async (req, res, next) => {
     try {
-        console.log(req);
         const agrochemical = await AgroChemical.findByIdAndDelete(req.params.id);
         if (!agrochemical) {
             return res.status(404).json({ message: `Cannot find any agrochemical with ID ${req.params.id}` });
@@ -104,7 +105,6 @@ exports.deleteAgroChemical = async (req, res, next) => {
 exports.getFileByChemicalId = async (req,res,next) => {
     try {
         const {id} = req.params;
-        console.log(id);
         if (!mongoose.Types.ObjectId.isValid(req.params?.id)) throw createError(`Agrochemical Id ${req.params?.id} is invalid`);
         const chemical = await AgroChemical.findById(id);
         if (!chemical) return res.status(404).json({message:"Image not found"});

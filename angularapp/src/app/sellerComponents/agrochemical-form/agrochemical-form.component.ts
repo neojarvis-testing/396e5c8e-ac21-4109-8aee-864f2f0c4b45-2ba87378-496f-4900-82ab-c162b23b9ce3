@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -16,10 +15,10 @@ export class AgrochemicalFormComponent implements OnInit {
   existingImage: any;
 
   constructor(
-    private fb: FormBuilder,
-    private agroChemicalService: AgrochemicalService,
-    private router: Router,
-    private route: ActivatedRoute
+    private readonly fb: FormBuilder,
+    private readonly agroChemicalService: AgrochemicalService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute
   ) {
     this.agroForm = this.fb.group({
       name: ['', Validators.required],

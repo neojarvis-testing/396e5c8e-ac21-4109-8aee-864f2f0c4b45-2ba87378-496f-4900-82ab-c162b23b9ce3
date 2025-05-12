@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-farmer-my-requests',
@@ -18,7 +17,7 @@ export class FarmerMyRequestsComponent implements OnInit {
   totalPages = 1;
   filteredRequests:any[] = [];
   userId:string='';
-  constructor(private requestService: RequestService) { }
+  constructor(private readonly requestService: RequestService) { }
 
   ngOnInit(): void {
     this.userId = JSON.parse(localStorage.getItem('user')).id;
@@ -29,7 +28,7 @@ export class FarmerMyRequestsComponent implements OnInit {
     this.requestService.getRequestsByUserId(this.userId).subscribe(
       (data) => {
         this.requests = data;
-        this.totalPages = Math.ceil((data.totalCount || this.requests.length) / this.itemsPerPage);
+        this.totalPages = Math.ceil((this.requests.length) / this.itemsPerPage);
         this.filteredRequests = this.requests;
       },
       (error) => {
@@ -44,27 +43,12 @@ export class FarmerMyRequestsComponent implements OnInit {
     return this.filteredRequests.slice(start,end);
   }
 
-  // editRequest(request: any): void {
-  //   // Implement your edit logic here
-  //   console.log('Edit request:', request);
-  //   // You can navigate to an edit form or open a modal for editing
-  // }
-
-  openDeleteModal(requestId: string): void {
-    this.requestIdToDelete = requestId;
-    const deleteModal = new Modal(document.getElementById('deleteModal')!);
-    deleteModal.show();
-  }
-
   confirmDelete(): void {
     if (this.requestIdToDelete) {
       this.requestService.deleteRequest(this.requestIdToDelete).subscribe(
         () => {
           this.requests = this.requests.filter(request => request._id !== this.requestIdToDelete);
-          console.log('Request deleted successfully');
           this.requestIdToDelete = null;
-          const deleteModal = Modal.getInstance(document.getElementById('deleteModal')!);
-          deleteModal.hide();
         },
         (error) => {
           console.error('Error deleting request', error);
