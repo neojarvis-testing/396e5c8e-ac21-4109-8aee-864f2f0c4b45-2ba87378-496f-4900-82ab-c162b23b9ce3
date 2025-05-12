@@ -56,6 +56,7 @@ exports.addUser = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
+        email=email.toString();
         const user = await User.findOne({ email: mongoose.escape(email) });
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
         const payload = {
