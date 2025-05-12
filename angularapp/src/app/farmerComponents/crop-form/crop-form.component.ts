@@ -19,7 +19,7 @@ export class CropFormComponent implements OnInit {
     private fb: FormBuilder,
     private cropService: CropService,
     private route: ActivatedRoute,
-    private router: Router
+    private readonly router: Router
   ) {}
 
   ngOnInit() {

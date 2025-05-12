@@ -24,7 +24,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   selectedChemical: any | null = null; 
   farmerId:string='';
   filteredChemicals:any[]=[];
-  constructor(private agroService: AgrochemicalService, private router: Router) {}
+  constructor(private agroService: AgrochemicalService, private readonly router: Router) {}
 
   ngOnInit(): void {
     this.loadAgrochemicals();

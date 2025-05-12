@@ -12,7 +12,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   forgotPasswordForm: FormGroup;
 
-  constructor(private fb: FormBuilder,private router:Router,private authService:AuthService) {
+  constructor(private fb: FormBuilder,private readonly router:Router,private authService:AuthService) {
     this.forgotPasswordForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]]
     });

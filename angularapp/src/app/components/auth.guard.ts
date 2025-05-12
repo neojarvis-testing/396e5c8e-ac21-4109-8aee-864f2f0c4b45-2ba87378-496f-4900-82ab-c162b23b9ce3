@@ -6,7 +6,7 @@ import { CanActivate, Router } from '@angular/router';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router:Router){
+  constructor(private readonly router:Router){
 
   }
 
@@ -16,7 +16,7 @@ export class AuthGuard implements CanActivate {
       if(user?.role === 'farmer')
       return true; // Allow navigation
       else{
-        this.router.navigate(['/home-page'])
+        this.router.navigate(['/farmer/home-page'])
         return false;
       }
     } else {

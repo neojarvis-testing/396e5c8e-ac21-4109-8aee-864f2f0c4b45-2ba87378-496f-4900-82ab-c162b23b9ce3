@@ -28,7 +28,7 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   currentPage = 1;
   itemsPerPage = 5;
   totalPages = 1;
-  constructor(private agrochemicalService: AgrochemicalService, private router: Router,
+  constructor(private agrochemicalService: AgrochemicalService, private readonly router: Router,
     private fb: FormBuilder,
     private cropService: CropService,
     private requestService: RequestService) {

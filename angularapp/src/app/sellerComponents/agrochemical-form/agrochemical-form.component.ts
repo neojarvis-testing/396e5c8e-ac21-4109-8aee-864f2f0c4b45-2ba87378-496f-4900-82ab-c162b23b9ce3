@@ -18,7 +18,7 @@ export class AgrochemicalFormComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private agroChemicalService: AgrochemicalService,
-    private router: Router,
+    private readonly router: Router,
     private route: ActivatedRoute
   ) {
     this.agroForm = this.fb.group({

@@ -12,7 +12,7 @@ export class ResetPasswordComponent implements OnInit {
 
   resetPasswordForm:FormGroup;
   token:String;
-  constructor(private fb:FormBuilder,private route:ActivatedRoute,private router:Router,private authService:AuthService) {
+  constructor(private fb:FormBuilder,private route:ActivatedRoute,private readonly router:Router,private authService:AuthService) {
     this.resetPasswordForm = fb.group({
       newPassword:['',Validators.required],
       confirmPassword:['',Validators.required]
