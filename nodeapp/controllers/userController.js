@@ -1,7 +1,8 @@
-const createError = require('http-errors');
+require('dotenv').config();
 const User = require('../models/userModel');
 const { generateToken, resetToken } = require('../authUtils');
-require('dotenv').config();
+const createError = require('http-errors');
+const validator = require('validator');
 
 const transport = require('../mailTransport');
 
@@ -45,6 +46,7 @@ exports.addUser = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email });
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
         const payload = {
