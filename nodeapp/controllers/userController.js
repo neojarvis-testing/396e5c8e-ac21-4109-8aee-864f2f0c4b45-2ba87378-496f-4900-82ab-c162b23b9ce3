@@ -5,7 +5,7 @@ const createError = require('http-errors');
 const validator = require('validator');
 const sanitizeHtml = require('sanitize-html');
 const transport = require('../mailTransport');
-
+const mongoose = require('mongoose');
 
 // Controller to authenticate a user using email and password
 // If valid, returns user details along with a generated token
@@ -14,7 +14,8 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
         let { email, password } = req.body;
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
-        const user = await User.findOne({ email: sanitizeHtml(email), password: sanitizeHtml(password) });
+        //const user = await User.findOne({ email: sanitizeHtml(email), password: sanitizeHtml(password) });
+        const user = await User.findOne({email:mongoose.escape('email'),password});
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -56,6 +57,8 @@ exports.forgotPassword = async (req, res, next) => {
         let { email } = req.body;
         email=email.toString();
         const user = await User.findOne({ email: mongoose.escape(email) });
+        //const user = await User.findOne({ email});
+
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
         const payload = {
             id: user._id,
