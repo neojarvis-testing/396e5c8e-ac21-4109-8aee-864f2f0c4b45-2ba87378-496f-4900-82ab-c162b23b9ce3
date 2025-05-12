@@ -34,7 +34,9 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addUser = async (req, res, next) => {
     try {
-        await User.create(req.body);
+        const {userName,email,password,role,mobile} = req.body;
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
+        await User.create({userName,email,password,role,mobile});
         res.status(200).json({ message: 'Success' });
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -89,7 +91,7 @@ exports.forgotPassword = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
     try {
         const {newPassword,token} = req.body;
-        const user = await User.findOne({ resetToken: token });
+        const user = await User.findOne({ resetToken: token.toString() });
         if (!user) throw createError(400, 'Invalid token');
         if (Date.now() > user.resetTokenExpiry) throw createError(400, 'Token expired');
         user.password = newPassword;
