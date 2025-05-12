@@ -11,8 +11,9 @@ const transport = require('../mailTransport');
 // If valid, returns user details along with a generated token
 // Returns 404 if user is not found or credentials are incorrect
 exports.getUserByEmailAndPassword = async (req, res, next) => {
-    const { email, password } = req.body;
     try {
+        const { email, password } = req.body;
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email, password });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
