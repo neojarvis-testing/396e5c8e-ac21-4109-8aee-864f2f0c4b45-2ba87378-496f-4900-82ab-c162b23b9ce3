@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +18,7 @@ export class AgrochemicalFormComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly agroChemicalService: AgrochemicalService,
     private readonly router: Router,
-    private route: ActivatedRoute
+    private readonly route: ActivatedRoute
   ) {
     this.agroForm = this.fb.group({
       name: ['', Validators.required],

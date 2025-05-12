@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from 'src/app/services/request.service';
-import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-farmer-my-requests',
@@ -44,21 +43,12 @@ export class FarmerMyRequestsComponent implements OnInit {
     return this.filteredRequests.slice(start,end);
   }
 
-  openDeleteModal(requestId: string): void {
-    this.requestIdToDelete = requestId;
-    const deleteModal = new Modal(document.getElementById('deleteModal')!);
-    deleteModal.show();
-  }
-
   confirmDelete(): void {
     if (this.requestIdToDelete) {
       this.requestService.deleteRequest(this.requestIdToDelete).subscribe(
         () => {
           this.requests = this.requests.filter(request => request._id !== this.requestIdToDelete);
-          console.log('Request deleted successfully');
           this.requestIdToDelete = null;
-          const deleteModal = Modal.getInstance(document.getElementById('deleteModal')!);
-          deleteModal.hide();
         },
         (error) => {
           console.error('Error deleting request', error);
