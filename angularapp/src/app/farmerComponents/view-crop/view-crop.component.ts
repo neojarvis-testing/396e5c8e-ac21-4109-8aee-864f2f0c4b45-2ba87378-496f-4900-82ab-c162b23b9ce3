@@ -19,7 +19,7 @@ export class ViewCropComponent implements OnInit {
   itemsPerPage = 5;
   totalPages = 1;
   filteredCrops:any[]=[];
-  constructor(private cropService: CropService) {}
+  constructor(private readonly cropService: CropService) {}
 
   userId: string
 
@@ -31,7 +31,7 @@ export class ViewCropComponent implements OnInit {
   loadCrops(): void {
     this.cropService.getCropsByUserId(this.user.id).subscribe(response => {
       this.crops = response;
-      this.totalPages = Math.ceil((response.totalCount || this.crops.length) / this.itemsPerPage);
+      this.totalPages = Math.ceil((response.totalCount ?? this.crops.length) / this.itemsPerPage);
       this.filteredCrops = this.crops;
     });
   }

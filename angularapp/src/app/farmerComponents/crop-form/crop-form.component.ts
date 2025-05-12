@@ -16,15 +16,14 @@ export class CropFormComponent implements OnInit {
   errors: any = {};
 
   constructor(
-    private fb: FormBuilder,
-    private cropService: CropService,
-    private route: ActivatedRoute,
-    private router: Router
+    private readonly fb: FormBuilder,
+    private readonly cropService: CropService,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
-    const user = JSON.parse(localStorage.getItem('user')) || '';
-    console.log(user);
+    const user = JSON.parse(localStorage.getItem('user')) ?? '';
     const userId = user.id
     this.cropForm = this.fb.group({
       cropName: ['', Validators.required],

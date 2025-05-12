@@ -66,18 +66,22 @@
         <div class="modal-body">
           <form [formGroup]="requestForm" (ngSubmit)="submitRequest()">
             <div class="form-group">
-              <label>Crop</label>
-              <select class="form-control" formControlName="cropId" required>
-                <option value="">Select Crop</option>
-                <option *ngFor="let crop of farmerCrops" [value]="crop._id">
-                  {{ crop.cropName }} ({{ crop.cropType }})
-                </option>
-              </select>
+              <label class="form-label w-100">
+                Crop
+                <select class="form-select m-3" formControlName="cropId" required>
+                  <option value="">Select Crop</option>
+                  <option *ngFor="let crop of farmerCrops" [value]="crop._id">
+                    {{ crop.cropName }} ({{ crop.cropType }})
+                  </option>
+                </select>
+              </label>
             </div>
 
             <div class="form-group">
-              <label>Quantity</label>
-              <input type="number" class="form-control" formControlName="quantity" name="quantity" required>
+              <label class="form-label w-100">
+                Quantity
+                <input type="number" class="form-control m-3" formControlName="quantity" name="quantity" required>
+              </label>
             </div>
 
             <div class="modal-footer">
@@ -101,7 +105,7 @@
         </div>
         <div class="modal-body">
           <div class="modal-content text-center p-3 d-flex justify-content-center align-items-center">
-            <img [src]="selectedAgrochemical?.image" class="img-fluid" style="width: 150px;height: 200px;" />
+            <img [src]="selectedAgrochemical?.image" alt="chemical" class="img-fluid" style="width: 150px;height: 200px;" />
             <div>
               <p><strong>Name</strong> {{selectedAgrochemical?.name}}</p>
               <p><strong>Description</strong> {{selectedAgrochemical?.description}}</p>
@@ -114,3 +118,5 @@
         </div>
       </div>
     </div>
+  </div>
+</div>

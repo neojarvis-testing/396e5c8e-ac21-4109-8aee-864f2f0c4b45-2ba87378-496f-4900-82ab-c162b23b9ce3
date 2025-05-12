@@ -55,7 +55,14 @@ exports.getRequestsByUserId = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addRequest = async (req, res, next) => {
     try {
-        await Request.create(req.body);
+        let {agroChemicalId,userId,cropId,quantity,status,requestDate} = req.body;
+        agroChemicalId = agroChemicalId.toString();
+        userId = userId.toString();
+        cropId = cropId.toString();
+        status = status.toString();
+        quantity = parseInt(quantity);
+        requestDate = requestDate.toString();
+        await Request.create({agroChemicalId,userId,cropId,quantity,status,requestDate});
         res.status(201).json({ message: 'Request Added Successfully' });
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -85,8 +92,6 @@ exports.updateRequest = async (req, res, next) => {
             subject = "Your Request has been Rejected";
             message = `<p>Hello ${user.userName},</p><p>Unfortunately, your request for agrochemical has been <strong>rejected</strong>.</p><p>Contact support for assistance.</p>`;
         }
-        console.log(user);
-        console.log(message);
         // Send email
         await transport.sendMail({
             from: `"AgroLink" <${process.env.EMAIL_USER}>`,

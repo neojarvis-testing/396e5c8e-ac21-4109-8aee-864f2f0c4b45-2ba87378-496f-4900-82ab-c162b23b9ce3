@@ -2,13 +2,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { getAuthHeaders } from './base.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RequestService {
-  public apiUrl = 'https://8080-bcebabfceebacffbbaaedfbafabcbbce.project.examly.io';
+  public readonly apiUrl = 'https://8080-bcebabfceebacffbbaaedfbafabcbbce.project.examly.io';
   constructor(private http: HttpClient) { }
 
   // Retrieves all requests associated with a specific user ID.

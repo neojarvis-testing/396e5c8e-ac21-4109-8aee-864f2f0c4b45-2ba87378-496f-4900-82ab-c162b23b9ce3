@@ -18,7 +18,7 @@ exports.validateToken = (req, res, next) => {
         req.userId = decoded.userId;
         next();
     } catch (error) {
-        return res.status(400).json({ message: 'Authentication failed' });
+        return res.status(400).json({ message: error.message });
     }
 };
 

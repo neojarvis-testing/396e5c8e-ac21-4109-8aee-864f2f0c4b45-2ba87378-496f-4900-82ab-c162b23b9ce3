@@ -21,10 +21,10 @@ export class ViewAgrochemicalComponent implements OnInit {
   sortField = 'name';
   showImageModal = false;
   showDeleteModal = false;
-  selectedChemical: any | null = null; 
+  selectedChemical: any; 
   farmerId:string='';
   filteredChemicals:any[]=[];
-  constructor(private agroService: AgrochemicalService, private router: Router) {}
+  constructor(private readonly agroService: AgrochemicalService, private readonly router: Router) {}
 
   ngOnInit(): void {
     this.loadAgrochemicals();
@@ -34,7 +34,7 @@ export class ViewAgrochemicalComponent implements OnInit {
     this.agroService.getAllAgrochemicals(this.currentPage, this.itemsPerPage, this.searchTerm, this.sortOrder, this.sortField)
       .subscribe(response => {
         this.agrochemicals = response.agrochemicals;
-        this.totalPages = Math.ceil((response.totalCount || this.agrochemicals.length) / this.itemsPerPage);
+        this.totalPages = Math.ceil(( this.agrochemicals.length) / this.itemsPerPage);
         this.filteredChemicals = this.agrochemicals;
       });
   }
@@ -70,6 +70,7 @@ export class ViewAgrochemicalComponent implements OnInit {
   } 
 
   showImage(imageUrl: string): void {
+    this.selectedChemical = null;
     this.selectedImage = imageUrl;
     const chemical$ = this.agroService.getAgrochemicalById(this.selectedImage);
     const file$ =  this.agroService.getFileByImageId(this.selectedImage);

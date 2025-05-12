@@ -13,9 +13,9 @@ const { validateToken } = require('../authUtils');
 const router = express.Router();
 
 router.post('/getAllAgroChemicals', validateToken, getAllAgroChemicals);
-router.get('/getAgroChemicalById/:id',  getAgroChemicalById);
-router.post('/addAgroChemical', upload.single('image'), addAgroChemical);
-router.put('/updateAgroChemical/:id', upload.single('image'), updateAgroChemical);
-router.delete('/deleteAgroChemical/:id',  deleteAgroChemical);
-router.get('/:id/file',getFileByChemicalId);
+router.get('/getAgroChemicalById/:id', validateToken,  getAgroChemicalById);
+router.post('/addAgroChemical', validateToken, upload.single('image'), addAgroChemical);
+router.put('/updateAgroChemical/:id',validateToken,  upload.single('image'), updateAgroChemical);
+router.delete('/deleteAgroChemical/:id', validateToken,  deleteAgroChemical);
+router.get('/:id/file',validateToken, getFileByChemicalId);
 module.exports = router;
