@@ -16,7 +16,7 @@ export class CropFormComponent implements OnInit {
   errors: any = {};
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private cropService: CropService,
     private route: ActivatedRoute,
     private readonly router: Router

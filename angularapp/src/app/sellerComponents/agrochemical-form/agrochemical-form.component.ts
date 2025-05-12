@@ -16,7 +16,7 @@ export class AgrochemicalFormComponent implements OnInit {
   existingImage: any;
 
   constructor(
-    private fb: FormBuilder,
+    private readonly fb: FormBuilder,
     private agroChemicalService: AgrochemicalService,
     private readonly router: Router,
     private route: ActivatedRoute
