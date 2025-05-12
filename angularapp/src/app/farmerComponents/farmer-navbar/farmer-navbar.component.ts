@@ -8,9 +8,11 @@ import { Router } from '@angular/router';
 })
 export class FarmerNavbarComponent implements OnInit {
 
+  user:any=null;
   constructor(private router: Router) { }
 
   ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem('user'));
   }
 
   logout(): void {
