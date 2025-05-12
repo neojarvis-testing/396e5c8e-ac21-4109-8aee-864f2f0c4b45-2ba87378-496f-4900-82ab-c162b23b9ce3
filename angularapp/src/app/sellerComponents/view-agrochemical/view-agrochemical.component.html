@@ -10,8 +10,8 @@
     <thead>
       <tr>
         <th>S.No.</th>
-        <th (click)="sortByField('name')">Name</th>
-        <th (click)="sortByField('description')">Description</th>
+        <th>Name</th>
+        <th>Description</th>
         <th>Brand</th>
         <th>Category</th>
         <th>Unit</th>
@@ -55,7 +55,7 @@
   <div class="modal fade" id="imageModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content text-center p-3 d-flex justify-content-center align-items-center">
-        <img [src]="selectedChemical?.image" class="img-fluid" style="width: 150px;height: 200px;" />
+        <img [src]="selectedChemical?.image" alt="chemical" class="img-fluid" style="width: 150px;height: 200px;" />
         <div>
           <p><strong>Name</strong> {{selectedChemical?.name}}</p>
           <p><strong>Description</strong> {{selectedChemical?.description}}</p>

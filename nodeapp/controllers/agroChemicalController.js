@@ -89,7 +89,6 @@ exports.updateAgroChemical = async (req, res, next) => {
 // Returns a success or not-found message accordingly
 exports.deleteAgroChemical = async (req, res, next) => {
     try {
-        console.log(req);
         const agrochemical = await AgroChemical.findByIdAndDelete(req.params.id);
         if (!agrochemical) {
             return res.status(404).json({ message: `Cannot find any agrochemical with ID ${req.params.id}` });

@@ -86,8 +86,6 @@ exports.updateRequest = async (req, res, next) => {
             subject = "Your Request has been Rejected";
             message = `<p>Hello ${user.userName},</p><p>Unfortunately, your request for agrochemical has been <strong>rejected</strong>.</p><p>Contact support for assistance.</p>`;
         }
-        console.log(user);
-        console.log(message);
         // Send email
         await transport.sendMail({
             from: `"AgroLink" <${process.env.EMAIL_USER}>`,

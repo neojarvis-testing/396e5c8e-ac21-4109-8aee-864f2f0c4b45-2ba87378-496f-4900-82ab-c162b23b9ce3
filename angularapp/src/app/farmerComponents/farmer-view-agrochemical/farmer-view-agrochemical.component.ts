@@ -45,7 +45,7 @@ export class FarmerViewAgrochemicalComponent implements OnInit {
   loadAgrochemicals() {
     this.agrochemicalService.getAllAgrochemicals(this.page, this.pageSize, this.searchValue, this.sortOrder, this.sortBy).subscribe((res) => {
       this.agrochemicals = res.agrochemicals;
-      this.totalPages = Math.ceil((res.totalCount || this.agrochemicals.length) / this.itemsPerPage);
+      this.totalPages = Math.ceil((this.agrochemicals.length) / this.itemsPerPage);
       this.filteredChemicals = this.agrochemicals;
     })
   }
