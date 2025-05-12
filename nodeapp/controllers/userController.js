@@ -13,7 +13,6 @@ const transport = require('../mailTransport');
 exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
         let { email, password } = req.body;
-        email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email: sanitizeHtml(email), password: sanitizeHtml(password) });
         if (!user) {
