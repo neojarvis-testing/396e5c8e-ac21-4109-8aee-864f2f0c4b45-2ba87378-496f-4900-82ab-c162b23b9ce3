@@ -5,38 +5,42 @@
   <form [formGroup]="cropForm" (submit)="onSubmit()">
     <!-- Crop Name -->
     <div class="mb-3">
-      <label class="form-label">Crop Name <span class="text-danger">*</span></label>
-      <input type="text" class="form-control" formControlName="cropName">
-      <div *ngIf="cropForm.controls['cropName'].touched && cropForm.controls['cropName'].errors" class="text-danger">
-        <div *ngIf="cropForm.controls['cropName'].errors['required']">Crop Name is required</div>
+      <label class="form-label w-100">Crop Name <span class="text-danger">*</span>
+        <input type="text" class="form-control my-2" formControlName="cropName">
+        <div *ngIf="cropForm.controls['cropName'].touched && cropForm.controls['cropName'].errors" class="text-danger">
+          <div *ngIf="cropForm.controls['cropName'].errors['required']">Crop Name is required</div>
+        </div>
+      </label>
       </div>
+
+    <div class="mb-3">
+      <label class="form-label w-100">Crop Type <span class="text-danger">*</span>
+        <select class="form-select my-2" formControlName="cropType">
+          <option value="">Select Crop Type</option>
+          <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
+        </select>
+        <div *ngIf="cropForm.controls['cropType'].touched && cropForm.controls['cropType'].invalid" class="text-danger">
+          Crop Type is required
+        </div>
+      </label>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Crop Type <span class="text-danger">*</span></label>
-      <select class="form-select" formControlName="cropType">
-        <option value="">Select Crop Type</option>
-        <option *ngFor="let type of cropTypes" [value]="type">{{ type }}</option>
-      </select>
-      <div *ngIf="cropForm.controls['cropType'].touched && cropForm.controls['cropType'].invalid" class="text-danger">
-        Crop Type is required
-      </div>
+      <label class="form-label w-100">Description <span class="text-danger">*</span>
+        <textarea class="form-control my-2" formControlName="description"></textarea>
+        <div *ngIf="cropForm.controls['description'].touched && cropForm.controls['description'].errors" class="text-danger">
+          <div *ngIf="cropForm.controls['description'].errors['required']">Description is required</div>
+        </div>
+      </label>
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Description <span class="text-danger">*</span></label>
-      <textarea class="form-control" formControlName="description"></textarea>
-      <div *ngIf="cropForm.controls['description'].touched && cropForm.controls['description'].errors" class="text-danger">
-        <div *ngIf="cropForm.controls['description'].errors['required']">Description is required</div>
-      </div>
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label">Planting Date <span class="text-danger">*</span></label>
-      <input type="date" class="form-control" formControlName="plantingDate" [min]="today">
-      <div *ngIf="cropForm.controls['plantingDate'].touched && cropForm.controls['plantingDate'].invalid" class="text-danger">
-        Planting Date is required
-      </div>
+      <label class="form-label w-100">Planting Date <span class="text-danger">*</span>
+        <input type="date" class="form-control my-2" formControlName="plantingDate" [min]="today">
+        <div *ngIf="cropForm.controls['plantingDate'].touched && cropForm.controls['plantingDate'].invalid" class="text-danger">
+          Planting Date is required
+        </div>
+      </label>
     </div>
 
     <button type="submit" class="btn btn-primary w-100">

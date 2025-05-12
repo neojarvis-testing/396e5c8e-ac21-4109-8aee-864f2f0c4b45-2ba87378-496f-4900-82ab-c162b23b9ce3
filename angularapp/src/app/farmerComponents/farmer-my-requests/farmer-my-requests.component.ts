@@ -44,12 +44,6 @@ export class FarmerMyRequestsComponent implements OnInit {
     return this.filteredRequests.slice(start,end);
   }
 
-  // editRequest(request: any): void {
-  //   // Implement your edit logic here
-  //   console.log('Edit request:', request);
-  //   // You can navigate to an edit form or open a modal for editing
-  // }
-
   openDeleteModal(requestId: string): void {
     this.requestIdToDelete = requestId;
     const deleteModal = new Modal(document.getElementById('deleteModal')!);

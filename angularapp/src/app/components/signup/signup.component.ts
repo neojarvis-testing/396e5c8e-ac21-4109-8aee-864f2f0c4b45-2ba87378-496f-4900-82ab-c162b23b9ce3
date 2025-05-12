@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   signupError: string | null = null;
 
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) { }
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({

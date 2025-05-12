@@ -1,7 +1,8 @@
-const createError = require('http-errors');
+require('dotenv').config();
 const User = require('../models/userModel');
 const { generateToken, resetToken } = require('../authUtils');
-require('dotenv').config();
+const createError = require('http-errors');
+const validator = require('validator');
 
 const transport = require('../mailTransport');
 
@@ -10,8 +11,9 @@ const transport = require('../mailTransport');
 // If valid, returns user details along with a generated token
 // Returns 404 if user is not found or credentials are incorrect
 exports.getUserByEmailAndPassword = async (req, res, next) => {
-    const { email, password } = req.body;
     try {
+        const { email, password } = req.body;
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email, password });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
@@ -33,7 +35,9 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addUser = async (req, res, next) => {
     try {
-        await User.create(req.body);
+        const {userName,email,password,role,mobile} = req.body;
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
+        await User.create({userName,email,password,role,mobile});
         res.status(200).json({ message: 'Success' });
     } catch (error) {
         return res.status(500).json({ message: error.message });
@@ -45,6 +49,7 @@ exports.addUser = async (req, res, next) => {
 exports.forgotPassword = async (req, res, next) => {
     try {
         const { email } = req.body;
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email });
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
         const payload = {
@@ -87,7 +92,7 @@ exports.forgotPassword = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
     try {
         const {newPassword,token} = req.body;
-        const user = await User.findOne({ resetToken: token });
+        const user = await User.findOne({ resetToken: token.toString() });
         if (!user) throw createError(400, 'Invalid token');
         if (Date.now() > user.resetTokenExpiry) throw createError(400, 'Token expired');
         user.password = newPassword;
