@@ -15,7 +15,7 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
         let { email, password } = req.body;
         email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
-        const user = await User.findOne({email,password});
+        const user = await User.findOne({email:sanitizeHtml(email)});
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
