@@ -93,19 +93,12 @@
           </div>
         </div>
 
-<<<<<<< HEAD
-    <!-- Image Upload -->
-    <div class="mb-3">
-      <label class="form-label">Image: <input class="form-control" type="file" name="image" (change)="onFileChange($event)"></label>
-    </div>
-=======
         <!-- Description -->
         <div class="mb-3">
           <label for="description" class="form-label">Product Description</label>
           <textarea class="form-control" id="description" formControlName="description" rows="3"
             [ngClass]="{ 'is-invalid': agroForm.get('description')?.invalid && agroForm.get('description')?.touched }"></textarea>
         </div>
->>>>>>> main
 
         <!-- Existing Image Preview -->
         <div *ngIf="isEditMode && existingImage" class="mb-4">

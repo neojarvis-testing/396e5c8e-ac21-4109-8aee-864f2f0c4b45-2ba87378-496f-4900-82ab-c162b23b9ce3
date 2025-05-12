@@ -6,7 +6,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  public apiUrl = 'https://8080-acadbbfdcebacffbbaaedfbafabcbbce.project.examly.io';
+  public apiUrl = 'https://8080-abbbcdadcaababdaebacffbbaaedfbafabcbbce.project.examly.io';
   private userRole = new BehaviorSubject<string | null>(null);
   private userId = new BehaviorSubject<string | null>(null);
 

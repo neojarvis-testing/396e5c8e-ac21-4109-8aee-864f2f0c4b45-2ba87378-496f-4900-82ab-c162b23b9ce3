@@ -12,7 +12,6 @@ import { ViewAgrochemicalComponent } from './sellerComponents/view-agrochemical/
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { AuthguardComponent } from './components/authguard/authguard.component';
 import { AuthGuard } from './components/auth.guard';
 import { Auth1Guard } from './auth1.guard';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
