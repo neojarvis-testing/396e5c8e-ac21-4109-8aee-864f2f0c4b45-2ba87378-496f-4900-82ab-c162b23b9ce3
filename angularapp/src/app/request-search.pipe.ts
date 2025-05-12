@@ -11,8 +11,8 @@ export class RequestSearchPipe implements PipeTransform {
     }
     searchText = searchText.toLowerCase();
     return items.filter(item =>
-      item.agroChemicalId.name.toLowerCase().includes(searchText) ||
-      item.agroChemicalId.brand.toLowerCase().includes(searchText) ||
+      item.agroChemicalId.name.toLowerCase().includes(searchText) ??
+      item.agroChemicalId.brand.toLowerCase().includes(searchText) ??
       item.agroChemicalId.category.toLowerCase().includes(searchText)
     );
   }

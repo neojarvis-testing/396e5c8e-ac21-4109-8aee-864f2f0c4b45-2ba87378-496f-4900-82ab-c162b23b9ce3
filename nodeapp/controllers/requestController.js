@@ -55,7 +55,7 @@ exports.getRequestsByUserId = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addRequest = async (req, res, next) => {
     try {
-        const {agroChemicalId,userId,cropId,quantity,status,requestDate} = req.body;
+        let {agroChemicalId,userId,cropId,quantity,status,requestDate} = req.body;
         agroChemicalId = agroChemicalId.toString();
         userId = userId.toString();
         cropId = cropId.toString();
