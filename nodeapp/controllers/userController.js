@@ -3,9 +3,8 @@ const User = require('../models/userModel');
 const { generateToken, resetToken } = require('../authUtils');
 const createError = require('http-errors');
 const validator = require('validator');
-
+const sanitizeHtml = require('sanitize-html');
 const transport = require('../mailTransport');
-const { default: mongoose } = require('mongoose');
 
 
 // Controller to authenticate a user using email and password
@@ -13,10 +12,10 @@ const { default: mongoose } = require('mongoose');
 // Returns 404 if user is not found or credentials are incorrect
 exports.getUserByEmailAndPassword = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
         email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
-        const user = await User.findOne({ email, password });
+        const user = await User.findOne({ email: sanitizeHtml(email), password: sanitizeHtml(password) });
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -37,7 +36,7 @@ exports.getUserByEmailAndPassword = async (req, res, next) => {
 // Returns a success message or error if creation fails
 exports.addUser = async (req, res, next) => {
     try {
-        const {userName,email,password,role,mobile} = req.body;
+        let {userName,email,password,role,mobile} = req.body;
         userName = userName.toString();
         email = email.toString();
         password = password.toString();
@@ -55,7 +54,7 @@ exports.addUser = async (req, res, next) => {
 
 exports.forgotPassword = async (req, res, next) => {
     try {
-        const { email } = req.body;
+        let { email } = req.body;
         email=email.toString();
         const user = await User.findOne({ email: mongoose.escape(email) });
         if (!user) throw createError(404, `No user found with EMAIL ID: ${email}`);
